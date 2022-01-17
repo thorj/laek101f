@@ -1,7 +1,7 @@
 --- 
-title: "A Minimal Book Example"
-author: "John Doe"
-date: "2022-01-05"
+title: "LÆK101F: General statistics, course for M.Sc. and Ph.D students "
+author: "Þórarinn Jónmundsson"
+date: "2022-01-16"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -15,21 +15,26 @@ biblio-style: apalike
 csl: chicago-fullnote-bibliography.csl
 ---
 
+# General information
+
 
 ```r
 library(tidyverse)
 library(knitr)
 library(kableExtra)
-options(browser = "firefox")
 ```
 
-# Course information
+## Instructors
+
+- Lectures: Þórarinn Jónmundsson (thj73@hi.is)
+- Workshops: 
+- Supervision: Thor Aspelund (thor@hi.is)
 
 ## About me
 
 ### Education
 
-- B.Sc. economics [2017] and applied mathematics [2020]
+- B.Sc. economics [2017]; B.Sc. applied mathematics [2020]
 - M.Sc. mathematical statistics [2020]
 - Ph.D. biostatistics [current]
 
@@ -66,244 +71,8 @@ That students:
 - Are literate in R.
 - Understand the theory behind various statistical calculations, and are able to apply this knowledge in the analysis of data.
 
-## Class and workshop schedule
-
-Class schedule can be seen in the following table. Important dates are marked in blue.
-
-<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:center;"> Week </th>
-   <th style="text-align:center;"> Date </th>
-   <th style="text-align:center;"> Day </th>
-   <th style="text-align:center;"> Time slot </th>
-   <th style="text-align:center;"> Location </th>
-   <th style="text-align:center;"> Material </th>
-   <th style="text-align:center;"> Remarks </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 1 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 7 Feb </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> Mon </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> H-205 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;">  </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 1 </td>
-   <td style="text-align:center;"> 8 Feb </td>
-   <td style="text-align:center;"> Tue </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-205 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 1 </td>
-   <td style="text-align:center;"> 9 Feb </td>
-   <td style="text-align:center;"> Wed </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-205 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 1 </td>
-   <td style="text-align:center;"> 10 Feb </td>
-   <td style="text-align:center;"> Thur </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-205 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 1 </td>
-   <td style="text-align:center;"> 11 Feb </td>
-   <td style="text-align:center;"> Fri </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-203 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 2 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 14 Feb </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> Mon </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> H-203 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;">  </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 2 </td>
-   <td style="text-align:center;"> 15 Feb </td>
-   <td style="text-align:center;"> Tue </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-205 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 2 </td>
-   <td style="text-align:center;"> 16 Feb </td>
-   <td style="text-align:center;"> Wed </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-205 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 2 </td>
-   <td style="text-align:center;"> 17 Feb </td>
-   <td style="text-align:center;"> Thur </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-205 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 2 </td>
-   <td style="text-align:center;"> 18 Feb </td>
-   <td style="text-align:center;"> Fri </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-205 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 3 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 21 Feb </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> Mon </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> H-203 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;">  </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 3 </td>
-   <td style="text-align:center;"> 22 Feb </td>
-   <td style="text-align:center;"> Tue </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-204 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 3 </td>
-   <td style="text-align:center;"> 23 Feb </td>
-   <td style="text-align:center;"> Wed </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-205 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 3 </td>
-   <td style="text-align:center;"> 24 Feb </td>
-   <td style="text-align:center;"> Thur </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-205 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 3 </td>
-   <td style="text-align:center;"> 25 Feb </td>
-   <td style="text-align:center;"> Fri </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-205 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 4 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 28 Feb </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> Mon </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> H-205 </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;"> Final </td>
-   <td style="text-align:center;font-weight: bold;color: white !important;background-color: #6699CC !important;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 4 </td>
-   <td style="text-align:center;"> 1 Mar </td>
-   <td style="text-align:center;"> Tue </td>
-   <td style="text-align:center;"> 09:10 - 11:30 </td>
-   <td style="text-align:center;"> H-205 </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-</tbody>
-</table>
-
-Workshop schedule can been seen in the following table. **Student's are strongly encouraged to utilize the workshops!**
-
-<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:center;"> Date </th>
-   <th style="text-align:center;"> Day </th>
-   <th style="text-align:center;"> Time slot </th>
-   <th style="text-align:center;"> Location </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:center;"> 7 Feb </td>
-   <td style="text-align:center;"> Tue </td>
-   <td style="text-align:center;"> 12:30 - 14:00 </td>
-   <td style="text-align:center;"> H-204 </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 8 Feb </td>
-   <td style="text-align:center;"> Wed </td>
-   <td style="text-align:center;"> 12:30 - 14:00 </td>
-   <td style="text-align:center;"> H-203 </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 11 Feb </td>
-   <td style="text-align:center;"> Fri </td>
-   <td style="text-align:center;"> 12:30 - 14:00 </td>
-   <td style="text-align:center;"> H-203 </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 14 Feb </td>
-   <td style="text-align:center;"> Mon </td>
-   <td style="text-align:center;"> 12:30 - 14:00 </td>
-   <td style="text-align:center;"> H-203 </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 15 Feb </td>
-   <td style="text-align:center;"> Tue </td>
-   <td style="text-align:center;"> 12:30 - 14:00 </td>
-   <td style="text-align:center;"> H-204 </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 21 Feb </td>
-   <td style="text-align:center;"> Man </td>
-   <td style="text-align:center;"> 12:30 - 14:00 </td>
-   <td style="text-align:center;"> H-203 </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 22 Feb </td>
-   <td style="text-align:center;"> Tue </td>
-   <td style="text-align:center;"> 12:30 - 14:00 </td>
-   <td style="text-align:center;"> H-204 </td>
-  </tr>
-  <tr>
-   <td style="text-align:center;"> 23 Feb </td>
-   <td style="text-align:center;"> Wed </td>
-   <td style="text-align:center;"> 12:30 - 14:00 </td>
-   <td style="text-align:center;"> H-203 </td>
-  </tr>
-</tbody>
-</table>
-
-
 ## Textbooks
+Reading the lecture notes should yield a sufficient understanding of the material. The lecture notes are based on the following books: 
 
 - Textbooks in English:
   - [*Modern Dive*](https://moderndive.com/) (MD)
@@ -314,36 +83,273 @@ Workshop schedule can been seen in the following table. **Student's are strongly
   - [*Tölfræði frá grunni*](https://edbook.hi.is/tolfraedi_fra_grunni/) (TG)
   - [*R frá grunni*](https://edbook.hi.is/R_fra_grunni/) (RG)
   
+The lecture notes are highly influenced by these books and I therefore include some suggested reading with each set of notes.
+
 ## Software
 
 - [*R*](https://www.r-project.org/)
 - [*RStudio*](https://www.rstudio.com/)
 
-## Course grades
+## Lectures and workshops
+Lectures will be from 9:10-11:30 and workshops from 12:30 to 14:00. Below you can see a rough plan for the course. Depending on how the course goes it may be subject to change. **Student's are strongly encouraged to utilize the workshops!**
 
-- Four assignments in R, each worth 10% of your final grade.
-- Two home assignments, each worth 10% of your final grade.
-- Final exam worth 40% of your final grade.
+### Tentative lecture schedule 
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:center;"> Week </th>
+   <th style="text-align:center;"> Date </th>
+   <th style="text-align:center;"> Day </th>
+   <th style="text-align:center;"> Time slot </th>
+   <th style="text-align:center;"> Location </th>
+   <th style="text-align:center;"> Topic </th>
+   <th style="text-align:center;"> Suggested reading </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 7 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Mon </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-205 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Introduction, setting up R and RStudio </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> RG: 1-2; TG: 1-2; MD: 1-4; ST21: 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 8 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Tue </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-205 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Descriptives, plots, reproducible research </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> RG: 3-4; TG: 3-4; MD: 3, A; ST21: 2-4, 17 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 9 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Wed </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-205 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Descriptives, plots, reproducible research </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> RG: 3-4; TG: 3-4; MD: 3, A; ST21: 2-4, 17 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 10 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Thur </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-205 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Open </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 11 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Fri </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-203 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Open </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 2 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 14 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Mon </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> H-203 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Probability theory </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> RG: 5; TG: 5; MD: 7-9; ST21: 5-9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 2 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 15 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Tue </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> H-205 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Inference </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> RG: 6; TG: 6; MD: 7-9; ST21: 5-9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 2 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 16 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Wed </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> H-205 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> ANOVA </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> RG: 7-9; TG: 7-9; MD: 7-9; ST21: 5-9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 2 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 17 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Thur </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> H-205 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Linear models </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> RG: 10; TG: 10; MD: 7-9, ST21: 5-9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 2 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 18 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Fri </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> H-205 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Open </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 3 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 21 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Mon </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-203 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Logistic regression </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> RG: 11; TG: 11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 3 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 22 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Tue </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-204 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Review </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 3 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 23 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Wed </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-205 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Surival analysis </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 3 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 24 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Thur </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-205 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Open </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 3 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 25 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Fri </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-205 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Open </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> 4 </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> 28 Feb </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> Mon </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> H-205 </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> Open </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> 4 </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> 1 Mar </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> Tue </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> 09:10 - 11:30 </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> H-205 </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> Open </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;">  </td>
+  </tr>
+</tbody>
+</table>
+
+### Workshop schedule
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:center;"> Week </th>
+   <th style="text-align:center;"> Date </th>
+   <th style="text-align:center;"> Day </th>
+   <th style="text-align:center;"> Time slot </th>
+   <th style="text-align:center;"> Location </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 7 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Tue </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 12:30 - 14:00 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-204 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 8 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Wed </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 12:30 - 14:00 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-203 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 11 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Fri </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 12:30 - 14:00 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-203 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 2 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 14 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Mon </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 12:30 - 14:00 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> H-203 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 2 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 15 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Tue </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 12:30 - 14:00 </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> H-204 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 3 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 21 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Man </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 12:30 - 14:00 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-203 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 3 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 22 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Tue </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 12:30 - 14:00 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-204 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 3 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 23 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Wed </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 12:30 - 14:00 </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-203 </td>
+  </tr>
+</tbody>
+</table>
+## Grading
+Your final grade in the class is based on the following partition:
+
+- Four assignments in R, *each* worth 10% of your final grade.
+- Two home assignments, *each* worth 10% of your final grade.
+- A final exam which will be worth 40% of your final grade.
 
 You **must** get a score of 5/10 or higher on your final exam to finish this course.
 
+## Assignments
+
+
+
+
 ## Final exam eligibility
 
-- You need to hand in **all** four R assignments and **both** home assignments to be eligible for the final exam.
-
-
-```r
-bookdown::render_book()
-```
-
-To render this example to PDF as a `bookdown::pdf_book`, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <https://yihui.org/tinytex/>.
-
-## Preview book
-
-As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in "Preview book", or from the R console:
-
-
-```r
-bookdown::serve_book()
-```
+- You need to hand in **all** four R assignments and **both** home assignments to be eligible to take the final exam.
 

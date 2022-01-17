@@ -1,0 +1,119 @@
+# Week 1 
+The plan for week 1 is as follows:
+
+- Lecture 1.1: We will discussing the syllabus, define key statistical terms, and begin our R exploration. We will also introduce the notion of *reproducible research*.
+- Lecture 1.2: We will continue our exploration of R by creating descriptive plots and tables of our data. 
+- Lecture 1.3: We will continue our discussion from the previous lecture.
+
+This weeks lecture notes are based on the following material:
+
+- TG: Chapters 1 and 2.
+- RG: Chapters 1 and 2.
+- MD: Chapters 1, 2, 3, and 4.
+- ST21: Chapter 1.
+
+## Lecture 1.1: First steps
+This lecture asssumes that you have installed R and RStudio. 
+
+### A brief introduction to R and RStudio
+Typically, you will deal with files ending with the `.r` or `.Rmd` extensions. The `.r` extension implies that the file you are working with is an *R script*. A script is nothing but a set of instructions you ask your computer to perform, mediated by R. The `.Rmd` extension implies you are working with an *Rmarkdown* file which allows you to combine code and human text to create documents. These lecture notes are an example of a document created in *R markdown*.
+
+To insert R code into an Rmarkdown file you simply create a new *chunk*. You can think of a chunk as an `.r` script environment nested *inside* your Rmarkdown document. 
+
+Below is an example of a chunk. Note how R evaluates `1 + 1` for us. This is the simplest utilization of R. That is, as a calculator.
+
+```{r}
+1 + 1
+```
+
+Here is a more complex example:
+
+```{r}
+exp(3) + log(1) * (sin(pi) / cos(pi)) / tan(pi)
+```
+
+The expressions `exp(), log(), sin(), cos()`, and `tan()` are examples of *functions*. Functions are one of the most fundamental objects of R and we will make good use of them. 
+
+Another fundamental object in R is the *vector*. You can think of a vector as a *list of items*. The items can be numbers, characters (a, b, c, etc), strings (concatenated characters), and so on. To tell R to create a vector object simply call the `c()` function as demonstrated below. 
+
+```{r}
+# This is a vector of numbers
+c(1, 2, 3, 4)
+
+# This is a vector of characters
+c('a', 'b', 'z', '1')
+
+# This is a vector of strings
+c('statistics', 'medicine', 'rhombus')
+```
+
+Two things are worth mentioning. First of all, you can use `#` to write comments in your code. Comments are statements which are not evaluated by R. Their purpose is to explain, or *comment*, what you are trying to accomplish with your code. As we will be mostly working in `.Rmd` documents, you don't have to concern yourself too much with commenting your code within the chunk environment as you can simply explain what you are doing outside of the chunk (as I have done in this document). 
+
+Second, for the character vector, note that the number 1 is enclosed in ''. This tells R that we are working with the *character 1* and not the *number 1*. As you cannot mix *data types* (a number is one particular instance of a data type, character is a second), R will *coerce* a vector of mixed data types to be of uniform data types. Here is an example:
+
+```{r}
+# This is our vector from before:
+c('a', 'b', 'z', '1')
+# Notice what happens if I skip '' around '1'
+c('a', 'b', 'z', 1)
+```
+
+As you can see, '' surrounds 1. That is, the number 1 has been coerced to be a character. 
+
+I have essentially written the vector `c('a', 'b', 'z', '1')` four times. This is tedious. Luckily, we can store our character vector as an *object in memory*. To do so, we need the `<-` operator:
+
+```{r}
+thisIsMyCharacterVector <- c('a', 'b', 'z', '1')
+```
+
+We have now created a new object named `thisIsMyCharacterVector` and stored in memory. Now, instead of rewriting the contents of the vectory repeatitely, we can simply call it by its name:
+
+```{r}
+thisIsMyCharacterVector
+```
+
+Please try to make it a habit to name your objects in R such that it is clear what they represent.
+
+Let's elaborate on functions. There are many *pre-defined* functions in R. I will refer to these functions as *base* functions. Here is a non-exhaustive list of useful base functions: `seq(), rep(), length(), sort(), mean(), sd(), quantile(), min(), max()`. Here are the first four in action [more on the others later]:
+
+```{r}
+# Use seq to create a sequence of numbers
+seqVector <- seq(from = 0, to = 50, by = 10)
+seqVector
+```
+
+```{r}
+# Repeat the vector c(1,2,3,4) three times
+rep(1:4, 3)
+# Repeat each element in vector c(1, 2, 3, 4) three times
+rep(1:4, each = 3)
+```
+
+```{r}
+# Compute the length [total number of items] of vector
+length(seqVector)
+```
+
+```{r}
+# Sort elements of vector
+sort(c(99, 32, pi, 74, 20))
+# It works for strings as well
+sort(c('The', 'quick', 'brown', 'fox'))
+```
+
+
+
+The first thing we will discuss the `library()` function. The `library()` function allows us to load *packages* in R. A package is a collection of code
+
+
+### Key statistical terms and notions
+Broadly speaking, we will study the following subjects:
+
+- **Descriptive statistics:** summarizing data, or *sample*, with numerical quantities and graphs. Examples of numercal quantities are the mean, standard deviation, quantiles, min and max values, and variance. Examples of graphs are scatter plots, boxplots, histograms, bar plots, and so on.
+
+- **Inferential statistics:** make statements about the *population* of interest based on our sample. Terms like point estimators, confidence intervals, and hypothesis tests belong to this domain. 
+
+- **Regression analysis:** to perform statistical inference we will employ a special class of regression models called *linear models*. You have undoubtedly heard of models like analysis of variance (ANOVA) or analysis of covariance (ANCOVA). At the end of this course you will hopefully have realized that both belong to the linear model paradigm.
+
+- **Prediction:** sometimes we are interested in using our linear models to make predictions.
+
