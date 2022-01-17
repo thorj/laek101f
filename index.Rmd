@@ -5,8 +5,6 @@ date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
-# url: your book url like https://bookdown.org/yihui/bookdown
-# cover-image: path to the social sharing image like images/cover.jpg
 description: |
   This is a minimal example of using the bookdown package to write a book.
   The HTML output format for this example is bookdown::bs4_book,
@@ -71,7 +69,7 @@ That students:
 - Understand the theory behind various statistical calculations, and are able to apply this knowledge in the analysis of data.
 
 ## Textbooks
-Reading the lecture notes should yield a sufficient understanding of the material. The lecture notes are based on the following books: 
+The lecture notes are based on the following texts:
 
 - Textbooks in English:
   - [*Modern Dive*](https://moderndive.com/) (MD)
@@ -82,6 +80,8 @@ Reading the lecture notes should yield a sufficient understanding of the materia
   - [*Tölfræði frá grunni*](https://edbook.hi.is/tolfraedi_fra_grunni/) (TG)
   - [*R frá grunni*](https://edbook.hi.is/R_fra_grunni/) (RG)
   
+It should be sufficient to read the lecture notes but those that are interested can read the books themselves at their own pace.
+
 The lecture notes are highly influenced by these books and I therefore include some suggested reading with each set of notes.
 
 ## Software
