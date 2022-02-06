@@ -54,7 +54,7 @@ R has many other objects besides strings such as integers, doubles (reals), vect
 
 - A double is a *real number*. Examples of real numbers are 1, -2, 3.14, sin(0.5).
 
-- A vector is a *collection of values*. You define a vector with the `c()` function. For example `c(1, -2, 3.14, sin(0.5))` is a vector of doubles while `c('a', 'ab', 'bla bla')` is a vector of strings. Note that all elements in a vector have to be of the same data type. If there is a discrepency, R will try to coerce the elements to be of the same data type.
+- A vector is a *collection of values*. You define a vector with the `c()` function. For example `c(1, -2, 3.14, sin(0.5))` is a vector of doubles while `c('a', 'ab', 'bla bla')` is a vector of strings. Note that all elements in a vector have to be of the same data type. If there is a discrepancy, R will try to coerce the elements to be of the same data type.
 
 - A factor is a way to store categorical values. As an example, imagine you have conducted a study on patients. One of the pieces of information you store is the *smoking status* of patients. Patients can be current smokers, previous smokers, or never smokers. The *levels* of the factor are `never`, `previous`, and `current`. We will discuss factor variables later.
 
@@ -82,7 +82,7 @@ x + 1
 #> [1] 2 3 4
 ```
 
-Be careful! If you reuse variable names the pre-existing object will be overwrriten with the new object.
+Be careful! If you reuse variable names the pre-existing object will be overwritten with the new object.
 
 
 ```r
@@ -236,7 +236,7 @@ mtcars$mpg
 #> [23] 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7 15.0 21.4
 ```
 
-Sometimes we want to access the number of rows and/or columns of our data. We can use the `nrow()` and `ncol()` functions respectively. Alternatively, we can use the `dim()` function to get both simulatenously.
+Sometimes we want to access the number of rows and/or columns of our data. We can use the `nrow()` and `ncol()` functions respectively. Alternatively, we can use the `dim()` function to get both simultaneously.
 
 
 ```r
@@ -351,18 +351,18 @@ smallData$var1 <- runif(n = nrow(smallData))
 smallData <- mutate(smallData, var2 = runif(n = nrow(smallData)))
 smallData
 #> # A tibble: 32 × 5
-#>      mpg    hp    wt   var1    var2
-#>    <dbl> <dbl> <dbl>  <dbl>   <dbl>
-#>  1  21     110  2.62 0.474  0.538  
-#>  2  21     110  2.88 0.447  0.00519
-#>  3  22.8    93  2.32 0.625  0.813  
-#>  4  21.4   110  3.22 0.655  0.818  
-#>  5  18.7   175  3.44 0.469  0.808  
-#>  6  18.1   105  3.46 0.479  0.669  
-#>  7  14.3   245  3.57 0.0277 0.470  
-#>  8  24.4    62  3.19 0.996  0.440  
-#>  9  22.8    95  3.15 0.718  0.183  
-#> 10  19.2   123  3.44 0.0305 0.436  
+#>      mpg    hp    wt   var1  var2
+#>    <dbl> <dbl> <dbl>  <dbl> <dbl>
+#>  1  21     110  2.62 0.0166 0.372
+#>  2  21     110  2.88 0.269  0.329
+#>  3  22.8    93  2.32 0.437  0.702
+#>  4  21.4   110  3.22 0.548  0.440
+#>  5  18.7   175  3.44 0.0109 0.717
+#>  6  18.1   105  3.46 0.306  0.333
+#>  7  14.3   245  3.57 0.284  0.474
+#>  8  24.4    62  3.19 0.0225 0.229
+#>  9  22.8    95  3.15 0.913  0.642
+#> 10  19.2   123  3.44 0.415  0.802
 #> # … with 22 more rows
 ```
 
@@ -380,7 +380,7 @@ ggplot(data = smallData, aes(x = var1, y = var2)) +
 <img src="01-lecture1_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ## Chaining multiple functions together
-So far we have used `select()`, `mutate()`, and `ggplot()` seperately but we can actually chain them all together with the pipe operator `%>%` from the package `margrittr`. The use of the pipe became so ubiquitous that it got added to R as a built-in operator in version 4.1. The "base" R pipe is `|>`. 
+So far we have used `select()`, `mutate()`, and `ggplot()` separately but we can actually chain them all together with the pipe operator `%>%` from the package `margrittr`. The use of the pipe became so ubiquitous that it got added to R as a built-in operator in version 4.1. The "base" R pipe is `|>`. 
 
 Let's recreate the plot from the previous section with pipes.
 

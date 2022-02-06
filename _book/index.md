@@ -114,8 +114,8 @@ Below you can see a rough plan for the course. Depending on how the course goes 
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Mon </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-205 </td>
-   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Introduction, setting up R and RStudio </td>
-   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> RG: 1-2; TG: 1-2; MD: 1-4; ST21: 1 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;">  </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;">  </td>
   </tr>
   <tr>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
@@ -123,8 +123,8 @@ Below you can see a rough plan for the course. Depending on how the course goes 
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Tue </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-205 </td>
-   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Descriptives, plots, reproducible research </td>
-   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> RG: 3-4; TG: 3-4; MD: 3, A; ST21: 2-4, 17 </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Introduction, setting up R and RStudio </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> RG: 1-2; TG: 1-2; MD: 1-4; ST21: 1 </td>
   </tr>
   <tr>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
@@ -141,8 +141,8 @@ Below you can see a rough plan for the course. Depending on how the course goes 
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Thur </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-205 </td>
-   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Open </td>
-   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;">  </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Descriptives, plots, reproducible research </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> RG: 3-4; TG: 3-4; MD: 3, A; ST21: 2-4, 17 </td>
   </tr>
   <tr>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
@@ -279,14 +279,14 @@ Below you can see a rough plan for the course. Depending on how the course goes 
 <tbody>
   <tr>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
-   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 7 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 8 Feb </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Tue </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 12:30 - 14:00 </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-204 </td>
   </tr>
   <tr>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 1 </td>
-   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 8 Feb </td>
+   <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 9 Feb </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> Wed </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> 12:30 - 14:00 </td>
    <td style="text-align:center;color: black !important;background-color: #F1EEF6 !important;"> H-203 </td>

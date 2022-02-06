@@ -107,7 +107,7 @@
 <ul>
 <li><p>An integer is a <em>whole number</em>. Examples of integers are 1, -2, 1000, 94.</p></li>
 <li><p>A double is a <em>real number</em>. Examples of real numbers are 1, -2, 3.14, sin(0.5).</p></li>
-<li><p>A vector is a <em>collection of values</em>. You define a vector with the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function. For example <code>c(1, -2, 3.14, sin(0.5))</code> is a vector of doubles while <code>c('a', 'ab', 'bla bla')</code> is a vector of strings. Note that all elements in a vector have to be of the same data type. If there is a discrepency, R will try to coerce the elements to be of the same data type.</p></li>
+<li><p>A vector is a <em>collection of values</em>. You define a vector with the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function. For example <code>c(1, -2, 3.14, sin(0.5))</code> is a vector of doubles while <code>c('a', 'ab', 'bla bla')</code> is a vector of strings. Note that all elements in a vector have to be of the same data type. If there is a discrepancy, R will try to coerce the elements to be of the same data type.</p></li>
 <li><p>A factor is a way to store categorical values. As an example, imagine you have conducted a study on patients. One of the pieces of information you store is the <em>smoking status</em> of patients. Patients can be current smokers, previous smokers, or never smokers. The <em>levels</em> of the factor are <code>never</code>, <code>previous</code>, and <code>current</code>. We will discuss factor variables later.</p></li>
 <li><p>A logical value is either <code>TRUE</code> or <code>FALSE</code>. Logical values can also be encoded as <code>1</code> and <code>0</code> for <code>TRUE</code> and <code>FALSE</code> respectively.</p></li>
 <li><p>A data frame is a collection of vectors. You can think of a data frame as an Excel spreadsheet with columns and rows. More on data frames later.</p></li>
@@ -127,7 +127,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span>
 <span class="co">#&gt; [1] 2 3 4</span></code></pre></div>
-<p>Be careful! If you reuse variable names the pre-existing object will be overwrriten with the new object.</p>
+<p>Be careful! If you reuse variable names the pre-existing object will be overwritten with the new object.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">'x is no longer a vector of numbers; it is a string'</span>
 <span class="va">x</span>
@@ -258,7 +258,7 @@
 <span class="co">#&gt;  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8</span>
 <span class="co">#&gt; [12] 16.4 17.3 15.2 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5</span>
 <span class="co">#&gt; [23] 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7 15.0 21.4</span></code></pre></div>
-<p>Sometimes we want to access the number of rows and/or columns of our data. We can use the <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> and <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code> functions respectively. Alternatively, we can use the <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> function to get both simulatenously.</p>
+<p>Sometimes we want to access the number of rows and/or columns of our data. We can use the <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> and <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code> functions respectively. Alternatively, we can use the <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> function to get both simultaneously.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
 <span class="co">#&gt; [1] 32</span>
@@ -361,18 +361,18 @@
 <span class="va">smallData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">smallData</span>, var2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">smallData</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">smallData</span>
 <span class="co">#&gt; # A tibble: 32 × 5</span>
-<span class="co">#&gt;      mpg    hp    wt   var1    var2</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  21     110  2.62 0.474  0.538  </span>
-<span class="co">#&gt;  2  21     110  2.88 0.447  0.00519</span>
-<span class="co">#&gt;  3  22.8    93  2.32 0.625  0.813  </span>
-<span class="co">#&gt;  4  21.4   110  3.22 0.655  0.818  </span>
-<span class="co">#&gt;  5  18.7   175  3.44 0.469  0.808  </span>
-<span class="co">#&gt;  6  18.1   105  3.46 0.479  0.669  </span>
-<span class="co">#&gt;  7  14.3   245  3.57 0.0277 0.470  </span>
-<span class="co">#&gt;  8  24.4    62  3.19 0.996  0.440  </span>
-<span class="co">#&gt;  9  22.8    95  3.15 0.718  0.183  </span>
-<span class="co">#&gt; 10  19.2   123  3.44 0.0305 0.436  </span>
+<span class="co">#&gt;      mpg    hp    wt   var1  var2</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  21     110  2.62 0.0166 0.372</span>
+<span class="co">#&gt;  2  21     110  2.88 0.269  0.329</span>
+<span class="co">#&gt;  3  22.8    93  2.32 0.437  0.702</span>
+<span class="co">#&gt;  4  21.4   110  3.22 0.548  0.440</span>
+<span class="co">#&gt;  5  18.7   175  3.44 0.0109 0.717</span>
+<span class="co">#&gt;  6  18.1   105  3.46 0.306  0.333</span>
+<span class="co">#&gt;  7  14.3   245  3.57 0.284  0.474</span>
+<span class="co">#&gt;  8  24.4    62  3.19 0.0225 0.229</span>
+<span class="co">#&gt;  9  22.8    95  3.15 0.913  0.642</span>
+<span class="co">#&gt; 10  19.2   123  3.44 0.415  0.802</span>
 <span class="co">#&gt; # … with 22 more rows</span></code></pre></div>
 <p>Note how we had to overwrite <code>smallData</code> when we used the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> function.</p>
 </div>
@@ -390,7 +390,7 @@
 <h2>
 <span class="header-section-number">2.13</span> Chaining multiple functions together<a class="anchor" aria-label="anchor" href="#chaining-multiple-functions-together"><i class="fas fa-link"></i></a>
 </h2>
-<p>So far we have used <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, and <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> seperately but we can actually chain them all together with the pipe operator <code>%&gt;%</code> from the package <code>margrittr</code>. The use of the pipe became so ubiquitous that it got added to R as a built-in operator in version 4.1. The “base” R pipe is <code>|&gt;</code>.</p>
+<p>So far we have used <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, and <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> separately but we can actually chain them all together with the pipe operator <code>%&gt;%</code> from the package <code>margrittr</code>. The use of the pipe became so ubiquitous that it got added to R as a built-in operator in version 4.1. The “base” R pipe is <code>|&gt;</code>.</p>
 <p>Let’s recreate the plot from the previous section with pipes.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'margrittr'</span><span class="op">)</span>
