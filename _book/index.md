@@ -1,7 +1,7 @@
 --- 
 title: "LÆK101F: General statistics, course for M.Sc. and Ph.D students "
 author: "Þórarinn Jónmundsson"
-date: "2022-01-16"
+date: "2022-02-06"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -83,15 +83,15 @@ The lecture notes are based on the following texts:
   
 It should be sufficient to read the lecture notes but those that are interested can read the books themselves at their own pace.
 
-The lecture notes are highly influenced by these books and I therefore include some suggested reading with each set of notes.
-
 ## Software
 
 - [*R*](https://www.r-project.org/)
 - [*RStudio*](https://www.rstudio.com/)
 
 ## Lectures and workshops
-Lectures will be from 9:10-11:30 and workshops from 12:30 to 14:00. Below you can see a rough plan for the course. Depending on how the course goes it may be subject to change. **Student's are strongly encouraged to utilize the workshops!**
+Lectures will be from 9:10-11:30 and workshops from 12:30 to 14:00. All **lectures** will be recorded and streamed.. Lecture and workshop attendance is **not** mandatory. **Student's are strongly encouraged to utilize the workshops!**. 
+
+Below you can see a rough plan for the course. Depending on how the course goes it may be subject to change. Lectures marked as *open* might be used as extra lecture or workshop slots.  
 
 ### Tentative lecture schedule 
 
@@ -213,7 +213,7 @@ Lectures will be from 9:10-11:30 and workshops from 12:30 to 14:00. Below you ca
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Tue </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-204 </td>
-   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Review </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Surival analysis </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">  </td>
   </tr>
   <tr>
@@ -222,7 +222,7 @@ Lectures will be from 9:10-11:30 and workshops from 12:30 to 14:00. Below you ca
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Wed </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-205 </td>
-   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Surival analysis </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Review </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">  </td>
   </tr>
   <tr>
@@ -258,7 +258,7 @@ Lectures will be from 9:10-11:30 and workshops from 12:30 to 14:00. Below you ca
    <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> Tue </td>
    <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> H-205 </td>
-   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> Open </td>
+   <td style="text-align:center;color: white !important;background-color: #0570B0 !important;"> Final exam </td>
    <td style="text-align:center;color: white !important;background-color: #0570B0 !important;">  </td>
   </tr>
 </tbody>
@@ -339,17 +339,74 @@ Lectures will be from 9:10-11:30 and workshops from 12:30 to 14:00. Below you ca
 Your final grade in the class is based on the following partition:
 
 - Four assignments in R, *each* worth 10% of your final grade.
-- Two home assignments, *each* worth 10% of your final grade.
+- Two longer assignments, *each* worth 10% of your final grade.
 - A final exam which will be worth 40% of your final grade.
 
 You **must** get a score of 5/10 or higher on your final exam to finish this course.
 
 ## Assignments
+Below is the schedule for the assignments. You are encouraged to form groups of 2-4 people to solve the assignments. If you choose to do so, please hand in only one solution per group.
 
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:center;"> Assignment </th>
+   <th style="text-align:center;"> Type </th>
+   <th style="text-align:center;"> Assigned </th>
+   <th style="text-align:center;"> Due </th>
+   <th style="text-align:center;"> Topics </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> R </td>
+   <td style="text-align:center;"> Feb 7th </td>
+   <td style="text-align:center;"> Feb 10th </td>
+   <td style="text-align:center;"> R basics </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> Longer </td>
+   <td style="text-align:center;"> Feb 10th </td>
+   <td style="text-align:center;"> Feb 16th </td>
+   <td style="text-align:center;"> Data analysis </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> R </td>
+   <td style="text-align:center;"> Feb 14th </td>
+   <td style="text-align:center;"> Feb 17th </td>
+   <td style="text-align:center;"> Fundamentals of statistics </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 4 </td>
+   <td style="text-align:center;"> R </td>
+   <td style="text-align:center;"> Feb 14th </td>
+   <td style="text-align:center;"> Feb 20th </td>
+   <td style="text-align:center;"> Linear regression </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 5 </td>
+   <td style="text-align:center;"> Longer </td>
+   <td style="text-align:center;"> Feb 18th </td>
+   <td style="text-align:center;"> Feb 25th </td>
+   <td style="text-align:center;"> General regression </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> R </td>
+   <td style="text-align:center;"> Feb 23rd </td>
+   <td style="text-align:center;"> Feb 26th </td>
+   <td style="text-align:center;"> Survival analysis </td>
+  </tr>
+</tbody>
+</table>
 
+## Final exam
+The final exam is a take-home exam which will be handed out March 1st. 
 
-
-## Final exam eligibility
+### Final exam eligibility
 
 - You need to hand in **all** four R assignments and **both** home assignments to be eligible to take the final exam.
 

@@ -45,7 +45,10 @@ set in the _output.yml file.&lt;/p&gt;">
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled"><li><a class="active" href="index.html"><span class="header-section-number">1</span> General information</a></li></ul>
+        <ul class="book-toc list-unstyled">
+<li><a class="active" href="index.html"><span class="header-section-number">1</span> General information</a></li>
+<li><a class="" href="lecture-1.html"><span class="header-section-number">2</span> Lecture 1</a></li>
+</ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/thorj/laek101f">View book source <i class="fab fa-github"></i></a></p>
@@ -164,7 +167,6 @@ set in the _output.yml file.&lt;/p&gt;">
 </li>
 </ul>
 <p>It should be sufficient to read the lecture notes but those that are interested can read the books themselves at their own pace.</p>
-<p>The lecture notes are highly influenced by these books and I therefore include some suggested reading with each set of notes.</p>
 </div>
 <div id="software" class="section level2" number="1.6">
 <h2>
@@ -179,7 +181,8 @@ set in the _output.yml file.&lt;/p&gt;">
 <h2>
 <span class="header-section-number">1.7</span> Lectures and workshops<a class="anchor" aria-label="anchor" href="#lectures-and-workshops"><i class="fas fa-link"></i></a>
 </h2>
-<p>Lectures will be from 9:10-11:30 and workshops from 12:30 to 14:00. Below you can see a rough plan for the course. Depending on how the course goes it may be subject to change. <strong>Student’s are strongly encouraged to utilize the workshops!</strong></p>
+<p>Lectures will be from 9:10-11:30 and workshops from 12:30 to 14:00. All <strong>lectures</strong> will be recorded and streamed.. Lecture and workshop attendance is <strong>not</strong> mandatory. <strong>Student’s are strongly encouraged to utilize the workshops!</strong>.</p>
+<p>Below you can see a rough plan for the course. Depending on how the course goes it may be subject to change. Lectures marked as <em>open</em> might be used as extra lecture or workshop slots.</p>
 <div id="tentative-lecture-schedule" class="section level3" number="1.7.1">
 <h3>
 <span class="header-section-number">1.7.1</span> Tentative lecture schedule<a class="anchor" aria-label="anchor" href="#tentative-lecture-schedule"><i class="fas fa-link"></i></a>
@@ -476,7 +479,7 @@ Tue
 H-204
 </td>
 <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">
-Review
+Surival analysis
 </td>
 <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">
 </td>
@@ -498,7 +501,7 @@ Wed
 H-205
 </td>
 <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">
-Surival analysis
+Review
 </td>
 <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">
 </td>
@@ -586,7 +589,7 @@ Tue
 H-205
 </td>
 <td style="text-align:center;color: white !important;background-color: #0570B0 !important;">
-Open
+Final exam
 </td>
 <td style="text-align:center;color: white !important;background-color: #0570B0 !important;">
 </td>
@@ -764,7 +767,7 @@ H-203
 <p>Your final grade in the class is based on the following partition:</p>
 <ul>
 <li>Four assignments in R, <em>each</em> worth 10% of your final grade.</li>
-<li>Two home assignments, <em>each</em> worth 10% of your final grade.</li>
+<li>Two longer assignments, <em>each</em> worth 10% of your final grade.</li>
 <li>A final exam which will be worth 40% of your final grade.</li>
 </ul>
 <p>You <strong>must</strong> get a score of 5/10 or higher on your final exam to finish this course.</p>
@@ -773,19 +776,149 @@ H-203
 <h2>
 <span class="header-section-number">1.9</span> Assignments<a class="anchor" aria-label="anchor" href="#assignments"><i class="fas fa-link"></i></a>
 </h2>
+<p>Below is the schedule for the assignments. You are encouraged to form groups of 2-4 people to solve the assignments. If you choose to do so, please hand in only one solution per group.</p>
+<div class="inline-table"><table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:center;">
+Assignment
+</th>
+<th style="text-align:center;">
+Type
+</th>
+<th style="text-align:center;">
+Assigned
+</th>
+<th style="text-align:center;">
+Due
+</th>
+<th style="text-align:center;">
+Topics
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+R
+</td>
+<td style="text-align:center;">
+Feb 7th
+</td>
+<td style="text-align:center;">
+Feb 10th
+</td>
+<td style="text-align:center;">
+R basics
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+Longer
+</td>
+<td style="text-align:center;">
+Feb 10th
+</td>
+<td style="text-align:center;">
+Feb 16th
+</td>
+<td style="text-align:center;">
+Data analysis
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+R
+</td>
+<td style="text-align:center;">
+Feb 14th
+</td>
+<td style="text-align:center;">
+Feb 17th
+</td>
+<td style="text-align:center;">
+Fundamentals of statistics
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+R
+</td>
+<td style="text-align:center;">
+Feb 14th
+</td>
+<td style="text-align:center;">
+Feb 20th
+</td>
+<td style="text-align:center;">
+Linear regression
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+Longer
+</td>
+<td style="text-align:center;">
+Feb 18th
+</td>
+<td style="text-align:center;">
+Feb 25th
+</td>
+<td style="text-align:center;">
+General regression
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+R
+</td>
+<td style="text-align:center;">
+Feb 23rd
+</td>
+<td style="text-align:center;">
+Feb 26th
+</td>
+<td style="text-align:center;">
+Survival analysis
+</td>
+</tr>
+</tbody>
+</table></div>
 </div>
-<div id="final-exam-eligibility" class="section level2" number="1.10">
+<div id="final-exam" class="section level2" number="1.10">
 <h2>
-<span class="header-section-number">1.10</span> Final exam eligibility<a class="anchor" aria-label="anchor" href="#final-exam-eligibility"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.10</span> Final exam<a class="anchor" aria-label="anchor" href="#final-exam"><i class="fas fa-link"></i></a>
 </h2>
+<p>The final exam is a take-home exam which will be handed out March 1st.</p>
+<div id="final-exam-eligibility" class="section level3" number="1.10.1">
+<h3>
+<span class="header-section-number">1.10.1</span> Final exam eligibility<a class="anchor" aria-label="anchor" href="#final-exam-eligibility"><i class="fas fa-link"></i></a>
+</h3>
 <ul>
 <li>You need to hand in <strong>all</strong> four R assignments and <strong>both</strong> home assignments to be eligible to take the final exam.</li>
 </ul>
 </div>
 </div>
+</div>
   <div class="chapter-nav">
 <div class="empty"></div>
-<div class="empty"></div>
+<div class="next"><a href="lecture-1.html"><span class="header-section-number">2</span> Lecture 1</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -810,7 +943,9 @@ H-203
 </li>
 <li><a class="nav-link" href="#grading"><span class="header-section-number">1.8</span> Grading</a></li>
 <li><a class="nav-link" href="#assignments"><span class="header-section-number">1.9</span> Assignments</a></li>
-<li><a class="nav-link" href="#final-exam-eligibility"><span class="header-section-number">1.10</span> Final exam eligibility</a></li>
+<li>
+<a class="nav-link" href="#final-exam"><span class="header-section-number">1.10</span> Final exam</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#final-exam-eligibility"><span class="header-section-number">1.10.1</span> Final exam eligibility</a></li></ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -828,7 +963,7 @@ H-203
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-01-16.</p>
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

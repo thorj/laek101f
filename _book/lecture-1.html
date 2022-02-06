@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Lecture 1 | LÆK101F: General statistics, course for M.Sc. and Ph.D students</title>
+<meta name="author" content="Þórarinn Jónmundsson">
+<meta name="description" content="2.1 Installing R and RStudio Before you install RStudio, you need to install R. Please visit this link and download R for your operating system. Afterwards, you can download RStudio from here....">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Lecture 1 | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta property="og:type" content="book">
+<meta property="og:description" content="2.1 Installing R and RStudio Before you install RStudio, you need to install R. Please visit this link and download R for your operating system. Afterwards, you can download RStudio from here....">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Lecture 1 | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta name="twitter:description" content="2.1 Installing R and RStudio Before you install RStudio, you need to install R. Please visit this link and download R for your operating system. Afterwards, you can download RStudio from here....">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">LÆK101F: General statistics, course for M.Sc. and Ph.D students</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> General information</a></li>
+<li><a class="active" href="lecture-1.html"><span class="header-section-number">2</span> Lecture 1</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/thorj/laek101f">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-1" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Lecture 1<a class="anchor" aria-label="anchor" href="#lecture-1"><i class="fas fa-link"></i></a>
+</h1>
+<div id="installing-r-and-rstudio" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Installing R and RStudio<a class="anchor" aria-label="anchor" href="#installing-r-and-rstudio"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before you install RStudio, you need to install R. Please visit <a href="https://cran.hafro.is/">this link</a> and download R for your operating system. Afterwards, you can download RStudio from <a href="https://www.rstudio.com/products/rstudio/download/#download">here</a>.</p>
+<p>Alternatively, you can create an account on <a href="https://rstudio.cloud/">RStudio Cloud</a> which is a cloud-based version of RStudio.</p>
+</div>
+<div id="what-is-the-difference-between-r-and-rstudio" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> What is the difference between R and RStudio?<a class="anchor" aria-label="anchor" href="#what-is-the-difference-between-r-and-rstudio"><i class="fas fa-link"></i></a>
+</h2>
+<p>R is a <em>programming language</em> specifically designed for statistics while RStudio is an Integrated Development Environment (IDE). RStudio combines multiple tool into a single graphical user interface (GUI) to ease development of R programs. Examples of tools are the source-code environment, file navigation, and plot viewer.</p>
+<p>There exist alternatives to RStudio. I personally use <a href="https://github.com/jalvesaq/Nvim-R">Nvim-R</a> but like many others I started my R journey with RStudio.</p>
+</div>
+<div id="what-is-the-difference-between-.r-and-.rmd-files" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> What is the difference between .R and .Rmd files?<a class="anchor" aria-label="anchor" href="#what-is-the-difference-between-.r-and-.rmd-files"><i class="fas fa-link"></i></a>
+</h2>
+<p>A file with the <code>.R</code> extension is a <em>script file</em> for R. A script file contains the code you have written. A <code>.R</code> file is “stupid” in the sense that it will follow your instructions to the letter. You have to tell the computer to run an R scrip by opening command prompt/terminal, navigating to your root folder, and writing <code>Rscript yourScript.R</code>.</p>
+<p>A file with the <code>.Rmd</code> extension is a <em>markdown file</em>. It allows you to combine code and text to write detailed reports. An example of an <code>.Rmd</code> file is this lecture.</p>
+</div>
+<div id="hello-world" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Hello world<a class="anchor" aria-label="anchor" href="#hello-world"><i class="fas fa-link"></i></a>
+</h2>
+<p>Here is a very simple piece of R code inside this <code>.Rmd</code> document:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Example of embedded code</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="st">'Hello world'</span><span class="op">)</span>
+<span class="co">#&gt; [1] "Hello world"</span></code></pre></div>
+<p>The anatomy of the code is as follows:</p>
+<ul>
+<li><p><code># This is embedded</code>. The # symbol tells R that it should <em>ignore</em> whatever comes after # on that particular line. This is useful as it allows us to <em>comment our code</em>. Comments allow you to explain how and what your code does. Writing informative, concise comments <em>is extremely important</em>. There is a good chance that you will have to either share your code with a collaborator or you have to revisit it at a later time. In both cases, the comments can quickly bring the reader up to speed.</p></li>
+<li><p><code>print('Hello world')</code>. This line is composed of two things: the <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> <em>function</em> and the <em>string</em> <code>'Hello world'</code>. A function is like a recipe; it has <em>inputs</em> and <em>outputs</em>. The recipe of <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> is to take its input and display it on the command line. There are many predefined functions in R but you can also create your own. A string is a data type in R. The quotes tell R that whatever is between them should be considered as a string. If you remove the quotes, R will whine. You can also tell R that something is a string with double quotes. Pick whichever you prefer.</p></li>
+</ul>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Function printMyString</span>
+<span class="co"># Input: A string.</span>
+<span class="co"># Output: The input string is printed out in the command line.</span>
+<span class="va">printMyString</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">someString</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">someString</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co"># Test case</span>
+<span class="fu">printMyString</span><span class="op">(</span><span class="st">"This is a custom function I made. It's pretty useless."</span><span class="op">)</span>
+<span class="co">#&gt; [1] "This is a custom function I made. It's pretty useless."</span></code></pre></div>
+</div>
+<div id="other-basic-objects" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Other basic objects<a class="anchor" aria-label="anchor" href="#other-basic-objects"><i class="fas fa-link"></i></a>
+</h2>
+<p>R has many other objects besides strings such as integers, doubles (reals), vectors, factors, logical, and data frames.</p>
+<ul>
+<li><p>An integer is a <em>whole number</em>. Examples of integers are 1, -2, 1000, 94.</p></li>
+<li><p>A double is a <em>real number</em>. Examples of real numbers are 1, -2, 3.14, sin(0.5).</p></li>
+<li><p>A vector is a <em>collection of values</em>. You define a vector with the <code><a href="https://rdrr.io/r/base/c.html">c()</a></code> function. For example <code>c(1, -2, 3.14, sin(0.5))</code> is a vector of doubles while <code>c('a', 'ab', 'bla bla')</code> is a vector of strings. Note that all elements in a vector have to be of the same data type. If there is a discrepency, R will try to coerce the elements to be of the same data type.</p></li>
+<li><p>A factor is a way to store categorical values. As an example, imagine you have conducted a study on patients. One of the pieces of information you store is the <em>smoking status</em> of patients. Patients can be current smokers, previous smokers, or never smokers. The <em>levels</em> of the factor are <code>never</code>, <code>previous</code>, and <code>current</code>. We will discuss factor variables later.</p></li>
+<li><p>A logical value is either <code>TRUE</code> or <code>FALSE</code>. Logical values can also be encoded as <code>1</code> and <code>0</code> for <code>TRUE</code> and <code>FALSE</code> respectively.</p></li>
+<li><p>A data frame is a collection of vectors. You can think of a data frame as an Excel spreadsheet with columns and rows. More on data frames later.</p></li>
+</ul>
+<p>Note that this is not an exhaustive list.</p>
+</div>
+<div id="storing-objects-in-memory" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Storing objects in memory<a class="anchor" aria-label="anchor" href="#storing-objects-in-memory"><i class="fas fa-link"></i></a>
+</h2>
+<p>We can store objects in memory with the <code>&lt;-</code> operator. Whatever is on the <strong>right</strong> of <code>&lt;-</code> is the object we want to store in memory and whatever is on the <strong>left</strong> of <code>&lt;-</code> is the <strong>name</strong> of the object. Here is a quick example:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>
+<span class="va">x</span>
+<span class="co">#&gt; [1] 1 2 3</span></code></pre></div>
+<p>The vector <code>c(1, 2, 3)</code> exists now in memory as the named variable <code>x</code> and rather than typing out <code>c(1, 2, 3)</code> whenever we want to work with that vector, we can simply use <code>x</code> instead. For example, imagine if we wanted to add 1 to the vector <code>c(1, 2, 3)</code>; since we have stored <code>c(1, 2, 3)</code> as the object <code>x</code> in R, we can simply write:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">+</span> <span class="fl">1</span>
+<span class="co">#&gt; [1] 2 3 4</span></code></pre></div>
+<p>Be careful! If you reuse variable names the pre-existing object will be overwrriten with the new object.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">'x is no longer a vector of numbers; it is a string'</span>
+<span class="va">x</span>
+<span class="co">#&gt; [1] "x is no longer a vector of numbers; it is a string"</span></code></pre></div>
+</div>
+<div id="packages" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Packages<a class="anchor" aria-label="anchor" href="#packages"><i class="fas fa-link"></i></a>
+</h2>
+<p>R has many built-in functions and data types but sometimes we need more. Luckily, there is a good chance that someone in the R community has already solved our problem and made their work publicly available as an <em>R package</em>. An <em>R package</em> is thus simply a collection of functions and data types (and sometimes even data) that we can load into R and use.</p>
+<p>You can download and install a package with the <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> function. To load a package you use the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function. It is enough to install a package once but you must load it every time you open up RStudio (if you intend to use it).</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># This can be run once</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'ggplot2'</span><span class="op">)</span>
+<span class="co"># This is something you have to run every time </span>
+<span class="co"># you restart R</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">'ggplot2'</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div id="the-mtcars-data" class="section level2" number="2.8">
+<h2>
+<span class="header-section-number">2.8</span> The mtcars data<a class="anchor" aria-label="anchor" href="#the-mtcars-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>It’s time to start working with data. Included with R is the <code>mtcars</code> data frame:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span>
+<span class="co">#&gt;                      mpg cyl  disp  hp drat    wt  qsec vs</span>
+<span class="co">#&gt; Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0</span>
+<span class="co">#&gt; Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0</span>
+<span class="co">#&gt; Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1</span>
+<span class="co">#&gt; Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1</span>
+<span class="co">#&gt; Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0</span>
+<span class="co">#&gt; Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1</span>
+<span class="co">#&gt; Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0</span>
+<span class="co">#&gt; Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1</span>
+<span class="co">#&gt; Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1</span>
+<span class="co">#&gt; Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1</span>
+<span class="co">#&gt; Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1</span>
+<span class="co">#&gt; Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0</span>
+<span class="co">#&gt; Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0</span>
+<span class="co">#&gt; Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0</span>
+<span class="co">#&gt; Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0</span>
+<span class="co">#&gt; Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0</span>
+<span class="co">#&gt; Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0</span>
+<span class="co">#&gt; Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1</span>
+<span class="co">#&gt; Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1</span>
+<span class="co">#&gt; Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1</span>
+<span class="co">#&gt; Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1</span>
+<span class="co">#&gt; Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0</span>
+<span class="co">#&gt; AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0</span>
+<span class="co">#&gt; Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0</span>
+<span class="co">#&gt; Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0</span>
+<span class="co">#&gt; Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1</span>
+<span class="co">#&gt; Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0</span>
+<span class="co">#&gt; Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1</span>
+<span class="co">#&gt; Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0</span>
+<span class="co">#&gt; Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0</span>
+<span class="co">#&gt; Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0</span>
+<span class="co">#&gt; Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1</span>
+<span class="co">#&gt;                     am gear carb</span>
+<span class="co">#&gt; Mazda RX4            1    4    4</span>
+<span class="co">#&gt; Mazda RX4 Wag        1    4    4</span>
+<span class="co">#&gt; Datsun 710           1    4    1</span>
+<span class="co">#&gt; Hornet 4 Drive       0    3    1</span>
+<span class="co">#&gt; Hornet Sportabout    0    3    2</span>
+<span class="co">#&gt; Valiant              0    3    1</span>
+<span class="co">#&gt; Duster 360           0    3    4</span>
+<span class="co">#&gt; Merc 240D            0    4    2</span>
+<span class="co">#&gt; Merc 230             0    4    2</span>
+<span class="co">#&gt; Merc 280             0    4    4</span>
+<span class="co">#&gt; Merc 280C            0    4    4</span>
+<span class="co">#&gt; Merc 450SE           0    3    3</span>
+<span class="co">#&gt; Merc 450SL           0    3    3</span>
+<span class="co">#&gt; Merc 450SLC          0    3    3</span>
+<span class="co">#&gt; Cadillac Fleetwood   0    3    4</span>
+<span class="co">#&gt; Lincoln Continental  0    3    4</span>
+<span class="co">#&gt; Chrysler Imperial    0    3    4</span>
+<span class="co">#&gt; Fiat 128             1    4    1</span>
+<span class="co">#&gt; Honda Civic          1    4    2</span>
+<span class="co">#&gt; Toyota Corolla       1    4    1</span>
+<span class="co">#&gt; Toyota Corona        0    3    1</span>
+<span class="co">#&gt; Dodge Challenger     0    3    2</span>
+<span class="co">#&gt; AMC Javelin          0    3    2</span>
+<span class="co">#&gt; Camaro Z28           0    3    4</span>
+<span class="co">#&gt; Pontiac Firebird     0    3    2</span>
+<span class="co">#&gt; Fiat X1-9            1    4    1</span>
+<span class="co">#&gt; Porsche 914-2        1    5    2</span>
+<span class="co">#&gt; Lotus Europa         1    5    2</span>
+<span class="co">#&gt; Ford Pantera L       1    5    4</span>
+<span class="co">#&gt; Ferrari Dino         1    5    6</span>
+<span class="co">#&gt; Maserati Bora        1    5    8</span>
+<span class="co">#&gt; Volvo 142E           1    4    2</span></code></pre></div>
+<p>Note that the entire data set is printed. This is annoying and should be avoided. Functions like <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble()</a></code> included in the <code>tibble</code> library converts the data frame to a tibble, a much nicer data type to work with (in my opinion). We begin by installing and loading the <code>tibble</code> library:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install tibble package</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'tibble'</span><span class="op">)</span>
+<span class="co"># Load tibble package</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span></code></pre></div>
+<p>And then we use the <code>mtcars</code> data frame as an input in the <code><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble()</a></code> function.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 32 × 11</span>
+<span class="co">#&gt;      mpg   cyl  disp    hp  drat    wt  qsec    vs    am</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  21       6  160    110  3.9   2.62  16.5     0     1</span>
+<span class="co">#&gt;  2  21       6  160    110  3.9   2.88  17.0     0     1</span>
+<span class="co">#&gt;  3  22.8     4  108     93  3.85  2.32  18.6     1     1</span>
+<span class="co">#&gt;  4  21.4     6  258    110  3.08  3.22  19.4     1     0</span>
+<span class="co">#&gt;  5  18.7     8  360    175  3.15  3.44  17.0     0     0</span>
+<span class="co">#&gt;  6  18.1     6  225    105  2.76  3.46  20.2     1     0</span>
+<span class="co">#&gt;  7  14.3     8  360    245  3.21  3.57  15.8     0     0</span>
+<span class="co">#&gt;  8  24.4     4  147.    62  3.69  3.19  20       1     0</span>
+<span class="co">#&gt;  9  22.8     4  141.    95  3.92  3.15  22.9     1     0</span>
+<span class="co">#&gt; 10  19.2     6  168.   123  3.92  3.44  18.3     1     0</span>
+<span class="co">#&gt; # … with 22 more rows, and 2 more variables: gear &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   carb &lt;dbl&gt;</span></code></pre></div>
+<p>There are a few things worth mentioning here:</p>
+<ol style="list-style-type: decimal">
+<li><p>The data is truncated. We only see the first ten rows and however many columns fit on our page.</p></li>
+<li><p>We get information about the total number of rows and columns in the tibble.</p></li>
+<li><p>We get the data type of each column. Note the <code>dbl</code> underneath the column name.</p></li>
+</ol>
+<p>Since I prefer using the tibble format, I am going to <em>overwrite</em> the data frame <code>mtcars</code> with its tibble version [recall the discussion from before]:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span></code></pre></div>
+<p>We can refer to specific variables in our tibbles (and data frames) with the <code>$</code> operator:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>
+<span class="co">#&gt;  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8</span>
+<span class="co">#&gt; [12] 16.4 17.3 15.2 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5</span>
+<span class="co">#&gt; [23] 15.2 13.3 19.2 27.3 26.0 30.4 15.8 19.7 15.0 21.4</span></code></pre></div>
+<p>Sometimes we want to access the number of rows and/or columns of our data. We can use the <code><a href="https://rdrr.io/r/base/nrow.html">nrow()</a></code> and <code><a href="https://rdrr.io/r/base/nrow.html">ncol()</a></code> functions respectively. Alternatively, we can use the <code><a href="https://rdrr.io/r/base/dim.html">dim()</a></code> function to get both simulatenously.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
+<span class="co">#&gt; [1] 32</span>
+<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
+<span class="co">#&gt; [1] 11</span>
+<span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
+<span class="co">#&gt; [1] 32 11</span></code></pre></div>
+</div>
+<div id="summarizing-data-frames" class="section level2" number="2.9">
+<h2>
+<span class="header-section-number">2.9</span> Summarizing data frames<a class="anchor" aria-label="anchor" href="#summarizing-data-frames"><i class="fas fa-link"></i></a>
+</h2>
+<p>We can quickly summarize our data with the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>
+<span class="co">#&gt;       mpg             cyl             disp      </span>
+<span class="co">#&gt;  Min.   :10.40   Min.   :4.000   Min.   : 71.1  </span>
+<span class="co">#&gt;  1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8  </span>
+<span class="co">#&gt;  Median :19.20   Median :6.000   Median :196.3  </span>
+<span class="co">#&gt;  Mean   :20.09   Mean   :6.188   Mean   :230.7  </span>
+<span class="co">#&gt;  3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0  </span>
+<span class="co">#&gt;  Max.   :33.90   Max.   :8.000   Max.   :472.0  </span>
+<span class="co">#&gt;        hp             drat             wt       </span>
+<span class="co">#&gt;  Min.   : 52.0   Min.   :2.760   Min.   :1.513  </span>
+<span class="co">#&gt;  1st Qu.: 96.5   1st Qu.:3.080   1st Qu.:2.581  </span>
+<span class="co">#&gt;  Median :123.0   Median :3.695   Median :3.325  </span>
+<span class="co">#&gt;  Mean   :146.7   Mean   :3.597   Mean   :3.217  </span>
+<span class="co">#&gt;  3rd Qu.:180.0   3rd Qu.:3.920   3rd Qu.:3.610  </span>
+<span class="co">#&gt;  Max.   :335.0   Max.   :4.930   Max.   :5.424  </span>
+<span class="co">#&gt;       qsec             vs               am        </span>
+<span class="co">#&gt;  Min.   :14.50   Min.   :0.0000   Min.   :0.0000  </span>
+<span class="co">#&gt;  1st Qu.:16.89   1st Qu.:0.0000   1st Qu.:0.0000  </span>
+<span class="co">#&gt;  Median :17.71   Median :0.0000   Median :0.0000  </span>
+<span class="co">#&gt;  Mean   :17.85   Mean   :0.4375   Mean   :0.4062  </span>
+<span class="co">#&gt;  3rd Qu.:18.90   3rd Qu.:1.0000   3rd Qu.:1.0000  </span>
+<span class="co">#&gt;  Max.   :22.90   Max.   :1.0000   Max.   :1.0000  </span>
+<span class="co">#&gt;       gear            carb      </span>
+<span class="co">#&gt;  Min.   :3.000   Min.   :1.000  </span>
+<span class="co">#&gt;  1st Qu.:3.000   1st Qu.:2.000  </span>
+<span class="co">#&gt;  Median :4.000   Median :2.000  </span>
+<span class="co">#&gt;  Mean   :3.688   Mean   :2.812  </span>
+<span class="co">#&gt;  3rd Qu.:4.000   3rd Qu.:4.000  </span>
+<span class="co">#&gt;  Max.   :5.000   Max.   :8.000</span></code></pre></div>
+<p>This is a nice way to get a quick feel for the data.</p>
+</div>
+<div id="subsetting-our-data" class="section level2" number="2.10">
+<h2>
+<span class="header-section-number">2.10</span> Subsetting our data<a class="anchor" aria-label="anchor" href="#subsetting-our-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Let us assume we are interested in a specific subset of the <code>mtcars</code> data. We can create a subset of <code>mtcars</code> with the columns we are interested in using with the <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> function from the <code>dplyr</code> package. As with the <code>tibble</code> package, we have install and then load the <code>dplyr</code> package, something I hope you have grown comfortable with at this point:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Install dplyr</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'dplyr'</span><span class="op">)</span>
+<span class="co"># Load dplyr package</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></code></pre></div>
+<p>We will now create a subset tibble of the <code>mtcars</code> data which will consist of all the rows but <em>only</em> variables <code>mpg</code>, <code>hp</code>, and <code>wt</code>, representing miles per gallon, gross horsepower, and weight (1000 lbs) respectively.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">smallData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="va">mpg</span>, <span class="va">hp</span>, <span class="va">wt</span><span class="op">)</span>
+<span class="va">smallData</span>
+<span class="co">#&gt; # A tibble: 32 × 3</span>
+<span class="co">#&gt;      mpg    hp    wt</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  21     110  2.62</span>
+<span class="co">#&gt;  2  21     110  2.88</span>
+<span class="co">#&gt;  3  22.8    93  2.32</span>
+<span class="co">#&gt;  4  21.4   110  3.22</span>
+<span class="co">#&gt;  5  18.7   175  3.44</span>
+<span class="co">#&gt;  6  18.1   105  3.46</span>
+<span class="co">#&gt;  7  14.3   245  3.57</span>
+<span class="co">#&gt;  8  24.4    62  3.19</span>
+<span class="co">#&gt;  9  22.8    95  3.15</span>
+<span class="co">#&gt; 10  19.2   123  3.44</span>
+<span class="co">#&gt; # … with 22 more rows</span></code></pre></div>
+<p>Dissecting the <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> function, we see that first we have to supply the function with the data set we want to subset (in this case <code>mtcars</code>) and then list our selected variables. We can also use the <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> function to throw out variables with the <code>-</code> prefix.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">throwOutVariables</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="op">-</span><span class="va">mpg</span>, <span class="op">-</span><span class="va">hp</span>, <span class="op">-</span><span class="va">wt</span><span class="op">)</span>
+<span class="va">throwOutVariables</span>
+<span class="co">#&gt; # A tibble: 32 × 8</span>
+<span class="co">#&gt;      cyl  disp  drat  qsec    vs    am  gear  carb</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1     6  160   3.9   16.5     0     1     4     4</span>
+<span class="co">#&gt;  2     6  160   3.9   17.0     0     1     4     4</span>
+<span class="co">#&gt;  3     4  108   3.85  18.6     1     1     4     1</span>
+<span class="co">#&gt;  4     6  258   3.08  19.4     1     0     3     1</span>
+<span class="co">#&gt;  5     8  360   3.15  17.0     0     0     3     2</span>
+<span class="co">#&gt;  6     6  225   2.76  20.2     1     0     3     1</span>
+<span class="co">#&gt;  7     8  360   3.21  15.8     0     0     3     4</span>
+<span class="co">#&gt;  8     4  147.  3.69  20       1     0     4     2</span>
+<span class="co">#&gt;  9     4  141.  3.92  22.9     1     0     4     2</span>
+<span class="co">#&gt; 10     6  168.  3.92  18.3     1     0     4     4</span>
+<span class="co">#&gt; # … with 22 more rows</span></code></pre></div>
+</div>
+<div id="creating-new-variables" class="section level2" number="2.11">
+<h2>
+<span class="header-section-number">2.11</span> Creating new variables<a class="anchor" aria-label="anchor" href="#creating-new-variables"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are two ways of making new variables: the <code>$</code> operator or the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> function from the <code>dplyr</code> package. Let’s create two new variables by randomly drawing numbers from the interval [0, 1].</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">smallData</span><span class="op">$</span><span class="va">var1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">smallData</span><span class="op">)</span><span class="op">)</span>
+<span class="va">smallData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">smallData</span>, var2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">smallData</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">smallData</span>
+<span class="co">#&gt; # A tibble: 32 × 5</span>
+<span class="co">#&gt;      mpg    hp    wt   var1    var2</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  21     110  2.62 0.474  0.538  </span>
+<span class="co">#&gt;  2  21     110  2.88 0.447  0.00519</span>
+<span class="co">#&gt;  3  22.8    93  2.32 0.625  0.813  </span>
+<span class="co">#&gt;  4  21.4   110  3.22 0.655  0.818  </span>
+<span class="co">#&gt;  5  18.7   175  3.44 0.469  0.808  </span>
+<span class="co">#&gt;  6  18.1   105  3.46 0.479  0.669  </span>
+<span class="co">#&gt;  7  14.3   245  3.57 0.0277 0.470  </span>
+<span class="co">#&gt;  8  24.4    62  3.19 0.996  0.440  </span>
+<span class="co">#&gt;  9  22.8    95  3.15 0.718  0.183  </span>
+<span class="co">#&gt; 10  19.2   123  3.44 0.0305 0.436  </span>
+<span class="co">#&gt; # … with 22 more rows</span></code></pre></div>
+<p>Note how we had to overwrite <code>smallData</code> when we used the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> function.</p>
+</div>
+<div id="plotting-our-data" class="section level2" number="2.12">
+<h2>
+<span class="header-section-number">2.12</span> Plotting our data<a class="anchor" aria-label="anchor" href="#plotting-our-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>To create plots we use the <code>ggplot2</code> package we installed earlier. We will cover plots in more detail later but for now here is an example of how to create a scatter plot using the <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point()</a></code> functions.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">smallData</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">var1</span>, y <span class="op">=</span> <span class="va">var2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="01-lecture1_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+</div>
+<div id="chaining-multiple-functions-together" class="section level2" number="2.13">
+<h2>
+<span class="header-section-number">2.13</span> Chaining multiple functions together<a class="anchor" aria-label="anchor" href="#chaining-multiple-functions-together"><i class="fas fa-link"></i></a>
+</h2>
+<p>So far we have used <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>, and <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code> seperately but we can actually chain them all together with the pipe operator <code>%&gt;%</code> from the package <code>margrittr</code>. The use of the pipe became so ubiquitous that it got added to R as a built-in operator in version 4.1. The “base” R pipe is <code>|&gt;</code>.</p>
+<p>Let’s recreate the plot from the previous section with pipes.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'margrittr'</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">margrittr</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mtcars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>var1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span>, 
+           var2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">var1</span>, <span class="va">var2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="co"># this step is unnecessary</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">var1</span>, y <span class="op">=</span> <span class="va">var2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="01-lecture1_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+</div>
+<div id="the-tidyverse-package" class="section level2" number="2.14">
+<h2>
+<span class="header-section-number">2.14</span> The tidyverse package<a class="anchor" aria-label="anchor" href="#the-tidyverse-package"><i class="fas fa-link"></i></a>
+</h2>
+<p>Over the course of this lecture we have installed and loaded <code>ggplot2</code>, <code>tibble</code>, <code>dplyr</code>, and <code>margrittr</code>. All these packages (and more) belong to the <code>tidyverse</code> collection. By loading <code>tidyverse</code> you load <code>ggplot2</code>, <code>dplyr</code>, <code>tidyr</code>, <code>readr</code>, <code>purrr</code>, <code>tibble</code>, <code>stringr</code>, and <code>forcats</code>. You can read more about each package here: <a href="https://www.tidyverse.org/packages/" class="uri">https://www.tidyverse.org/packages/</a></p>
+<p>To install and load tidyverse simply run:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'tidyverse'</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html"><span class="header-section-number">1</span> General information</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-1"><span class="header-section-number">2</span> Lecture 1</a></li>
+<li><a class="nav-link" href="#installing-r-and-rstudio"><span class="header-section-number">2.1</span> Installing R and RStudio</a></li>
+<li><a class="nav-link" href="#what-is-the-difference-between-r-and-rstudio"><span class="header-section-number">2.2</span> What is the difference between R and RStudio?</a></li>
+<li><a class="nav-link" href="#what-is-the-difference-between-.r-and-.rmd-files"><span class="header-section-number">2.3</span> What is the difference between .R and .Rmd files?</a></li>
+<li><a class="nav-link" href="#hello-world"><span class="header-section-number">2.4</span> Hello world</a></li>
+<li><a class="nav-link" href="#other-basic-objects"><span class="header-section-number">2.5</span> Other basic objects</a></li>
+<li><a class="nav-link" href="#storing-objects-in-memory"><span class="header-section-number">2.6</span> Storing objects in memory</a></li>
+<li><a class="nav-link" href="#packages"><span class="header-section-number">2.7</span> Packages</a></li>
+<li><a class="nav-link" href="#the-mtcars-data"><span class="header-section-number">2.8</span> The mtcars data</a></li>
+<li><a class="nav-link" href="#summarizing-data-frames"><span class="header-section-number">2.9</span> Summarizing data frames</a></li>
+<li><a class="nav-link" href="#subsetting-our-data"><span class="header-section-number">2.10</span> Subsetting our data</a></li>
+<li><a class="nav-link" href="#creating-new-variables"><span class="header-section-number">2.11</span> Creating new variables</a></li>
+<li><a class="nav-link" href="#plotting-our-data"><span class="header-section-number">2.12</span> Plotting our data</a></li>
+<li><a class="nav-link" href="#chaining-multiple-functions-together"><span class="header-section-number">2.13</span> Chaining multiple functions together</a></li>
+<li><a class="nav-link" href="#the-tidyverse-package"><span class="header-section-number">2.14</span> The tidyverse package</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/thorj/laek101f/blob/master/01-lecture1.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/thorj/laek101f/edit/master/01-lecture1.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

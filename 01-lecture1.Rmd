@@ -1,0 +1,231 @@
+# Lecture 1
+
+```{r, echo =  F, warning = F, message = F}
+library(tidyverse)
+```
+
+
+## Installing R and RStudio
+Before you install RStudio, you need to install R. Please visit [this link](https://cran.hafro.is/) and download R for your operating system. Afterwards, you can download RStudio from [here](https://www.rstudio.com/products/rstudio/download/#download). 
+
+Alternatively, you can create an account on [RStudio Cloud](https://rstudio.cloud/) which is a cloud-based version of RStudio.
+
+## What is the difference between R and RStudio?
+R is a *programming language* specifically designed for statistics while RStudio is an Integrated Development Environment (IDE). RStudio combines multiple tool into a single graphical user interface (GUI) to ease development of R programs. Examples of tools are the source-code environment, file navigation, and plot viewer. 
+
+There exist alternatives to RStudio. I personally use [Nvim-R](https://github.com/jalvesaq/Nvim-R) but like many others I started my R journey with RStudio.
+
+## What is the difference between .R and .Rmd files?
+A file with the `.R` extension is a *script file* for R. A script file contains the code you have written. A `.R` file is "stupid" in the sense that it will follow your instructions to the letter. You have to tell the computer to run an R scrip by opening command prompt/terminal, navigating to your root folder, and writing `Rscript yourScript.R`.
+
+A file with the `.Rmd` extension is a *markdown file*. It allows you to combine code and text to write detailed reports. An example of an `.Rmd` file is this lecture. 
+
+## Hello world
+Here is a very simple piece of R code inside this `.Rmd` document:
+
+```{r}
+# Example of embedded code
+print('Hello world')
+```
+
+The anatomy of the code is as follows:
+
+- `# This is embedded`. The # symbol tells R that it should *ignore* whatever comes after # on that particular line. This is useful as it allows us to *comment our code*. Comments allow you to explain how and what your code does. Writing informative, concise comments *is extremely important*. There is a good chance that you will have to either share your code with a collaborator or you have to revisit it at a later time. In both cases, the comments can quickly bring the reader up to speed. 
+
+- `print('Hello world')`. This line is composed of two things: the `print()` *function* and the *string* `'Hello world'`. A function is like a recipe; it has *inputs* and *outputs*. The recipe of `print()` is to take its input and display it on the command line. There are many predefined functions in R but you can also create your own. A string is a data type in R. The quotes tell R that whatever is between them should be considered as a string. If you remove the quotes, R will whine. You can also tell R that something is a string with double quotes. Pick whichever you prefer.
+
+```{r}
+# Function printMyString
+# Input: A string.
+# Output: The input string is printed out in the command line.
+printMyString <- function(someString) {
+    print(someString)
+}
+# Test case
+printMyString("This is a custom function I made. It's pretty useless.")
+```
+
+## Other basic objects
+R has many other objects besides strings such as integers, doubles (reals), vectors, factors, logical, and data frames. 
+
+- An integer is a *whole number*. Examples of integers are 1, -2, 1000, 94.
+
+- A double is a *real number*. Examples of real numbers are 1, -2, 3.14, sin(0.5).
+
+- A vector is a *collection of values*. You define a vector with the `c()` function. For example `c(1, -2, 3.14, sin(0.5))` is a vector of doubles while `c('a', 'ab', 'bla bla')` is a vector of strings. Note that all elements in a vector have to be of the same data type. If there is a discrepancy, R will try to coerce the elements to be of the same data type.
+
+- A factor is a way to store categorical values. As an example, imagine you have conducted a study on patients. One of the pieces of information you store is the *smoking status* of patients. Patients can be current smokers, previous smokers, or never smokers. The *levels* of the factor are `never`, `previous`, and `current`. We will discuss factor variables later.
+
+- A logical value is either `TRUE` or `FALSE`. Logical values can also be encoded as `1` and `0` for `TRUE` and `FALSE` respectively. 
+
+- A data frame is a collection of vectors. You can think of a data frame as an Excel spreadsheet with columns and rows. More on data frames later.
+
+Note that this is not an exhaustive list.
+
+## Storing objects in memory
+We can store objects in memory with the `<-` operator. Whatever is on the **right** of `<-` is the object we want to store in memory and whatever is on the **left** of `<-` is the **name** of the object. Here is a quick example:
+
+```{r}
+x <- c(1, 2, 3)
+x
+```
+
+The vector `c(1, 2, 3)` exists now in memory as the named variable `x` and rather than typing out `c(1, 2, 3)` whenever we want to work with that vector, we can simply use `x` instead. For example, imagine if we wanted to add 1 to the vector `c(1, 2, 3)`; since we have stored `c(1, 2, 3)` as the object `x` in R, we can simply write:
+
+```{r}
+x + 1
+```
+
+Be careful! If you reuse variable names the pre-existing object will be overwritten with the new object.
+
+```{r}
+x <- 'x is no longer a vector of numbers; it is a string'
+x
+```
+
+## Packages
+R has many built-in functions and data types but sometimes we need more. Luckily, there is a good chance that someone in the R community has already solved our problem and made their work publicly available as an *R package*. An *R package* is thus simply a collection of functions and data types (and sometimes even data) that we can load into R and use.
+
+You can download and install a package with the `install.packages()` function. To load a package you use the `library()` function. It is enough to install a package once but you must load it every time you open up RStudio (if you intend to use it).
+
+```{r, eval = F}
+# This can be run once
+install.packages('ggplot2')
+# This is something you have to run every time 
+# you restart R
+library('ggplot2')
+```
+
+## The mtcars data
+It's time to start working with data. Included with R is the `mtcars` data frame:
+
+```{r}
+mtcars
+```
+
+Note that the entire data set is printed. This is annoying and should be avoided. Functions like `as_tibble()` included in the `tibble` library converts the data frame to a tibble, a much nicer data type to work with (in my opinion). We begin by installing and loading the `tibble` library:
+
+```{r, eval = F}
+# Install tibble package
+install.packages('tibble')
+# Load tibble package
+library(tibble)
+```
+
+And then we use the `mtcars` data frame as an input in the `as_tibble()` function.
+
+```{r}
+as_tibble(mtcars)
+```
+
+There are a few things worth mentioning here: 
+
+1. The data is truncated. We only see the first ten rows and however many columns fit on our page. 
+
+2. We get information about the total number of rows and columns in the tibble.
+
+3. We get the data type of each column. Note the `dbl` underneath the column name.
+
+Since I prefer using the tibble format, I am going to *overwrite* the data frame `mtcars` with its tibble version [recall the discussion from before]:
+
+```{r}
+mtcars <- as_tibble(mtcars)
+```
+
+We can refer to specific variables in our tibbles (and data frames) with the `$` operator:
+
+```{r}
+mtcars$mpg
+```
+
+Sometimes we want to access the number of rows and/or columns of our data. We can use the `nrow()` and `ncol()` functions respectively. Alternatively, we can use the `dim()` function to get both simultaneously.
+
+```{r}
+nrow(mtcars)
+ncol(mtcars)
+dim(mtcars)
+```
+
+## Summarizing data frames
+
+We can quickly summarize our data with the `summary()` function:
+
+```{r}
+summary(mtcars)
+```
+
+This is a nice way to get a quick feel for the data. 
+
+## Subsetting our data
+Let us assume we are interested in a specific subset of the `mtcars` data. We can create a subset of `mtcars` with the columns we are interested in using with the `select()` function from the `dplyr` package. As with the `tibble` package, we have install and then load the `dplyr` package, something I hope you have grown comfortable with at this point:
+
+```{r, eval = F}
+# Install dplyr
+install.packages('dplyr')
+# Load dplyr package
+library(dplyr)
+```
+
+We will now create a subset tibble of the `mtcars` data which will consist of all the rows but *only* variables `mpg`, `hp`, and `wt`, representing miles per gallon, gross horsepower, and weight (1000 lbs) respectively.
+
+```{r}
+smallData <- select(mtcars, mpg, hp, wt)
+smallData
+```
+
+Dissecting the `select()` function, we see that first we have to supply the function with the data set we want to subset (in this case `mtcars`) and then list our selected variables. We can also use the `select()` function to throw out variables with the `-` prefix.
+
+```{r}
+throwOutVariables <- select(mtcars, -mpg, -hp, -wt)
+throwOutVariables
+```
+
+## Creating new variables
+There are two ways of making new variables: the `$` operator or the `mutate()` function from the `dplyr` package. Let's create two new variables by randomly drawing numbers from the interval [0, 1].
+
+```{r}
+smallData$var1 <- runif(n = nrow(smallData))
+smallData <- mutate(smallData, var2 = runif(n = nrow(smallData)))
+smallData
+```
+
+Note how we had to overwrite `smallData` when we used the `mutate()` function. 
+
+## Plotting our data
+To create plots we use the `ggplot2` package we installed earlier. We will cover plots in more detail later but for now here is an example of how to create a scatter plot using the `ggplot()` and `geom_point()` functions. 
+
+```{r}
+ggplot(data = smallData, aes(x = var1, y = var2)) + 
+    geom_point()
+```
+
+## Chaining multiple functions together
+So far we have used `select()`, `mutate()`, and `ggplot()` separately but we can actually chain them all together with the pipe operator `%>%` from the package `margrittr`. The use of the pipe became so ubiquitous that it got added to R as a built-in operator in version 4.1. The "base" R pipe is `|>`. 
+
+Let's recreate the plot from the previous section with pipes.
+
+```{r, eval = F}
+install.packages('margrittr')
+library(margrittr)
+```
+
+```{r}
+mtcars %>%
+    mutate(var1 = runif(nrow(mtcars)), 
+           var2 = runif(nrow(mtcars))) %>% 
+    select(var1, var2) %>%  # this step is unnecessary
+    ggplot(aes(x = var1, y = var2)) + 
+        geom_point()
+```
+
+## The tidyverse package
+Over the course of this lecture we have installed and loaded `ggplot2`, `tibble`, `dplyr`, and `margrittr`. All these packages (and more) belong to the `tidyverse` collection. By loading `tidyverse` you load `ggplot2`, `dplyr`, `tidyr`, `readr`, `purrr`, `tibble`, `stringr`, and `forcats`. You can read more about each package here: https://www.tidyverse.org/packages/
+
+To install and load tidyverse simply run:
+```{r, eval = F}
+install.packages('tidyverse')
+library(tidyverse)
+```
+
+
+
