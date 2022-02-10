@@ -1,7 +1,7 @@
 --- 
 title: "LÆK101F: General statistics, course for M.Sc. and Ph.D students "
 author: "Þórarinn Jónmundsson"
-date: "2022-02-06"
+date: "2022-02-09"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]

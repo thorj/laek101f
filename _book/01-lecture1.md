@@ -30,7 +30,7 @@ print('Hello world')
 
 The anatomy of the code is as follows:
 
-- `# This is embedded`. The # symbol tells R that it should *ignore* whatever comes after # on that particular line. This is useful as it allows us to *comment our code*. Comments allow you to explain how and what your code does. Writing informative, concise comments *is extremely important*. There is a good chance that you will have to either share your code with a collaborator or you have to revisit it at a later time. In both cases, the comments can quickly bring the reader up to speed. 
+- `# Example of embedded code`. The # symbol tells R that it should *ignore* whatever comes after # on that particular line. This is useful as it allows us to *comment our code*. Comments allow you to explain how and what your code does. Writing informative, concise comments *is extremely important*. There is a good chance that you will have to either share your code with a collaborator or you have to revisit it at a later time. In both cases, the comments can quickly bring the reader up to speed. 
 
 - `print('Hello world')`. This line is composed of two things: the `print()` *function* and the *string* `'Hello world'`. A function is like a recipe; it has *inputs* and *outputs*. The recipe of `print()` is to take its input and display it on the command line. There are many predefined functions in R but you can also create your own. A string is a data type in R. The quotes tell R that whatever is between them should be considered as a string. If you remove the quotes, R will whine. You can also tell R that something is a string with double quotes. Pick whichever you prefer.
 
@@ -353,16 +353,16 @@ smallData
 #> # A tibble: 32 × 5
 #>      mpg    hp    wt   var1  var2
 #>    <dbl> <dbl> <dbl>  <dbl> <dbl>
-#>  1  21     110  2.62 0.0166 0.372
-#>  2  21     110  2.88 0.269  0.329
-#>  3  22.8    93  2.32 0.437  0.702
-#>  4  21.4   110  3.22 0.548  0.440
-#>  5  18.7   175  3.44 0.0109 0.717
-#>  6  18.1   105  3.46 0.306  0.333
-#>  7  14.3   245  3.57 0.284  0.474
-#>  8  24.4    62  3.19 0.0225 0.229
-#>  9  22.8    95  3.15 0.913  0.642
-#> 10  19.2   123  3.44 0.415  0.802
+#>  1  21     110  2.62 0.0302 0.696
+#>  2  21     110  2.88 0.173  0.671
+#>  3  22.8    93  2.32 0.409  0.767
+#>  4  21.4   110  3.22 0.500  0.669
+#>  5  18.7   175  3.44 0.626  0.536
+#>  6  18.1   105  3.46 0.653  0.844
+#>  7  14.3   245  3.57 0.0802 0.746
+#>  8  24.4    62  3.19 0.415  0.270
+#>  9  22.8    95  3.15 0.893  0.455
+#> 10  19.2   123  3.44 0.374  0.878
 #> # … with 22 more rows
 ```
 
@@ -380,14 +380,14 @@ ggplot(data = smallData, aes(x = var1, y = var2)) +
 <img src="01-lecture1_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 ## Chaining multiple functions together
-So far we have used `select()`, `mutate()`, and `ggplot()` separately but we can actually chain them all together with the pipe operator `%>%` from the package `margrittr`. The use of the pipe became so ubiquitous that it got added to R as a built-in operator in version 4.1. The "base" R pipe is `|>`. 
+So far we have used `select()`, `mutate()`, and `ggplot()` separately but we can actually chain them all together with the pipe operator `%>%` from the package `magrittr`. The use of the pipe became so ubiquitous that it got added to R as a built-in operator in version 4.1. The "base" R pipe is `|>`. 
 
 Let's recreate the plot from the previous section with pipes.
 
 
 ```r
-install.packages('margrittr')
-library(margrittr)
+install.packages('magrittr')
+library(magrittr)
 ```
 
 
@@ -403,7 +403,7 @@ mtcars %>%
 <img src="01-lecture1_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 ## The tidyverse package
-Over the course of this lecture we have installed and loaded `ggplot2`, `tibble`, `dplyr`, and `margrittr`. All these packages (and more) belong to the `tidyverse` collection. By loading `tidyverse` you load `ggplot2`, `dplyr`, `tidyr`, `readr`, `purrr`, `tibble`, `stringr`, and `forcats`. You can read more about each package here: https://www.tidyverse.org/packages/
+Over the course of this lecture we have installed and loaded `ggplot2`, `tibble`, `dplyr`, and `magrittr`. All these packages (and more) belong to the `tidyverse` collection. By loading `tidyverse` you load `ggplot2`, `dplyr`, `tidyr`, `readr`, `purrr`, `tibble`, `stringr`, and `forcats`. You can read more about each package here: https://www.tidyverse.org/packages/
 
 To install and load tidyverse simply run:
 

@@ -1,0 +1,257 @@
+# Lecture 3
+
+```{r, warning = F, message = F}
+library(tidyverse)  # General data wrangling & plots
+library(knitr)      # Tables 
+library(kableExtra) # Fancy tables
+library(cowplot)    # For pretty plots
+library(table1)     # Table1
+library(here)       # paths
+```
+
+We begin by loading in our data:
+
+```{r, warning = F, message = F}
+pulse <- read_csv2("https://notendur.hi.is/thj73/data/pulseEn.csv")
+pulse
+```
+
+The data `pulse` is based on an Icelandic data set the pulse of students was measured at two different time points. There were two groups; the control group which was stationary between the two measurements, and then the case group which were active between the two measurements. The original data was in Icelandic so I had to translate the columns and levels of the factor variables. I also omitted some variables for simplicity's sake. If you are curious about the translation you can look at the Appendix at the bottom of this document.
+
+The goal of today's lecture is to compare the two groups. We will do so graphically and with tables. We begin by using the `glimpse()` function to get a brief overview of the data.
+
+```{r}
+glimpse(pulse)
+```
+
+We see that there are three `chr` variables (`smokes`, `drinks`, `intervention`) which we want to cast as factor variables. Furthermore, even though sex is a `dbl` we should cast as a factor variable as well.
+
+```{r}
+pulse <-
+    pulse %>% 
+    mutate(sex = factor(sex), 
+           smokes = factor(smokes), 
+           drinks = factor(drinks), 
+           intervention = factor(intervention, 
+                                 levels = c('stationary', 'active')))
+```
+
+Having done so, we now use the `summary()` function to get a quick overview of the data:
+
+```{r}
+summary(pulse)
+```
+
+For the first time we see some missing values. Note the NA's for `height`, `weight`, `firstPulse`, `secondPulse`, and so on. Missing values can be imputed but that is beyond the scope of this course. Instead, we are just going to remove them from our data with the `na.omit()` function.
+
+```{r}
+pulse <- 
+    pulse %>%
+    na.omit()
+```
+
+Let's use the `summary()` function again to see what has changed:
+
+```{r}
+summary(pulse)
+```
+
+All the NA's are gone but at the cost of a reduced data set. When you conduct your research its important that you try to minimize missing values as it affects the power of the study.
+
+## Table 1
+The most important table we create is *table 1*. Table 1 contains all the descriptive statistics of our cohort, preferably stratified by case/control, but not necessarily. It is called table 1 because it is often the first table you see in a paper.
+
+There are many ways to create table 1 but I will only discuss how to do it with the `table1` package. Using `table1` is pretty simple. We begin by writing down all the variables we are interested in and we tell the function to stratify by the group of interest. For us, the `intervention` variable is the one we want to stratify by. 
+
+```{r}
+table1(~ firstPulse + secondPulse + height + weight + age + sex + smokes + drinks | intervention, data = pulse)
+```
+
+We see a good summary of our data: means, ranges, standard deviations, number of observations, counts and percentages. By examining this table we get a good feel for the data in a relatively short time. Can you see a difference between the two groups? Do you see anything weird in the table?
+
+### Note: using tidyverse functions
+It is actually possible to recreate the table above with `group_by()`, `summarize()`, and so on. It's quite involved but if you want a challenge I encourage you to try it.
+
+## Summarizing the data with plots
+Tables are good and all but a picture is worth a thousand words; it's time to create some plots.
+
+### Scatter plot or `geom_point()`
+We have seen this one before. Let's plot the values of `firstPulse` against `secondPulse` and color points based on whether the observation is from the active or stationary group.
+
+```{r}
+pulse %>%
+    ggplot(aes(x = firstPulse, y = secondPulse, color = intervention)) +
+    geom_point()
+```
+
+There is a lot of information on this simple graph. We see that:
+
+1. For the stationary group, the higher their starting pulse, the higher their second pulse (in general).
+
+2. The active group has a much higher second pulse.
+
+3. One individual in the stationary group has a much higher second pulse relative to their starting pulse. Why?
+
+This plot is nice and all but we should invest some time into making it more aesthetically pleasing. We will pick sharper colors, relabel our axes, and move the legend down to the bottom of the graph. We will also load a theme for the plot from the `cowplots` package. 
+
+```{r}
+pulse %>%
+    ggplot(aes(x = firstPulse, y = secondPulse, color = intervention)) +
+    geom_point() +
+    scale_color_brewer(type = 'seq', palette = 'Set1') + # Change color
+    labs(x = 'First measurement', 
+         y = 'Second measurement', 
+         color = 'Intervention') + # Change labels on axes, change legend
+    theme_cowplot() +    # change the theme
+    theme(legend.position = 'bottom')
+```
+
+Note that "aesthetically pleasing" is relative. 
+
+### Data distribution plots or `geom_histogram()`
+We have multiple continuous variables to play with. Let's look at the distribution of the pulse measurements.
+
+```{r}
+pulse %>%
+    ggplot(aes(x = firstPulse)) +
+    geom_histogram()
+```
+
+```{r}
+pulse %>%
+    ggplot(aes(x = secondPulse)) +
+    geom_histogram()
+```
+
+When we look at first picture we see that the most of the "mass" is between 60 and 80. This is in agreement with what we saw in table 1. The second picture shows that the distribution is bimodal; that is, there seem to be two peaks. This is also consistent with what we have seen before as there are two groups with the active group having a much larger second pulse measurement.
+
+Maybe if we color the second histogram using the intervention variable we can better see these two peaks.
+
+```{r}
+pulse %>%
+    ggplot(aes(x = secondPulse, fill = intervention)) +
+    geom_histogram()
+```
+
+This is better but again we should invest some time into cleaning the graph. We will repeat the steps for the scatter plot with one addition; we will make colors a little transparent with the `alpha` parameter as the two histograms overlap each other.
+
+```{r}
+pulse %>%
+    ggplot(aes(x = secondPulse, fill = intervention)) +
+    geom_histogram(alpha = 0.5, position = 'identity') +
+    scale_fill_brewer(type = 'seq', palette = 'Set1') +
+    labs(x = 'Second measurement', 
+         fill = 'Intervention') +
+    theme_cowplot() +
+    theme(legend.position = 'bottom')
+```
+
+### `geom_boxplot()` as an alternative to `geom_histogram()`
+Another important plot which compares the distribution of two or more variables is the boxplot. The boxplot shows us the range of the data, outliers, and the median.
+
+```{r}
+pulse %>%
+    ggplot(aes(x = intervention, y = secondPulse)) +
+    geom_boxplot()
+```
+
+This basically contains the same information as histogram. Can you see it?
+
+### `geom_density()` as an alternative to `geom_histogram()` and `geom_boxplot()`
+This is another (essentially) version of the previous two plots. 
+
+```{r}
+pulse %>%
+    ggplot(aes(x = secondPulse, fill = intervention)) +
+    geom_density(alpha = 0.5) +
+    scale_fill_brewer(type = 'seq', palette = 'Set1') +
+    theme_cowplot() +
+    labs(x = 'Second measurement', 
+         fill = 'Intervention') + 
+    theme(legend.position = 'bottom')
+```
+
+### Barplots for discrete variables `geom_bar()`
+So far we have only been paying attention to the continuous variable. Let's turn our attention to the discrete ones. The discrete variables are `sex`, `smoker`, `drinks` and `intervention`.
+
+Let's plot the barplot for `sex`:
+
+```{r}
+pulse %>%
+    ggplot(aes(x = sex)) +
+    geom_bar()
+```
+This is honestly a pretty boring plot. We can spice things up a little by adding the `intervention` variable.
+
+```{r}
+pulse %>%
+    ggplot(aes(x = sex, fill = intervention)) +
+    geom_bar()
+```
+
+The bars are stacked on top of each other which is annoying. It would be better if they were side-by-side. 
+
+```{r}
+pulse %>%
+    ggplot(aes(x = sex, fill = intervention)) +
+    geom_bar(position = 'dodge')
+```
+
+Of course we can improve the aesthetics of the graph like we did with the other ones.
+
+### Splitting plots into facets with `facet_grid()`
+Recall the scatter plot from before:
+
+```{r}
+pulse %>%
+    ggplot(aes(x = firstPulse, y = secondPulse, color = intervention)) +
+    geom_point() +
+    scale_color_brewer(type = 'seq', palette = 'Set1') + # Change color
+    labs(x = 'First measurement', 
+         y = 'Second measurement', 
+         color = 'Intervention') + # Change labels on axes, change legend
+    theme_cowplot() +    # change the theme
+    theme(legend.position = 'bottom')
+```
+
+Instead of having the points for static and activity together we can split the plot in two. The code needs to be modified a little but it's not that much work.
+
+```{r}
+pulse %>%
+    ggplot(aes(x = firstPulse, y = secondPulse)) +
+    geom_point() +
+    labs(x = 'First measurement', 
+         y = 'Second measurement') + # Change labels on axes, change legend +
+    facet_grid(~intervention, scales = 'free') +
+    theme_cowplot() +    # change the theme
+    theme(legend.position = 'bottom')
+```
+
+Each group gets its own plot. Sometimes it's easier to compare plots this way.
+
+
+## Saving our plots
+We use the `ggsave()` function to save our plots locally. Before save a plot we need to store it as an object in memory. Let's save our scatter plot.
+
+```{r}
+p <- 
+    pulse %>%
+    ggplot(aes(x = firstPulse, y = secondPulse, color = intervention)) +
+    geom_point() +
+    scale_color_brewer(type = 'seq', palette = 'Set1') + # Change color
+    labs(x = 'First measurement', 
+         y = 'Second measurement', 
+         color = 'Intervention') + # Change labels on axes, change legend
+    theme_cowplot() +    # change the theme
+    theme(legend.position = 'bottom')
+```
+
+```{r, eval = F}
+ggsave(filename = here('img', 'scatterPlot.png'), plot = p, width = 8, height = 6, dpi = 320)
+```
+
+## Appendix
+
+```{r, eval = F, code = readLines(here('data', 'cleanPuls.R'))}
+```
+
