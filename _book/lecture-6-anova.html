@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 7 Lecture 6: ANOVA | LÆK101F: General statistics, course for M.Sc. and Ph.D students</title>
+<meta name="author" content="Þórarinn Jónmundsson">
+<meta name="description" content="In the previous lecture we used the \(t\)-test to compare the means of two groups. A natural extension of that test is to ask what we should do when we have multiple groups. Rather than perform a...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 7 Lecture 6: ANOVA | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta property="og:type" content="book">
+<meta property="og:description" content="In the previous lecture we used the \(t\)-test to compare the means of two groups. A natural extension of that test is to ask what we should do when we have multiple groups. Rather than perform a...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 7 Lecture 6: ANOVA | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta name="twitter:description" content="In the previous lecture we used the \(t\)-test to compare the means of two groups. A natural extension of that test is to ask what we should do when we have multiple groups. Rather than perform a...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/table1-1.0/table1_defaults.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">LÆK101F: General statistics, course for M.Sc. and Ph.D students</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> General information</a></li>
+<li><a class="" href="lecture-1-r-and-r-basics.html"><span class="header-section-number">2</span> Lecture 1: R and R basics</a></li>
+<li><a class="" href="lecture-2-data-wrangling.html"><span class="header-section-number">3</span> Lecture 2: Data wrangling</a></li>
+<li><a class="" href="lecture-3-plots-and-table1.html"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></li>
+<li><a class="" href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></li>
+<li><a class="" href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
+<li><a class="active" href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/thorj/laek101f">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-6-anova" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> Lecture 6: ANOVA<a class="anchor" aria-label="anchor" href="#lecture-6-anova"><i class="fas fa-link"></i></a>
+</h1>
+<p>In the previous lecture we used the <span class="math inline">\(t\)</span>-test to compare the means of two groups. A natural extension of that test is to ask what we should do when we have <em>multiple</em> groups. Rather than perform a <span class="math inline">\(t\)</span>-test for every single group difference we will use a staticial method called analysis of variance or ANOVA.</p>
+<div id="the-assumptions-of-anova" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> The assumptions of ANOVA<a class="anchor" aria-label="anchor" href="#the-assumptions-of-anova"><i class="fas fa-link"></i></a>
+</h2>
+<p>The assumptions of ANOVA are as follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Our samples are random samples.</p></li>
+<li><p>The underlying populations are normally distributed.</p></li>
+<li><p>The variances of the populations are the same.</p></li>
+</ol>
+</div>
+<div id="one-way-anova" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> One-way ANOVA<a class="anchor" aria-label="anchor" href="#one-way-anova"><i class="fas fa-link"></i></a>
+</h2>
+<p>We begin with a short example. Imagine we have developed a new drug that reduces some biomarker. We are interested in testing two things:</p>
+<ol style="list-style-type: decimal">
+<li><p>Our drug works (outperforms placebo).</p></li>
+<li><p>Compare the efficacy of our drug to another drug.</p></li>
+</ol>
+<p>For our study we randomly assign the participants to one of three groups: P (placebo), O (old drug), and N (new drug). We then draw blood twice, once before and once after having administered the treatment and measure our biomarker. Once we have measured both biomarkers we compute the difference between the two measurements for both participants. This is what our data looks like:</p>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">12</span><span class="op">)</span>
+<span class="va">bioData</span> <span class="op">&lt;-</span> 
+    <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>P1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">7</span>, <span class="fl">1</span><span class="op">)</span>, 
+       P2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">7</span>, <span class="fl">1</span><span class="op">)</span>,
+       O1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">7</span>, <span class="fl">1</span><span class="op">)</span>, 
+       O2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span>, 
+       N1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">7</span>, <span class="fl">1</span><span class="op">)</span>, 
+       N2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>P <span class="op">=</span> <span class="va">P1</span> <span class="op">-</span> <span class="va">P2</span>, O <span class="op">=</span> <span class="va">O1</span> <span class="op">-</span> <span class="va">O2</span>, N <span class="op">=</span> <span class="va">N1</span> <span class="op">-</span> <span class="va">N2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">P</span>, <span class="va">O</span>, <span class="va">N</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:right;">
+P
+</th>
+<th style="text-align:right;">
+O
+</th>
+<th style="text-align:right;">
+N
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+-0.7028480
+</td>
+<td style="text-align:right;">
+1.549660
+</td>
+<td style="text-align:right;">
+3.1476691
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.8710518
+</td>
+<td style="text-align:right;">
+1.935166
+</td>
+<td style="text-align:right;">
+1.9566777
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-0.1771780
+</td>
+<td style="text-align:right;">
+3.553008
+</td>
+<td style="text-align:right;">
+3.1213074
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-0.9319570
+</td>
+<td style="text-align:right;">
+2.768033
+</td>
+<td style="text-align:right;">
+-0.6159605
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-1.8452259
+</td>
+<td style="text-align:right;">
+1.347212
+</td>
+<td style="text-align:right;">
+3.7423864
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.4311682
+</td>
+<td style="text-align:right;">
+2.217757
+</td>
+<td style="text-align:right;">
+2.7148138
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-1.5042279
+</td>
+<td style="text-align:right;">
+1.526110
+</td>
+<td style="text-align:right;">
+1.4836970
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-0.9687675
+</td>
+<td style="text-align:right;">
+2.610635
+</td>
+<td style="text-align:right;">
+4.5042707
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-0.6134321
+</td>
+<td style="text-align:right;">
+1.347695
+</td>
+<td style="text-align:right;">
+3.9814921
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.7213200
+</td>
+<td style="text-align:right;">
+3.366516
+</td>
+<td style="text-align:right;">
+2.1931963
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>Let’s plot our data to get a better sense for it. The red dots represent the group means while the black dots represent the data itself. The broken line running across the plot is the overall mean.</p>
+<div class="sourceCode" id="cb93"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bioLong</span> <span class="op">&lt;-</span> 
+    <span class="va">bioData</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">treatment</span>, <span class="va">value</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>treatment <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">treatment</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'P'</span>, <span class="st">'O'</span>, <span class="st">'N'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">bioMeans</span> <span class="op">&lt;-</span>
+    <span class="va">bioLong</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">treatment</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span>
+<span class="va">bioLong</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">treatment</span>, y <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">bioMeans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>value <span class="op">=</span> <span class="va">mean</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">bioLong</span><span class="op">$</span><span class="va">value</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Treatment groups'</span>, y <span class="op">=</span> <span class="st">'Values'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="06-lecture6_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<p>From the plot we immediately see that there is a difference between the placebo group and the two drug groups. What is not as clear is whether there is a difference between the two drugs. Finally, it seems that variance is approximately the same between the groups. At this point you should know that eyeballing is not sufficient.</p>
+</div>
+<div id="mathematical-notation-for-one-way-anova" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> Mathematical notation for one-way ANOVA<a class="anchor" aria-label="anchor" href="#mathematical-notation-for-one-way-anova"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p><span class="math inline">\(y_ {ij}\)</span> : <span class="math inline">\(i\)</span> is the index of the group and <span class="math inline">\(j\)</span> is the index of a measurement within the group</p></li>
+<li><p><span class="math inline">\(a\)</span> : total number of groups</p></li>
+<li><p><span class="math inline">\(n_ i\)</span> : total number of measurements within group <span class="math inline">\(i\)</span></p></li>
+<li><p><span class="math inline">\(N\)</span> : total number of measurements such that
+<span class="math display">\[
+  N = n_1 + n_2 + \ldots + n_a
+\]</span></p></li>
+<li>
+<p><span class="math inline">\(\bar{y}_ {i.}\)</span>: The <em>within group</em> mean:</p>
+<p><span class="math display">\[
+  \bar{y}_ {i.} = \frac{\sum _ {j = 1} ^{n_i} y_ {ij}}{n_i}
+\]</span></p>
+</li>
+<li>
+<p><span class="math inline">\(\bar{y}_ {..}\)</span> : The <em>grand</em> mean or <em>overall</em> mean. This is the mean of the entire data set.</p>
+<p><span class="math display">\[
+  \bar{y}_ {..} = \frac{\sum _{i = 1} ^a \sum _{j = 1}^{n_i} y_ {ij}}{N}
+\]</span></p>
+</li>
+<li>
+<p><span class="math inline">\(SS_T\)</span>: This is a measure of the total variation in the data:</p>
+<p><span class="math display">\[
+  SS_T = \sum _{i = 1} ^a \sum _{j = 1} ^{n _i} (y _{ij} - \bar{y} _{..})^2
+\]</span></p>
+</li>
+<li>
+<p><span class="math inline">\(SS_{Tr}\)</span>: This is a measure of the variation <em>between</em> treatments:</p>
+<p><span class="math display">\[
+  SS_{Tr} = \sum _{i = 1} ^a n_i (\bar{y} _{i.} - \bar{y} _{..})^2
+\]</span></p>
+</li>
+<li>
+<p><span class="math inline">\(SS_E\)</span>: This is a measure of the variation <em>within</em> the treatments:</p>
+<p><span class="math display">\[
+  SS_E = \sum ^a _{i = 1} \sum _{j = 1} ^{n_i} (y_{ij} - \bar{y}_{i.})^2
+\]</span></p>
+</li>
+</ul>
+</div>
+<div id="the-one-way-anova-table" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> The one-way ANOVA table<a class="anchor" aria-label="anchor" href="#the-one-way-anova-table"><i class="fas fa-link"></i></a>
+</h2>
+<p>It is common to put the square sums of variation <span class="math inline">\(SS_T, SS_{Tr}, SS_E\)</span> in a table:</p>
+<p><span class="math display">\[
+\begin{array}{c}
+\mbox{Square sums} &amp; \mbox{Degrees of freedom} &amp; \mbox{Mean square sums} \\
+SS_{Tr} &amp; a - 1 &amp; MS_{Tr} = SS_{Tr}/(a - 1) \\
+SS_{E} &amp; N - a &amp; MS_{E} = SS_{E}/(N - a) \\
+SS_{T} &amp; N - 1 &amp; 
+\end{array}
+\]</span></p>
+<p>The ANOVA table is used to perform hypothesis tests within the ANOVA paradigm.</p>
+</div>
+<div id="hypothesis-tests-with-anova" class="section level2" number="7.5">
+<h2>
+<span class="header-section-number">7.5</span> Hypothesis tests with ANOVA<a class="anchor" aria-label="anchor" href="#hypothesis-tests-with-anova"><i class="fas fa-link"></i></a>
+</h2>
+<p>The null hypothesis of the one-way ANOVA is:</p>
+<p><span class="math display">\[
+H_0 = \mu _ 1 = \mu _ 2 = \ldots = \mu _ a
+\]</span></p>
+<p>The alternative hypothesis is:</p>
+<p><span class="math display">\[
+H_1 = \mbox{ At least one mean differs from the others}
+\]</span>i</p>
+<p>The <em>test statistic</em> is:
+<span class="math display">\[
+F = \frac{SS_{Tr}/(a - 1)}{SS_E/(N - a)} = \frac{MS_{Tr}}{MS_E}
+\]</span></p>
+<p>We denote the <span class="math inline">\(F\)</span>-statistic with an <span class="math inline">\(F\)</span> because under the null hypothesis it should come from the <span class="math inline">\(F\)</span> distribution with <span class="math inline">\(a - 1\)</span> and <span class="math inline">\(N - a\)</span> degrees of freedom. If we are successful at rejecting the null that means that there evidence for at least one mean differing from the others.</p>
+</div>
+<div id="anova-in-r" class="section level2" number="7.6">
+<h2>
+<span class="header-section-number">7.6</span> ANOVA in R<a class="anchor" aria-label="anchor" href="#anova-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>Having covered the theort it’s time to use R to perform the ANOVA analysis for us. We will use the biomarker drug from above. The first thing we do is create the ANOVA object in R with the <code>aov</code> function:</p>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">anovaObj</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">bioLong</span><span class="op">)</span></code></pre></div>
+<p>The next thing we do is create the ANOVA table with the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function.</p>
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">anovaObj</span><span class="op">)</span>
+<span class="co">#&gt; Analysis of Variance Table</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Response: value</span>
+<span class="co">#&gt;           Df Sum Sq Mean Sq F value    Pr(&gt;F)    </span>
+<span class="co">#&gt; treatment  2 49.208 24.6040  15.723 2.967e-05 ***</span>
+<span class="co">#&gt; Residuals 27 42.252  1.5649                      </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></code></pre></div>
+<p>As you can see we get the first two rows of the ANOVA table. The <span class="math inline">\(p\)</span>-value is small meaning that we reject the null hypothesis at the <span class="math inline">\(\alpha = 0.05\)</span> significance level. The value of our <span class="math inline">\(F\)</span>-statistic is 15.7226097.</p>
+<p>So we have successfully rejected the null hypothesis but that only tells us that there <em>exists</em> a difference but not <em>where</em> the difference lies. For that we need to do some post-hoc analyses such as the Tukey’s multiple comparison test.</p>
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html">TukeyHSD</a></span><span class="op">(</span><span class="va">anovaObj</span><span class="op">)</span>
+<span class="co">#&gt;   Tukey multiple comparisons of means</span>
+<span class="co">#&gt;     95% family-wise confidence level</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Fit: aov(formula = value ~ treatment, data = bioLong)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $treatment</span>
+<span class="co">#&gt;          diff        lwr      upr     p adj</span>
+<span class="co">#&gt; O-P 2.4941887  1.1070959 3.881282 0.0003727</span>
+<span class="co">#&gt; N-P 2.8949646  1.5078718 4.282057 0.0000552</span>
+<span class="co">#&gt; N-O 0.4007759 -0.9863169 1.787869 0.7560053</span></code></pre></div>
+<p>Here we see that each comparison has been tested for us. We see that both the old and the new drug differ from the placebo. Unfortunately when the new drug was compared to the old drug we failed to reject the null hypothesis. We can therefore not claim that our drug is an improvement.</p>
+<p>We can also graph the comparisons:</p>
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TukeyHSD.html">TukeyHSD</a></span><span class="op">(</span><span class="va">anovaObj</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="06-lecture6_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+</div>
+<div id="a-glimpse-of-what-is-to-come" class="section level2" number="7.7">
+<h2>
+<span class="header-section-number">7.7</span> A glimpse of what is to come<a class="anchor" aria-label="anchor" href="#a-glimpse-of-what-is-to-come"><i class="fas fa-link"></i></a>
+</h2>
+<p>There is an alternative way to perform the ANOVA analysis. We can simply use the linear regression function (the subject of the next lecture) <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>.</p>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">linearFit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">value</span> <span class="op">~</span> <span class="va">treatment</span>, data <span class="op">=</span> <span class="va">bioLong</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">linearFit</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = value ~ treatment, data = bioLong)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;     Min      1Q  Median      3Q     Max </span>
+<span class="co">#&gt; -3.2389 -0.6902 -0.1457  0.6638  3.1431 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)  -0.2720     0.3956  -0.688  0.49756    </span>
+<span class="co">#&gt; treatmentO    2.4942     0.5594   4.458  0.00013 ***</span>
+<span class="co">#&gt; treatmentN    2.8950     0.5594   5.175  1.9e-05 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 1.251 on 27 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.538,  Adjusted R-squared:  0.5038 </span>
+<span class="co">#&gt; F-statistic: 15.72 on 2 and 27 DF,  p-value: 2.967e-05</span></code></pre></div>
+<p>There is a lot of information packed in this summary but if you look at the bottom we see that we have the same <span class="math inline">\(F\)</span>-statistic, degrees of freedom and <span class="math inline">\(p\)</span>-value.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-6-anova"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
+<li><a class="nav-link" href="#the-assumptions-of-anova"><span class="header-section-number">7.1</span> The assumptions of ANOVA</a></li>
+<li><a class="nav-link" href="#one-way-anova"><span class="header-section-number">7.2</span> One-way ANOVA</a></li>
+<li><a class="nav-link" href="#mathematical-notation-for-one-way-anova"><span class="header-section-number">7.3</span> Mathematical notation for one-way ANOVA</a></li>
+<li><a class="nav-link" href="#the-one-way-anova-table"><span class="header-section-number">7.4</span> The one-way ANOVA table</a></li>
+<li><a class="nav-link" href="#hypothesis-tests-with-anova"><span class="header-section-number">7.5</span> Hypothesis tests with ANOVA</a></li>
+<li><a class="nav-link" href="#anova-in-r"><span class="header-section-number">7.6</span> ANOVA in R</a></li>
+<li><a class="nav-link" href="#a-glimpse-of-what-is-to-come"><span class="header-section-number">7.7</span> A glimpse of what is to come</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/thorj/laek101f/blob/master/06-lecture6.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/thorj/laek101f/edit/master/06-lecture6.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-16.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

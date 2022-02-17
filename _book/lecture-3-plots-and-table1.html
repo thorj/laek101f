@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 4 Lecture 3: Plots and table1 | LÆK101F: General statistics, course for M.Sc. and Ph.D students</title>
+<meta name="author" content="Þórarinn Jónmundsson">
+<meta name="description" content="library(tidyverse) # General data wrangling &amp; plots library(knitr)   # Tables library(kableExtra) # Fancy tables library(cowplot)  # For pretty plots library(table1)   # Table1 library(here)    #...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 4 Lecture 3: Plots and table1 | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta property="og:type" content="book">
+<meta property="og:description" content="library(tidyverse) # General data wrangling &amp; plots library(knitr)   # Tables library(kableExtra) # Fancy tables library(cowplot)  # For pretty plots library(table1)   # Table1 library(here)    #...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 4 Lecture 3: Plots and table1 | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta name="twitter:description" content="library(tidyverse) # General data wrangling &amp; plots library(knitr)   # Tables library(kableExtra) # Fancy tables library(cowplot)  # For pretty plots library(table1)   # Table1 library(here)    #...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/table1-1.0/table1_defaults.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">LÆK101F: General statistics, course for M.Sc. and Ph.D students</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> General information</a></li>
+<li><a class="" href="lecture-1-r-and-r-basics.html"><span class="header-section-number">2</span> Lecture 1: R and R basics</a></li>
+<li><a class="" href="lecture-2-data-wrangling.html"><span class="header-section-number">3</span> Lecture 2: Data wrangling</a></li>
+<li><a class="active" href="lecture-3-plots-and-table1.html"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></li>
+<li><a class="" href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></li>
+<li><a class="" href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
+<li><a class="" href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/thorj/laek101f">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-3-plots-and-table1" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> Lecture 3: Plots and table1<a class="anchor" aria-label="anchor" href="#lecture-3-plots-and-table1"><i class="fas fa-link"></i></a>
+</h1>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>  <span class="co"># General data wrangling &amp; plots</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span>      <span class="co"># Tables </span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span> <span class="co"># Fancy tables</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span>    <span class="co"># For pretty plots</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/benjaminrich/table1">table1</a></span><span class="op">)</span>     <span class="co"># Table1</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/">here</a></span><span class="op">)</span>       <span class="co"># paths</span></code></pre></div>
+<p>We begin by loading in our data:</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv2</a></span><span class="op">(</span><span class="st">"https://notendur.hi.is/thj73/data/pulseEn.csv"</span><span class="op">)</span>
+<span class="va">pulse</span>
+<span class="co">#&gt; # A tibble: 471 × 10</span>
+<span class="co">#&gt;       id height weight   age   sex smokes drinks firstPulse</span>
+<span class="co">#&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt;</span>
+<span class="co">#&gt;  1     1    161     60    23     1 no     no             83</span>
+<span class="co">#&gt;  2     2    185    115    52     2 &lt;NA&gt;   yes            80</span>
+<span class="co">#&gt;  3     3    167     NA    22     1 no     yes            43</span>
+<span class="co">#&gt;  4     4    174     67    21     1 no     yes            76</span>
+<span class="co">#&gt;  5     5    163     57    20     1 no     yes            71</span>
+<span class="co">#&gt;  6     6    175     59    20     1 no     yes            65</span>
+<span class="co">#&gt;  7     7    178     70    39     1 &lt;NA&gt;   yes            77</span>
+<span class="co">#&gt;  8     8    191     94    21     2 no     yes            79</span>
+<span class="co">#&gt;  9     9    176     68    20     1 no     yes            73</span>
+<span class="co">#&gt; 10    10    176     82    70     2 no     yes            65</span>
+<span class="co">#&gt; # … with 461 more rows, and 2 more variables:</span>
+<span class="co">#&gt; #   secondPulse &lt;dbl&gt;, intervention &lt;chr&gt;</span></code></pre></div>
+<p>The data <code>pulse</code> is based on an Icelandic data set the pulse of students was measured at two different time points. There were two groups; the control group which was stationary between the two measurements, and then the case group which were active between the two measurements. The original data was in Icelandic so I had to translate the columns and levels of the factor variables. I also omitted some variables for simplicity’s sake. If you are curious about the translation you can look at the Appendix at the bottom of this document.</p>
+<p>The goal of today’s lecture is to compare the two groups. We will do so graphically and with tables. We begin by using the <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code> function to get a brief overview of the data.</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">pulse</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 471</span>
+<span class="co">#&gt; Columns: 10</span>
+<span class="co">#&gt; $ id           &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12…</span>
+<span class="co">#&gt; $ height       &lt;dbl&gt; 161, 185, 167, 174, 163, 175, 178, 19…</span>
+<span class="co">#&gt; $ weight       &lt;dbl&gt; 60, 115, NA, 67, 57, 59, 70, 94, 68, …</span>
+<span class="co">#&gt; $ age          &lt;dbl&gt; 23, 52, 22, 21, 20, 20, 39, 21, 20, 7…</span>
+<span class="co">#&gt; $ sex          &lt;dbl&gt; 1, 2, 1, 1, 1, 1, 1, 2, 1, 2, 2, 2, 1…</span>
+<span class="co">#&gt; $ smokes       &lt;chr&gt; "no", NA, "no", "no", "no", "no", NA,…</span>
+<span class="co">#&gt; $ drinks       &lt;chr&gt; "no", "yes", "yes", "yes", "yes", "ye…</span>
+<span class="co">#&gt; $ firstPulse   &lt;dbl&gt; 83, 80, 43, 76, 71, 65, 77, 79, 73, 6…</span>
+<span class="co">#&gt; $ secondPulse  &lt;dbl&gt; 84, 103, 52, 105, 68, 65, 75, 83, 90,…</span>
+<span class="co">#&gt; $ intervention &lt;chr&gt; "stationary", "active", "stationary",…</span></code></pre></div>
+<p>We see that there are three <code>chr</code> variables (<code>smokes</code>, <code>drinks</code>, <code>intervention</code>) which we want to cast as factor variables. Furthermore, even though sex is a <code>dbl</code> we should cast as a factor variable as well.</p>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op">&lt;-</span>
+    <span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">sex</span><span class="op">)</span>, 
+           smokes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">smokes</span><span class="op">)</span>, 
+           drinks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">drinks</span><span class="op">)</span>, 
+           intervention <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">intervention</span>, 
+                                 levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'stationary'</span>, <span class="st">'active'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Having done so, we now use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function to get a quick overview of the data:</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pulse</span><span class="op">)</span>
+<span class="co">#&gt;        id            height           weight      </span>
+<span class="co">#&gt;  Min.   :  1.0   Min.   : 150.0   Min.   : 40.00  </span>
+<span class="co">#&gt;  1st Qu.:118.5   1st Qu.: 166.0   1st Qu.: 60.00  </span>
+<span class="co">#&gt;  Median :236.0   Median : 172.0   Median : 70.00  </span>
+<span class="co">#&gt;  Mean   :236.0   Mean   : 179.6   Mean   : 85.38  </span>
+<span class="co">#&gt;  3rd Qu.:353.5   3rd Qu.: 181.0   3rd Qu.: 81.00  </span>
+<span class="co">#&gt;  Max.   :471.0   Max.   :1725.0   Max.   :846.00  </span>
+<span class="co">#&gt;                  NA's   :1        NA's   :10      </span>
+<span class="co">#&gt;       age        sex      smokes     drinks   </span>
+<span class="co">#&gt;  Min.   :19.00   1:307   no  :412   no  : 76  </span>
+<span class="co">#&gt;  1st Qu.:20.00   2:164   yes : 46   yes :389  </span>
+<span class="co">#&gt;  Median :22.00           NA's: 13   NA's:  6  </span>
+<span class="co">#&gt;  Mean   :24.24                                </span>
+<span class="co">#&gt;  3rd Qu.:25.00                                </span>
+<span class="co">#&gt;  Max.   :70.00                                </span>
+<span class="co">#&gt;                                               </span>
+<span class="co">#&gt;    firstPulse      secondPulse         intervention</span>
+<span class="co">#&gt;  Min.   : 42.00   Min.   : 42.00   stationary:286  </span>
+<span class="co">#&gt;  1st Qu.: 64.00   1st Qu.: 68.00   active    :183  </span>
+<span class="co">#&gt;  Median : 71.50   Median : 77.00   NA's      :  2  </span>
+<span class="co">#&gt;  Mean   : 71.98   Mean   : 82.21                   </span>
+<span class="co">#&gt;  3rd Qu.: 80.00   3rd Qu.: 93.00                   </span>
+<span class="co">#&gt;  Max.   :120.00   Max.   :162.00                   </span>
+<span class="co">#&gt;  NA's   :17       NA's   :14</span></code></pre></div>
+<p>For the first time we see some missing values. Note the NA’s for <code>height</code>, <code>weight</code>, <code>firstPulse</code>, <code>secondPulse</code>, and so on. Missing values can be imputed but that is beyond the scope of this course. Instead, we are just going to remove them from our data with the <code><a href="https://rdrr.io/r/stats/na.fail.html">na.omit()</a></code> function.</p>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op">&lt;-</span> 
+    <span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>Let’s use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function again to see what has changed:</p>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">pulse</span><span class="op">)</span>
+<span class="co">#&gt;        id            height           weight      </span>
+<span class="co">#&gt;  Min.   :  1.0   Min.   : 150.0   Min.   : 40.00  </span>
+<span class="co">#&gt;  1st Qu.:116.2   1st Qu.: 165.0   1st Qu.: 60.00  </span>
+<span class="co">#&gt;  Median :237.5   Median : 172.0   Median : 70.00  </span>
+<span class="co">#&gt;  Mean   :237.1   Mean   : 180.3   Mean   : 84.89  </span>
+<span class="co">#&gt;  3rd Qu.:358.8   3rd Qu.: 181.0   3rd Qu.: 81.00  </span>
+<span class="co">#&gt;  Max.   :471.0   Max.   :1725.0   Max.   :846.00  </span>
+<span class="co">#&gt;       age        sex     smokes    drinks   </span>
+<span class="co">#&gt;  Min.   :19.00   1:275   no :384   no : 65  </span>
+<span class="co">#&gt;  1st Qu.:20.00   2:151   yes: 42   yes:361  </span>
+<span class="co">#&gt;  Median :22.00                              </span>
+<span class="co">#&gt;  Mean   :23.92                              </span>
+<span class="co">#&gt;  3rd Qu.:25.00                              </span>
+<span class="co">#&gt;  Max.   :70.00                              </span>
+<span class="co">#&gt;    firstPulse      secondPulse         intervention</span>
+<span class="co">#&gt;  Min.   : 43.00   Min.   : 45.00   stationary:257  </span>
+<span class="co">#&gt;  1st Qu.: 64.00   1st Qu.: 68.00   active    :169  </span>
+<span class="co">#&gt;  Median : 72.00   Median : 78.00                   </span>
+<span class="co">#&gt;  Mean   : 72.21   Mean   : 82.59                   </span>
+<span class="co">#&gt;  3rd Qu.: 80.00   3rd Qu.: 94.75                   </span>
+<span class="co">#&gt;  Max.   :120.00   Max.   :162.00</span></code></pre></div>
+<p>All the NA’s are gone but at the cost of a reduced data set. When you conduct your research its important that you try to minimize missing values as it affects the power of the study.</p>
+<div id="table-1" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Table 1<a class="anchor" aria-label="anchor" href="#table-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>The most important table we create is <em>table 1</em>. Table 1 contains all the descriptive statistics of our cohort, preferably stratified by case/control, but not necessarily. It is called table 1 because it is often the first table you see in a paper.</p>
+<p>There are many ways to create table 1 but I will only discuss how to do it with the <code>table1</code> package. Using <code>table1</code> is pretty simple. We begin by writing down all the variables we are interested in and we tell the function to stratify by the group of interest. For us, the <code>intervention</code> variable is the one we want to stratify by.</p>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/table1/man/table1.html">table1</a></span><span class="op">(</span><span class="op">~</span> <span class="va">firstPulse</span> <span class="op">+</span> <span class="va">secondPulse</span> <span class="op">+</span> <span class="va">height</span> <span class="op">+</span> <span class="va">weight</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">sex</span> <span class="op">+</span> <span class="va">smokes</span> <span class="op">+</span> <span class="va">drinks</span> <span class="op">|</span> <span class="va">intervention</span>, data <span class="op">=</span> <span class="va">pulse</span><span class="op">)</span></code></pre></div>
+<div class="Rtable1"><div class="inline-table"><table class="Rtable1">
+<thead><tr>
+<th class="rowlabel firstrow lastrow"></th>
+<th class="firstrow lastrow"><span class="stratlabel">stationary<br><span class="stratn">(N=257)</span></span></th>
+<th class="firstrow lastrow"><span class="stratlabel">active<br><span class="stratn">(N=169)</span></span></th>
+<th class="firstrow lastrow"><span class="stratlabel">Overall<br><span class="stratn">(N=426)</span></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="rowlabel firstrow">firstPulse</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Mean (SD)</td>
+<td>71.0 (11.0)</td>
+<td>74.0 (12.3)</td>
+<td>72.2 (11.6)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Median [Min, Max]</td>
+<td class="lastrow">71.0 [43.0, 120]</td>
+<td class="lastrow">72.0 [46.0, 114]</td>
+<td class="lastrow">72.0 [43.0, 120]</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">secondPulse</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Mean (SD)</td>
+<td>71.1 (12.0)</td>
+<td>100 (20.9)</td>
+<td>82.6 (21.5)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Median [Min, Max]</td>
+<td class="lastrow">70.0 [45.0, 120]</td>
+<td class="lastrow">96.0 [62.0, 162]</td>
+<td class="lastrow">78.0 [45.0, 162]</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">height</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Mean (SD)</td>
+<td>179 (97.3)</td>
+<td>183 (110)</td>
+<td>180 (103)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Median [Min, Max]</td>
+<td class="lastrow">171 [150, 1730]</td>
+<td class="lastrow">173 [152, 1610]</td>
+<td class="lastrow">172 [150, 1730]</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">weight</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Mean (SD)</td>
+<td>92.5 (118)</td>
+<td>73.3 (35.8)</td>
+<td>84.9 (95.1)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Median [Min, Max]</td>
+<td class="lastrow">70.0 [40.0, 846]</td>
+<td class="lastrow">70.0 [46.0, 495]</td>
+<td class="lastrow">70.0 [40.0, 846]</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">age</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">Mean (SD)</td>
+<td>23.7 (5.68)</td>
+<td>24.3 (8.26)</td>
+<td>23.9 (6.82)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">Median [Min, Max]</td>
+<td class="lastrow">22.0 [19.0, 54.0]</td>
+<td class="lastrow">21.0 [19.0, 70.0]</td>
+<td class="lastrow">22.0 [19.0, 70.0]</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">sex</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">1</td>
+<td>160 (62.3%)</td>
+<td>115 (68.0%)</td>
+<td>275 (64.6%)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">2</td>
+<td class="lastrow">97 (37.7%)</td>
+<td class="lastrow">54 (32.0%)</td>
+<td class="lastrow">151 (35.4%)</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">smokes</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">no</td>
+<td>230 (89.5%)</td>
+<td>154 (91.1%)</td>
+<td>384 (90.1%)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">yes</td>
+<td class="lastrow">27 (10.5%)</td>
+<td class="lastrow">15 (8.9%)</td>
+<td class="lastrow">42 (9.9%)</td>
+</tr>
+<tr>
+<td class="rowlabel firstrow">drinks</td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+<td class="firstrow"></td>
+</tr>
+<tr>
+<td class="rowlabel">no</td>
+<td>41 (16.0%)</td>
+<td>24 (14.2%)</td>
+<td>65 (15.3%)</td>
+</tr>
+<tr>
+<td class="rowlabel lastrow">yes</td>
+<td class="lastrow">216 (84.0%)</td>
+<td class="lastrow">145 (85.8%)</td>
+<td class="lastrow">361 (84.7%)</td>
+</tr>
+</tbody>
+</table></div></div>
+<p>We see a good summary of our data: means, ranges, standard deviations, number of observations, counts and percentages. By examining this table we get a good feel for the data in a relatively short time. Can you see a difference between the two groups? Do you see anything weird in the table?</p>
+<div id="note-using-tidyverse-functions" class="section level3" number="4.1.1">
+<h3>
+<span class="header-section-number">4.1.1</span> Note: using tidyverse functions<a class="anchor" aria-label="anchor" href="#note-using-tidyverse-functions"><i class="fas fa-link"></i></a>
+</h3>
+<p>It is actually possible to recreate the table above with <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>, and so on. It’s quite involved but if you want a challenge I encourage you to try it.</p>
+</div>
+</div>
+<div id="summarizing-the-data-with-plots" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Summarizing the data with plots<a class="anchor" aria-label="anchor" href="#summarizing-the-data-with-plots"><i class="fas fa-link"></i></a>
+</h2>
+<p>Tables are good and all but a picture is worth a thousand words; it’s time to create some plots.</p>
+<div id="scatter-plot-or-geom_point" class="section level3" number="4.2.1">
+<h3>
+<span class="header-section-number">4.2.1</span> Scatter plot or <code>geom_point()</code><a class="anchor" aria-label="anchor" href="#scatter-plot-or-geom_point"><i class="fas fa-link"></i></a>
+</h3>
+<p>We have seen this one before. Let’s plot the values of <code>firstPulse</code> against <code>secondPulse</code> and color points based on whether the observation is from the active or stationary group.</p>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">firstPulse</span>, y <span class="op">=</span> <span class="va">secondPulse</span>, color <span class="op">=</span> <span class="va">intervention</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<p>There is a lot of information on this simple graph. We see that:</p>
+<ol style="list-style-type: decimal">
+<li><p>For the stationary group, the higher their starting pulse, the higher their second pulse (in general).</p></li>
+<li><p>The active group has a much higher second pulse.</p></li>
+<li><p>One individual in the stationary group has a much higher second pulse relative to their starting pulse. Why?</p></li>
+</ol>
+<p>This plot is nice and all but we should invest some time into making it more aesthetically pleasing. We will pick sharper colors, relabel our axes, and move the legend down to the bottom of the graph. We will also load a theme for the plot from the <code>cowplots</code> package.</p>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">firstPulse</span>, y <span class="op">=</span> <span class="va">secondPulse</span>, color <span class="op">=</span> <span class="va">intervention</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Change color</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'First measurement'</span>, 
+         y <span class="op">=</span> <span class="st">'Second measurement'</span>, 
+         color <span class="op">=</span> <span class="st">'Intervention'</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Change labels on axes, change legend</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>    <span class="co"># change the theme</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<p>Note that “aesthetically pleasing” is relative.</p>
+</div>
+<div id="data-distribution-plots-or-geom_histogram" class="section level3" number="4.2.2">
+<h3>
+<span class="header-section-number">4.2.2</span> Data distribution plots or <code>geom_histogram()</code><a class="anchor" aria-label="anchor" href="#data-distribution-plots-or-geom_histogram"><i class="fas fa-link"></i></a>
+</h3>
+<p>We have multiple continuous variables to play with. Let’s look at the distribution of the pulse measurements.</p>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">firstPulse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span>
+<span class="co">#&gt; `binwidth`.</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">secondPulse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span>
+<span class="co">#&gt; `binwidth`.</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+<p>When we look at first picture we see that the most of the “mass” is between 60 and 80. This is in agreement with what we saw in table 1. The second picture shows that the distribution is bimodal; that is, there seem to be two peaks. This is also consistent with what we have seen before as there are two groups with the active group having a much larger second pulse measurement.</p>
+<p>Maybe if we color the second histogram using the intervention variable we can better see these two peaks.</p>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">secondPulse</span>, fill <span class="op">=</span> <span class="va">intervention</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span>
+<span class="co">#&gt; `binwidth`.</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
+<p>This is better but again we should invest some time into cleaning the graph. We will repeat the steps for the scatter plot with one addition; we will make colors a little transparent with the <code>alpha</code> parameter as the two histograms overlap each other.</p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">secondPulse</span>, fill <span class="op">=</span> <span class="va">intervention</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span>, position <span class="op">=</span> <span class="st">'identity'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Second measurement'</span>, 
+         fill <span class="op">=</span> <span class="st">'Intervention'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span>
+<span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span>
+<span class="co">#&gt; `binwidth`.</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
+</div>
+<div id="geom_boxplot-as-an-alternative-to-geom_histogram" class="section level3" number="4.2.3">
+<h3>
+<span class="header-section-number">4.2.3</span> <code>geom_boxplot()</code> as an alternative to <code>geom_histogram()</code><a class="anchor" aria-label="anchor" href="#geom_boxplot-as-an-alternative-to-geom_histogram"><i class="fas fa-link"></i></a>
+</h3>
+<p>Another important plot which compares the distribution of two or more variables is the boxplot. The boxplot shows us the range of the data, outliers, and the median.</p>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">intervention</span>, y <span class="op">=</span> <span class="va">secondPulse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<p>This basically contains the same information as histogram. Can you see it?</p>
+</div>
+<div id="geom_density-as-an-alternative-to-geom_histogram-and-geom_boxplot" class="section level3" number="4.2.4">
+<h3>
+<span class="header-section-number">4.2.4</span> <code>geom_density()</code> as an alternative to <code>geom_histogram()</code> and <code>geom_boxplot()</code><a class="anchor" aria-label="anchor" href="#geom_density-as-an-alternative-to-geom_histogram-and-geom_boxplot"><i class="fas fa-link"></i></a>
+</h3>
+<p>This is another (essentially) version of the previous two plots.</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">secondPulse</span>, fill <span class="op">=</span> <span class="va">intervention</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Second measurement'</span>, 
+         fill <span class="op">=</span> <span class="st">'Intervention'</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
+</div>
+<div id="barplots-for-discrete-variables-geom_bar" class="section level3" number="4.2.5">
+<h3>
+<span class="header-section-number">4.2.5</span> Barplots for discrete variables <code>geom_bar()</code><a class="anchor" aria-label="anchor" href="#barplots-for-discrete-variables-geom_bar"><i class="fas fa-link"></i></a>
+</h3>
+<p>So far we have only been paying attention to the continuous variable. Let’s turn our attention to the discrete ones. The discrete variables are <code>sex</code>, <code>smoker</code>, <code>drinks</code> and <code>intervention</code>.</p>
+<p>Let’s plot the barplot for <code>sex</code>:</p>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="03-lecture3_files/figure-html/unnamed-chunk-17-1.png" width="672">
+This is honestly a pretty boring plot. We can spice things up a little by adding the <code>intervention</code> variable.</p>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sex</span>, fill <span class="op">=</span> <span class="va">intervention</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
+<p>The bars are stacked on top of each other which is annoying. It would be better if they were side-by-side.</p>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sex</span>, fill <span class="op">=</span> <span class="va">intervention</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>position <span class="op">=</span> <span class="st">'dodge'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<p>Of course we can improve the aesthetics of the graph like we did with the other ones.</p>
+</div>
+<div id="splitting-plots-into-facets-with-facet_grid" class="section level3" number="4.2.6">
+<h3>
+<span class="header-section-number">4.2.6</span> Splitting plots into facets with <code>facet_grid()</code><a class="anchor" aria-label="anchor" href="#splitting-plots-into-facets-with-facet_grid"><i class="fas fa-link"></i></a>
+</h3>
+<p>Recall the scatter plot from before:</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">firstPulse</span>, y <span class="op">=</span> <span class="va">secondPulse</span>, color <span class="op">=</span> <span class="va">intervention</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Change color</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'First measurement'</span>, 
+         y <span class="op">=</span> <span class="st">'Second measurement'</span>, 
+         color <span class="op">=</span> <span class="st">'Intervention'</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Change labels on axes, change legend</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>    <span class="co"># change the theme</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
+<p>Instead of having the points for static and activity together we can split the plot in two. The code needs to be modified a little but it’s not that much work.</p>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">firstPulse</span>, y <span class="op">=</span> <span class="va">secondPulse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'First measurement'</span>, 
+         y <span class="op">=</span> <span class="st">'Second measurement'</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Change labels on axes, change legend +</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="op">~</span><span class="va">intervention</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>    <span class="co"># change the theme</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="03-lecture3_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+<p>Each group gets its own plot. Sometimes it’s easier to compare plots this way.</p>
+</div>
+</div>
+<div id="saving-our-plots" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> Saving our plots<a class="anchor" aria-label="anchor" href="#saving-our-plots"><i class="fas fa-link"></i></a>
+</h2>
+<p>We use the <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave()</a></code> function to save our plots locally. Before save a plot we need to store it as an object in memory. Let’s save our scatter plot.</p>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">p</span> <span class="op">&lt;-</span> 
+    <span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">firstPulse</span>, y <span class="op">=</span> <span class="va">secondPulse</span>, color <span class="op">=</span> <span class="va">intervention</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Change color</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'First measurement'</span>, 
+         y <span class="op">=</span> <span class="st">'Second measurement'</span>, 
+         color <span class="op">=</span> <span class="st">'Intervention'</span><span class="op">)</span> <span class="op">+</span> <span class="co"># Change labels on axes, change legend</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>    <span class="co"># change the theme</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html">ggsave</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">'img'</span>, <span class="st">'scatterPlot.png'</span><span class="op">)</span>, plot <span class="op">=</span> <span class="va">p</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">6</span>, dpi <span class="op">=</span> <span class="fl">320</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="appendix-1" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> Appendix<a class="anchor" aria-label="anchor" href="#appendix-1"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/">here</a></span><span class="op">)</span>
+
+<span class="va">puls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv2</a></span><span class="op">(</span><span class="st">"https://edbook.hi.is/gogn/pulsAll.csv"</span><span class="op">)</span>
+
+<span class="va">puls2</span> <span class="op">&lt;-</span>
+    <span class="va">puls</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>course <span class="op">=</span> <span class="va">namskeid</span>, 
+           coin <span class="op">=</span> <span class="va">kronukast</span>, 
+           height <span class="op">=</span> <span class="va">haed</span>, 
+           weight <span class="op">=</span> <span class="va">thyngd</span>, 
+           age <span class="op">=</span> <span class="va">aldur</span>,
+           sex <span class="op">=</span> <span class="va">kyn</span>, 
+           smokes <span class="op">=</span> <span class="va">reykir</span>,
+           drinks <span class="op">=</span> <span class="va">drekkur</span>, 
+           gym <span class="op">=</span> <span class="va">likamsraekt</span>, 
+           firstPulse <span class="op">=</span> <span class="va">fyrriPuls</span>,
+           secondPulse <span class="op">=</span> <span class="va">seinniPuls</span>, 
+           intervention <span class="op">=</span> <span class="va">inngrip</span>,
+           date <span class="op">=</span> <span class="va">dagsetning</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">height</span>, <span class="va">weight</span>, <span class="va">age</span>, <span class="va">sex</span>, <span class="va">smokes</span>, 
+           <span class="va">drinks</span>, <span class="va">firstPulse</span>, <span class="va">secondPulse</span>, <span class="va">intervention</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>smokes <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">smokes</span> <span class="op">==</span> <span class="st">'ja'</span> <span class="op">~</span> <span class="st">'yes'</span>, 
+                              <span class="va">smokes</span> <span class="op">==</span> <span class="st">'nei'</span> <span class="op">~</span> <span class="st">'no'</span><span class="op">)</span>, 
+           drinks <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">drinks</span> <span class="op">==</span> <span class="st">'ja'</span> <span class="op">~</span> <span class="st">'yes'</span>,
+                              <span class="va">drinks</span> <span class="op">==</span> <span class="st">'nei'</span> <span class="op">~</span> <span class="st">'no'</span><span class="op">)</span>, 
+           intervention <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">intervention</span> <span class="op">==</span> <span class="st">'hljop'</span> <span class="op">~</span> <span class="st">'active'</span>, 
+                                    <span class="va">intervention</span> <span class="op">==</span> <span class="st">'sat_kyrr'</span> <span class="op">~</span> <span class="st">'stationary'</span><span class="op">)</span>, 
+           id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">puls</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">id</span>, .before <span class="op">=</span> <span class="st">'height'</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">puls2</span>, file <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">'data'</span>, <span class="st">'pulseEn.csv'</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">';'</span>, row.names <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-2-data-wrangling.html"><span class="header-section-number">3</span> Lecture 2: Data wrangling</a></div>
+<div class="next"><a href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-3-plots-and-table1"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></li>
+<li>
+<a class="nav-link" href="#table-1"><span class="header-section-number">4.1</span> Table 1</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#note-using-tidyverse-functions"><span class="header-section-number">4.1.1</span> Note: using tidyverse functions</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#summarizing-the-data-with-plots"><span class="header-section-number">4.2</span> Summarizing the data with plots</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#scatter-plot-or-geom_point"><span class="header-section-number">4.2.1</span> Scatter plot or geom_point()</a></li>
+<li><a class="nav-link" href="#data-distribution-plots-or-geom_histogram"><span class="header-section-number">4.2.2</span> Data distribution plots or geom_histogram()</a></li>
+<li><a class="nav-link" href="#geom_boxplot-as-an-alternative-to-geom_histogram"><span class="header-section-number">4.2.3</span> geom_boxplot() as an alternative to geom_histogram()</a></li>
+<li><a class="nav-link" href="#geom_density-as-an-alternative-to-geom_histogram-and-geom_boxplot"><span class="header-section-number">4.2.4</span> geom_density() as an alternative to geom_histogram() and geom_boxplot()</a></li>
+<li><a class="nav-link" href="#barplots-for-discrete-variables-geom_bar"><span class="header-section-number">4.2.5</span> Barplots for discrete variables geom_bar()</a></li>
+<li><a class="nav-link" href="#splitting-plots-into-facets-with-facet_grid"><span class="header-section-number">4.2.6</span> Splitting plots into facets with facet_grid()</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#saving-our-plots"><span class="header-section-number">4.3</span> Saving our plots</a></li>
+<li><a class="nav-link" href="#appendix-1"><span class="header-section-number">4.4</span> Appendix</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/thorj/laek101f/blob/master/03-lecture3.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/thorj/laek101f/edit/master/03-lecture3.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-16.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

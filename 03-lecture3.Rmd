@@ -1,4 +1,4 @@
-# Lecture 3
+# Lecture 3: Plots and table1
 
 ```{r, warning = F, message = F}
 library(tidyverse)  # General data wrangling & plots
@@ -252,6 +252,6 @@ ggsave(filename = here('img', 'scatterPlot.png'), plot = p, width = 8, height = 
 
 ## Appendix
 
-```{r, eval = F, code = readLines(here('data', 'cleanPuls.R'))}
+```{r, eval = F, code = readLines(here('scripts', 'cleanPuls.R'))}
 ```
 

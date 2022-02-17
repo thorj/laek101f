@@ -1,4 +1,4 @@
-# Lecture 2
+# Lecture 2: Data wrangling
 
 ```{r, message=F, warning = F}
 library(tidyverse)
@@ -284,6 +284,6 @@ dummyXLSX %>%
 
 ## Appendix
 
-```{r, eval = F, code = readLines(here('data', 'createFakeData.R'))}
+```{r, eval = F, code = readLines(here('scripts', 'createFakeData.R'))}
 ```
 

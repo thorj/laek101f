@@ -1,4 +1,4 @@
-# Lecture 1
+# Lecture 1: R and R basics
 
 ```{r, echo =  F, warning = F, message = F}
 library(tidyverse)

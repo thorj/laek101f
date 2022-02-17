@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 6 Lecture 5: Inference | LÆK101F: General statistics, course for M.Sc. and Ph.D students</title>
+<meta name="author" content="Þórarinn Jónmundsson">
+<meta name="description" content="So far we have been doing descriptive statistics. We have computed stuff like means, standard deviations and so on. The purpose of descriptive statistics is to allow us get a feel for the data and...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 6 Lecture 5: Inference | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta property="og:type" content="book">
+<meta property="og:description" content="So far we have been doing descriptive statistics. We have computed stuff like means, standard deviations and so on. The purpose of descriptive statistics is to allow us get a feel for the data and...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 6 Lecture 5: Inference | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta name="twitter:description" content="So far we have been doing descriptive statistics. We have computed stuff like means, standard deviations and so on. The purpose of descriptive statistics is to allow us get a feel for the data and...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/table1-1.0/table1_defaults.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">LÆK101F: General statistics, course for M.Sc. and Ph.D students</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> General information</a></li>
+<li><a class="" href="lecture-1-r-and-r-basics.html"><span class="header-section-number">2</span> Lecture 1: R and R basics</a></li>
+<li><a class="" href="lecture-2-data-wrangling.html"><span class="header-section-number">3</span> Lecture 2: Data wrangling</a></li>
+<li><a class="" href="lecture-3-plots-and-table1.html"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></li>
+<li><a class="" href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></li>
+<li><a class="active" href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
+<li><a class="" href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/thorj/laek101f">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-5-inference" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> Lecture 5: Inference<a class="anchor" aria-label="anchor" href="#lecture-5-inference"><i class="fas fa-link"></i></a>
+</h1>
+<p>So far we have been doing descriptive statistics. We have computed stuff like means, standard deviations and so on. The purpose of descriptive statistics is to allow us get a feel for the data and explore whether our research question can be answered by the data. Once we have done the descriptives, we must confirm them with statistical tests. Eyeballing is not enough. The goal of this lecture is to give you the tools necessary to answer simple research questions with statistics.</p>
+<div id="the-population-and-the-sample" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> The population and the sample<a class="anchor" aria-label="anchor" href="#the-population-and-the-sample"><i class="fas fa-link"></i></a>
+</h2>
+<p>I’ve made some cryptic references to “populations” and “samples”. The <em>population</em> is the group we are interested in investigating <strong>in its entirety</strong>. If the study is about the average height of Europeans then the population is the entire population of Europe. Obviously it is impossible to measure every single individual in Europe so instead we have to make to with a <em>sample</em>; a randomly selected subgroup of the population. We examine our sample to make inferences about the population.</p>
+<p>Note that population is unique but we can have many samples from the same population.</p>
+</div>
+<div id="sample-statistics" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> Sample statistics<a class="anchor" aria-label="anchor" href="#sample-statistics"><i class="fas fa-link"></i></a>
+</h2>
+<p>We are interested in <em>statistics</em>. A statistic is any function of the sample. For example, assume that we measure the height of ten individuals and we then compute the mean of those measurements. Here, the mean is our <em>statistic</em> because it is a function of the data (the measurements). Since the mean is a function of the sample, and the sample is random, then the mean inherits this property and <strong>is itself stochastic</strong>. Be careful! Once we have taken the measurements they are deterministic and <strong>not</strong> stochastic.</p>
+<p>Let’s create an example to illustrate this property. We will create a “fake” population and then we will repeatedly sample it and compute the mean of the sample.</p>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># The population</span>
+<span class="va">population</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">181</span>, <span class="fl">191</span>, <span class="fl">171</span>, <span class="fl">151</span>, <span class="fl">161</span>, <span class="fl">171</span>, <span class="fl">172</span>, 
+                <span class="fl">175</span>, <span class="fl">165</span>, <span class="fl">183</span>, <span class="fl">201</span>, <span class="fl">151</span>, <span class="fl">159</span>, <span class="fl">153</span>, <span class="fl">165</span><span class="op">)</span>
+<span class="co"># Let's draw 5 samples from the population, each of size 4 </span>
+<span class="co"># and compute the mean. </span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">7783</span><span class="op">)</span>
+<span class="va">means</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">population</span>, size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co"># Make output more readable</span>
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">means</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'mean1'</span>, <span class="st">'mean2'</span>, <span class="st">'mean3'</span>, <span class="st">'mean4'</span>, <span class="st">'mean5'</span><span class="op">)</span>
+<span class="va">means</span>
+<span class="co">#&gt;  mean1  mean2  mean3  mean4  mean5 </span>
+<span class="co">#&gt; 167.25 178.00 159.50 174.50 183.75</span></code></pre></div>
+<p>As you can see, each of our samples gave a different mean.</p>
+</div>
+<div id="properties-of-the-mean-of-the-sample" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> Properties of the mean of the sample<a class="anchor" aria-label="anchor" href="#properties-of-the-mean-of-the-sample"><i class="fas fa-link"></i></a>
+</h2>
+<p>Let us denote the mean of the sample <strong>before we observe the sample</strong> with <span class="math inline">\(\bar{X}\)</span> and the mean of the <strong>observed sample</strong> with <span class="math inline">\(\bar{x}\)</span>. Here <span class="math inline">\(\bar{X}\)</span> is a random variable and <span class="math inline">\(\bar{x}\)</span> is its outcome. Since <span class="math inline">\(\bar{X}\)</span> is a random variable it has distributional properties: it has an expected value and variance.</p>
+<p>If <span class="math inline">\(X_1, X_2, \ldots , X_n\)</span> are independent and identically distributed variables, each with the same expected value <span class="math inline">\(E(X_i) = \mu\)</span> and the same variance <span class="math inline">\(Var(X_i) = \sigma ^2\)</span> then:</p>
+<p><span class="math display">\[
+E(\bar{X}) = \mu, \quad Var(\bar{X}) = \frac{\sigma ^2}{n}.
+\]</span></p>
+<p>You may have heard about the standard error before. The standard error is simply the standard deviation of our random variable <span class="math inline">\(\bar{X}\)</span>; namely, <span class="math inline">\(SE(\bar{X}) = \sigma/\sqrt{n}\)</span>. It gets its own name because it is so commonly used.</p>
+<p>Finally, if we assume that our sample <span class="math inline">\(X_1, X_,2, \ldots , X_n\)</span> comes from the normal distribution with parameters <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> then <span class="math inline">\(\bar{X}\)</span> is also normally distributed with parameters <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma / \sqrt{n}\)</span>.</p>
+<p>Let’s create an example like we did before. We will draw a sample of size 25 from a standard normal distribution 5000 times. We will then compute the mean of each sample and store it. After the simulation has run its course, we will compute the mean and standard deviation of the 5000 means and then finally plot them. We expect the sample mean to 0, the standard deviation to be <span class="math inline">\(1/\sqrt{25}\)</span>. Finally, we expect the histogram of the means to resemble the normal distribution.</p>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">nMeans</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html">colMeans</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">replicate</a></span><span class="op">(</span><span class="fl">5000</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">25</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> 
+<span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>parameter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'mean'</span>, <span class="st">'standard deviation'</span><span class="op">)</span>,
+       theoretical <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">/</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">25</span><span class="op">)</span><span class="op">)</span>, 
+       simulation <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">nMeans</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">nMeans</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+parameter
+</th>
+<th style="text-align:right;">
+theoretical
+</th>
+<th style="text-align:right;">
+simulation
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+mean
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0020905
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+standard deviation
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:right;">
+0.1967958
+</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>means <span class="op">=</span> <span class="va">nMeans</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">means</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with</span>
+<span class="co">#&gt; `binwidth`.</span></code></pre></div>
+<div class="inline-figure"><img src="05-lecture5_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+</div>
+<div id="the-estimator" class="section level2" number="6.4">
+<h2>
+<span class="header-section-number">6.4</span> The estimator<a class="anchor" aria-label="anchor" href="#the-estimator"><i class="fas fa-link"></i></a>
+</h2>
+<p>An estimator is a statistic that estimates the parameters of a model. We have already seen a few parameters before such as the success probability <span class="math inline">\(p\)</span> of the binomial distribution and <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\sigma\)</span> of the normal distribution.</p>
+<div id="proportions-and-means" class="section level3" number="6.4.1">
+<h3>
+<span class="header-section-number">6.4.1</span> Proportions and means<a class="anchor" aria-label="anchor" href="#proportions-and-means"><i class="fas fa-link"></i></a>
+</h3>
+<p>The same estimator works for <span class="math inline">\(\mu\)</span> and <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[
+\hat{\mu} = \frac{\sum _ {i = 1} ^n X_ i}{n} = \hat{p}
+\]</span></p>
+<p>Here is an example for the binomial distribution. Imagine a population of 50 people. Each person can be diabetic or not. It is in our interest to determine the proportion of people who are diabetic. Unfortunately we could only secure enough grant money to test 20 people.</p>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">847</span><span class="op">)</span>
+<span class="va">diabetesPref</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">rbinom</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">50</span>, size <span class="op">=</span> <span class="fl">1</span>, prob <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span>
+<span class="co"># This is the true population</span>
+<span class="va">diabetesPref</span>
+<span class="co">#&gt;  [1] 1 1 1 0 0 0 0 0 0 0 0 1 1 0 0 1 0 1 0 0 0 0 1 1 1 1 0 0</span>
+<span class="co">#&gt; [29] 1 0 0 0 1 0 0 0 1 1 0 0 0 0 0 1 0 0 0 0 0 0</span>
+<span class="co"># Sample 20 people</span>
+<span class="va">sampleDia</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">diabetesPref</span>, size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">sampleDia</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.25</span></code></pre></div>
+<p>As you can see, the estimate of <span class="math inline">\(p\)</span> was 0.25 which is pretty close to the population proportion.</p>
+</div>
+<div id="variance-1" class="section level3" number="6.4.2">
+<h3>
+<span class="header-section-number">6.4.2</span> Variance<a class="anchor" aria-label="anchor" href="#variance-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>We denote the estimator of the variance with <span class="math inline">\(S^2\)</span>. It is defined as:</p>
+<p><span class="math display">\[
+S^2 = \frac{\sum _ {i = 1} ^n (X_i - \bar{X})^2}{n - 1}.
+\]</span></p>
+<p>Once we have seen the data we denote the <em>estimate</em> with <span class="math inline">\(s^2\)</span>. If we wanted the estimate of the standard deviation we simply take the square root of <span class="math inline">\(s^2\)</span>.</p>
+</div>
+</div>
+<div id="confidence-intervals" class="section level2" number="6.5">
+<h2>
+<span class="header-section-number">6.5</span> Confidence intervals<a class="anchor" aria-label="anchor" href="#confidence-intervals"><i class="fas fa-link"></i></a>
+</h2>
+<p>So far we have only considered point estimates. As you saw in the mean example, our point estimates were dependent on our sample. The probability of our point estimator being exactly equal to the parameter we are trying to estimate is 0 (remember our discussion about continuous random variables). We also saw that as we increased the sample size, or we were allowed to repeat our sampling, we approached the true parameter value. Now, both of these are impossible in real life. Our sample size is often restricted due to external factors (often many) and we can’t easily repeat experiments.</p>
+<p>Luckily, there is a solution to this problem: confidence intervals. We construct confidence interval around our point estimates to get a sense of what other estimates are likely. The wider our confidence intervals, the more likely we are to catch the true parameter. You have probably seen terms like 95% confidence interval or 99.5% confidence interval. These percentages reflect the proportion of times that the true parameter value is contained in the interval <strong>IF</strong> we could repeat the experiment infinitely often. If this sounds weird, that’s because it is. Please note the parameter <strong>never changes</strong>, only our estimates.</p>
+<p>More generally we speak of a <span class="math inline">\(1 - \alpha\)</span> confidence interval where <span class="math inline">\(\alpha\)</span> is our accepted type I error probability. For example, if we are interested in the 95% confidence interval, we accept the type I error probability to 5% and <span class="math inline">\(alpha = 0.05\)</span>.</p>
+<p>What is the type I error probability? In this instance it is the proportion if confidence intervals we construct around our point estimates that don’t contain the true parameter value.</p>
+<p>To create confidence intervals we need to compute <em>test statistics</em>. More on those later.</p>
+</div>
+<div id="hypothesis-tests" class="section level2" number="6.6">
+<h2>
+<span class="header-section-number">6.6</span> Hypothesis tests<a class="anchor" aria-label="anchor" href="#hypothesis-tests"><i class="fas fa-link"></i></a>
+</h2>
+<p>An alternative to confidence intervals are hypothesis tests. A hypothesis test has two components: the null hypothesis <span class="math inline">\(H_0\)</span> and the alternative hypothesis <span class="math inline">\(H_1\)</span>. The null hypothesis is often some bland, boring scenario we want to reject. For example, if we two groups, one on a placebo and the other on the actual drug, the null hypothesis could be that there is no difference between the groups. This is obviously a very boring result from the perspective of the pharmaceutical company which wants to demonstrate the efficacy of its drug. The alternative hypothesis is then the scenario we are interested in i.e. there is a difference between the groups.</p>
+<p>So how do we go about this? After we have defined our hypothesis test we assume that the null hypothesis is true. We then use our data to construct a <em>test</em> statistic to <em>test</em> the null hypothesis. Often the test statistic will have a well known probability distribution; if the test statistic is “unlikely enough” given the null hypothesis, we use that as evidence to reject the null hypothesis.</p>
+<p>Important: <strong>we never accept the null hypothesis</strong>.</p>
+<div id="the-orientation-of-the-hypothesis-test" class="section level3" number="6.6.1">
+<h3>
+<span class="header-section-number">6.6.1</span> The orientation of the hypothesis test<a class="anchor" aria-label="anchor" href="#the-orientation-of-the-hypothesis-test"><i class="fas fa-link"></i></a>
+</h3>
+<p>Our hypothesis test can be one-sided or two-sided. An example of a one-sided test is:</p>
+<p><span class="math display">\[
+\begin{aligned}
+H_0&amp;: \mbox{the mean cholesterol of group A equal to the mean of group B} \\
+H_1&amp;: \mbox{the mean cholesterol of group A is smaller than the mean of group B}
+\end{aligned}
+\]</span></p>
+<p>An example of a two-sided test is:</p>
+<p><span class="math display">\[
+\begin{aligned}
+H_0&amp;: \mbox{the mean cholesterol of group A equal to the mean of group B} \\
+H_1&amp;: \mbox{the mean cholesterol of group A is not equal than the mean of group B}
+\end{aligned}
+\]</span></p>
+</div>
+<div id="the-test-statistic-of-the-hypothesis-test" class="section level3" number="6.6.2">
+<h3>
+<span class="header-section-number">6.6.2</span> The test statistic of the hypothesis test<a class="anchor" aria-label="anchor" href="#the-test-statistic-of-the-hypothesis-test"><i class="fas fa-link"></i></a>
+</h3>
+<p>A test statistic is a statistic which we can use to reject the null hypothesis. An example of a test statistic is:</p>
+<p><span class="math display">\[
+t = \frac{\bar{X} - \mu}{S/\sqrt{n}} 
+\]</span></p>
+<p>which we will use to perform <span class="math inline">\(t\)</span>-tests. Note that the test statistic is based on the sample and is thus a random variable with a distribution. We will compare the computed test statistic to the theoretical distribution (under the null).</p>
+<p>It’s important to know which test statistic to compute. If we are looking at means and we assume the normal distribution, the appropriate test is the <span class="math inline">\(t\)</span>-test. We need the <span class="math inline">\(t\)</span>-test because we don’t know the standard deviation of the population distribution.</p>
+</div>
+<div id="the-rejection-region" class="section level3" number="6.6.3">
+<h3>
+<span class="header-section-number">6.6.3</span> The rejection region<a class="anchor" aria-label="anchor" href="#the-rejection-region"><i class="fas fa-link"></i></a>
+</h3>
+<p>As we said before, we reject the null if our test statistic is unreasonable given the null hypothesis. The rejection region is the area of the distribution of the test statistic which contains all the values which will lead to a rejection of the null hypothesis. The rejection region is always at the tails of the distribution.</p>
+<div class="inline-figure">
+<img src="05-lecture5_files/figure-html/unnamed-chunk-7-1.png" width="672">
+If our computed test statistic is in the red region we reject the null. Otherwise, we cannot reject the null.</div>
+</div>
+<div id="the-p-value" class="section level3" number="6.6.4">
+<h3>
+<span class="header-section-number">6.6.4</span> The <span class="math inline">\(p\)</span>-value<a class="anchor" aria-label="anchor" href="#the-p-value"><i class="fas fa-link"></i></a>
+</h3>
+<p>Assume <span class="math inline">\(t\)</span> is some test statistic. The <span class="math inline">\(p\)</span>-value of a hypothesis test is the probability of seeing a larger test statistic than <span class="math inline">\(t\)</span> given that the null hypothesis is true. If the <span class="math inline">\(p\)</span>-value is smaller than some <strong>predefined</strong> significance threshold <span class="math inline">\(\alpha\)</span> we use that as evidence to support the decision to reject the null hypothesis.</p>
+</div>
+<div id="power-and-errors" class="section level3" number="6.6.5">
+<h3>
+<span class="header-section-number">6.6.5</span> Power and errors<a class="anchor" aria-label="anchor" href="#power-and-errors"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <em>power</em> of a test is the probability of rejecting a null hypothesis that should be rejected. We can increase statistical power by increasing our sample size.</p>
+<p>We commit a type I error when we reject a null hypothesis when we shouldn’t (false positive). Similarly, we commit a type II error when we <em>do not</em> reject a null hypothesis when we should (false negative).</p>
+</div>
+</div>
+<div id="examples" class="section level2" number="6.7">
+<h2>
+<span class="header-section-number">6.7</span> Examples<a class="anchor" aria-label="anchor" href="#examples"><i class="fas fa-link"></i></a>
+</h2>
+<p>We will use the <code>pulseEn.csv</code> data.</p>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op">&lt;-</span> 
+    <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv2</a></span><span class="op">(</span><span class="st">'https://notendur.hi.is/thj73/data/pulseEn.csv'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># Remove NA</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">height</span> <span class="op">&lt;</span> <span class="fl">300</span><span class="op">)</span> <span class="co"># Remove two weird height values</span></code></pre></div>
+<div id="the-simple-t-test" class="section level3" number="6.7.1">
+<h3>
+<span class="header-section-number">6.7.1</span> The simple <span class="math inline">\(t\)</span>-test<a class="anchor" aria-label="anchor" href="#the-simple-t-test"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s see if the average height of <code>pulseEn</code> differs from 150 cm significantly. To do so we use the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function. The parameter value of <code>mu</code> is 0 by default so we need to change it to the value we want to test.</p>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">pulse</span><span class="op">$</span><span class="va">height</span>, mu <span class="op">=</span> <span class="fl">150</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  One Sample t-test</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; data:  pulse$height</span>
+<span class="co">#&gt; t = 48.684, df = 423, p-value &lt; 2.2e-16</span>
+<span class="co">#&gt; alternative hypothesis: true mean is not equal to 150</span>
+<span class="co">#&gt; 95 percent confidence interval:</span>
+<span class="co">#&gt;  172.3950 174.2795</span>
+<span class="co">#&gt; sample estimates:</span>
+<span class="co">#&gt; mean of x </span>
+<span class="co">#&gt;  173.3373</span></code></pre></div>
+<p>The <span class="math inline">\(p\)</span>-value is tiny. We strongly reject the null hypothesis.</p>
+<p>The test statistic of this test can be computed as:</p>
+<p><span class="math display">\[
+t = \frac{\bar{x} - \mu _ 0}{s/\sqrt{n}}
+\]</span></p>
+</div>
+<div id="a-small-t-test-app" class="section level3" number="6.7.2">
+<h3>
+<span class="header-section-number">6.7.2</span> A small <span class="math inline">\(t\)</span>-test app<a class="anchor" aria-label="anchor" href="#a-small-t-test-app"><i class="fas fa-link"></i></a>
+</h3>
+<p><a href="https://qx6oyz-0rarinn-j0nmundsson.shinyapps.io/ttest/">Click me!</a></p>
+</div>
+<div id="the-t-test-for-groups" class="section level3" number="6.7.3">
+<h3>
+<span class="header-section-number">6.7.3</span> The <span class="math inline">\(t\)</span>-test for groups<a class="anchor" aria-label="anchor" href="#the-t-test-for-groups"><i class="fas fa-link"></i></a>
+</h3>
+<p>Our variable of interest is the height of our sample. Our hypothesis test is as follows:</p>
+<p><span class="math display">\[
+\begin{aligned}
+H_0:&amp; \mbox{The mean height of the intervention groups is the same} \\
+H_1:&amp; \mbox{The mean height of the intervention groups is not the same}
+\end{aligned}
+\]</span></p>
+<p>We begin by inspecting the variables graphically:</p>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">intervention</span>, y <span class="op">=</span> <span class="va">height</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="05-lecture5_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<p>As we can see the difference between the groups is little, at least height-wise. This makes us suspect that we will be unable to reject the null hypothesis that the mean height of the groups is different. Let’s confirm this by performing a <span class="math inline">\(t\)</span>-test with the <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> function:</p>
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">height</span> <span class="op">~</span> <span class="va">intervention</span>, data <span class="op">=</span> <span class="va">pulse</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  Welch Two Sample t-test</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; data:  height by intervention</span>
+<span class="co">#&gt; t = 1.7387, df = 365.06, p-value = 0.08292</span>
+<span class="co">#&gt; alternative hypothesis: true difference in means between group active and group stationary is not equal to 0</span>
+<span class="co">#&gt; 95 percent confidence interval:</span>
+<span class="co">#&gt;  -0.221251  3.599599</span>
+<span class="co">#&gt; sample estimates:</span>
+<span class="co">#&gt;     mean in group active mean in group stationary </span>
+<span class="co">#&gt;                 174.3571                 172.6680</span></code></pre></div>
+<p>We see that the <span class="math inline">\(p\)</span>-value of the test is 0.0829235 so we are unable to reject the null hypothesis at significance level of <span class="math inline">\(\alpha = 0.05\)</span>. Note that we also get the confidence interval.</p>
+<p>The test statistic can be computed as:</p>
+<p><span class="math display">\[
+t = \frac{(\bar{x} - \bar{y} - \delta _ 0)}{\sqrt{s_1^2/n + s_2^2/n}}
+\]</span></p>
+</div>
+<div id="the-paired-t-test" class="section level3" number="6.7.4">
+<h3>
+<span class="header-section-number">6.7.4</span> The paired <span class="math inline">\(t\)</span>-test<a class="anchor" aria-label="anchor" href="#the-paired-t-test"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let us see if there is a difference between the first and second pulse measurement for the control group. As the control group did nothing between measurements, we expect there to be significant difference between the measurements. As always, we begin by plotting the two measurements:</p>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">intervention</span> <span class="op">==</span> <span class="st">'stationary'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">measurement</span>, <span class="va">value</span>, <span class="va">firstPulse</span>, <span class="va">secondPulse</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="co"># convert to long</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">measurement</span>, y <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+        <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="05-lecture5_files/figure-html/unnamed-chunk-13-1.png" width="672">
+The two distributions seem identical. Let’s perform the paired <span class="math inline">\(t\)</span>-test</p>
+<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">stationary</span> <span class="op">&lt;-</span> 
+    <span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">intervention</span> <span class="op">==</span> <span class="st">'stationary'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">stationary</span><span class="op">$</span><span class="va">firstPulse</span>, <span class="va">stationary</span><span class="op">$</span><span class="va">secondPulse</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  Welch Two Sample t-test</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; data:  stationary$firstPulse and stationary$secondPulse</span>
+<span class="co">#&gt; t = -0.076792, df = 506.37, p-value = 0.9388</span>
+<span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0</span>
+<span class="co">#&gt; 95 percent confidence interval:</span>
+<span class="co">#&gt;  -2.076885  1.920635</span>
+<span class="co">#&gt; sample estimates:</span>
+<span class="co">#&gt; mean of x mean of y </span>
+<span class="co">#&gt;  71.04297  71.12109</span></code></pre></div>
+<p>This time the <span class="math inline">\(p\)</span>-value is quite large and we completely fail to reject the null hypothesis.</p>
+<p>The test statistic can be computed as:</p>
+<p><span class="math display">\[
+t = \frac{\bar{w} - \Delta _ 0}{s_w /\sqrt{n}}
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{w} &amp;= \frac1n \sum _ {i = 1} ^n w_i, \\
+w_i &amp;= x_i - y_i, \\ 
+s_w &amp;= \sqrt{\frac{1}{n - 1} \sum _ {i = 1} ^n (w_i - \bar{w})}
+\end{aligned}
+\]</span></p>
+</div>
+<div id="a-test-for-proportions" class="section level3" number="6.7.5">
+<h3>
+<span class="header-section-number">6.7.5</span> A test for proportions<a class="anchor" aria-label="anchor" href="#a-test-for-proportions"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s see if there is a difference proportion of smokers versus non-smokers. We begin by constructing a table to see how many fall in each category.</p>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">pulse</span><span class="op">$</span><span class="va">smokes</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;        no       yes </span>
+<span class="co">#&gt; 0.9009434 0.0990566</span></code></pre></div>
+<p>Using the table above we see that almost no one smokes in our sample. Let’s perform the test:</p>
+<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/binom.test.html">binom.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">pulse</span><span class="op">$</span><span class="va">smokes</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  Exact binomial test</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; data:  table(pulse$smokes)</span>
+<span class="co">#&gt; number of successes = 382, number of trials = 424,</span>
+<span class="co">#&gt; p-value &lt; 2.2e-16</span>
+<span class="co">#&gt; alternative hypothesis: true probability of success is not equal to 0.5</span>
+<span class="co">#&gt; 95 percent confidence interval:</span>
+<span class="co">#&gt;  0.8684666 0.9276729</span>
+<span class="co">#&gt; sample estimates:</span>
+<span class="co">#&gt; probability of success </span>
+<span class="co">#&gt;              0.9009434</span></code></pre></div>
+<p>The test statistic can be computed as:</p>
+<p><span class="math display">\[
+z = \frac{\hat{p} - p_0}{\sqrt{p_0(1 - p_0)/n}}
+\]</span></p>
+<p>where <span class="math inline">\(\hat{p} = x/n\)</span>, and <span class="math inline">\(x\)</span> is the number of successes.</p>
+</div>
+</div>
+<div id="in-conclusion" class="section level2" number="6.8">
+<h2>
+<span class="header-section-number">6.8</span> In conclusion<a class="anchor" aria-label="anchor" href="#in-conclusion"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are other tests we can perform such as tests for independence in a contingency table or tests for variances but we will talk about them when we discuss ANOVA. Also, today’s lecture has been heavy on the hypothesis tests without any mention of confidence intervals. We will discuss confidence intervals better when we talk about linear models.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></div>
+<div class="next"><a href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-5-inference"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
+<li><a class="nav-link" href="#the-population-and-the-sample"><span class="header-section-number">6.1</span> The population and the sample</a></li>
+<li><a class="nav-link" href="#sample-statistics"><span class="header-section-number">6.2</span> Sample statistics</a></li>
+<li><a class="nav-link" href="#properties-of-the-mean-of-the-sample"><span class="header-section-number">6.3</span> Properties of the mean of the sample</a></li>
+<li>
+<a class="nav-link" href="#the-estimator"><span class="header-section-number">6.4</span> The estimator</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#proportions-and-means"><span class="header-section-number">6.4.1</span> Proportions and means</a></li>
+<li><a class="nav-link" href="#variance-1"><span class="header-section-number">6.4.2</span> Variance</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#confidence-intervals"><span class="header-section-number">6.5</span> Confidence intervals</a></li>
+<li>
+<a class="nav-link" href="#hypothesis-tests"><span class="header-section-number">6.6</span> Hypothesis tests</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-orientation-of-the-hypothesis-test"><span class="header-section-number">6.6.1</span> The orientation of the hypothesis test</a></li>
+<li><a class="nav-link" href="#the-test-statistic-of-the-hypothesis-test"><span class="header-section-number">6.6.2</span> The test statistic of the hypothesis test</a></li>
+<li><a class="nav-link" href="#the-rejection-region"><span class="header-section-number">6.6.3</span> The rejection region</a></li>
+<li><a class="nav-link" href="#the-p-value"><span class="header-section-number">6.6.4</span> The \(p\)-value</a></li>
+<li><a class="nav-link" href="#power-and-errors"><span class="header-section-number">6.6.5</span> Power and errors</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#examples"><span class="header-section-number">6.7</span> Examples</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-simple-t-test"><span class="header-section-number">6.7.1</span> The simple \(t\)-test</a></li>
+<li><a class="nav-link" href="#a-small-t-test-app"><span class="header-section-number">6.7.2</span> A small \(t\)-test app</a></li>
+<li><a class="nav-link" href="#the-t-test-for-groups"><span class="header-section-number">6.7.3</span> The \(t\)-test for groups</a></li>
+<li><a class="nav-link" href="#the-paired-t-test"><span class="header-section-number">6.7.4</span> The paired \(t\)-test</a></li>
+<li><a class="nav-link" href="#a-test-for-proportions"><span class="header-section-number">6.7.5</span> A test for proportions</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#in-conclusion"><span class="header-section-number">6.8</span> In conclusion</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/thorj/laek101f/blob/master/05-lecture5.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/thorj/laek101f/edit/master/05-lecture5.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-16.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

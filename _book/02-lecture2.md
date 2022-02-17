@@ -1,4 +1,4 @@
-# Lecture 2
+# Lecture 2: Data wrangling
 
 
 ```r
@@ -66,7 +66,7 @@ Below are a few examples where I use `here`, `readr`, and `readxl` to read in so
 ```r
 dummyTSV <- read_tsv(here('data', 'l2_data_tsv.txt'))
 #> Rows: 10000 Columns: 4
-#> ── Column specification ───────────────────────────────────────────────────
+#> ── Column specification ──────────────────────────────────────────────────
 #> Delimiter: "\t"
 #> chr (1): type
 #> dbl (3): id, age, metric1
@@ -75,7 +75,7 @@ dummyTSV <- read_tsv(here('data', 'l2_data_tsv.txt'))
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 dummyCSV <- read_csv(here('data', 'l2_data_csv.txt'))
 #> Rows: 10000 Columns: 4
-#> ── Column specification ───────────────────────────────────────────────────
+#> ── Column specification ──────────────────────────────────────────────────
 #> Delimiter: ","
 #> chr (1): type
 #> dbl (3): id, age, metric1
@@ -85,7 +85,7 @@ dummyCSV <- read_csv(here('data', 'l2_data_csv.txt'))
 dumyCSV2 <- read_csv2(here('data', 'l2_data_csv2.txt'))
 #> ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
 #> Rows: 10000 Columns: 4
-#> ── Column specification ───────────────────────────────────────────────────
+#> ── Column specification ──────────────────────────────────────────────────
 #> Delimiter: ";"
 #> chr (1): type
 #> dbl (2): id, age
@@ -449,9 +449,9 @@ wideExample
 #> # A tibble: 3 × 3
 #>      id measure1 measure2
 #>   <int>    <dbl>    <dbl>
-#> 1     1    -1.42   -0.704
-#> 2     2    -1.74   -0.617
-#> 3     3    -1.23   -1.77
+#> 1     1    -1.00   -0.479
+#> 2     2     1.47   -1.49 
+#> 3     3    -1.31    0.214
 ```
 
 Now, it might actually be more beneficial for each measurement to have its own row. When each measurement has its own row we say that the data is long. To convert from wide to long we use the `gather()` function. It has actually been superseeded by `pivot_longer()` but I'm more used to `gather()`. The function `gather()` takes in: the names of the two new columns we are creating ("key", "value") and then a selection of columns. We want each measurement to have its own line so our selection will be `measure1` and `measure2`.
@@ -463,12 +463,12 @@ wideExample %>%
 #> # A tibble: 6 × 3
 #>      id measurement  value
 #>   <int> <chr>        <dbl>
-#> 1     1 measure1    -1.42 
-#> 2     2 measure1    -1.74 
-#> 3     3 measure1    -1.23 
-#> 4     1 measure2    -0.704
-#> 5     2 measure2    -0.617
-#> 6     3 measure2    -1.77
+#> 1     1 measure1    -1.00 
+#> 2     2 measure1     1.47 
+#> 3     3 measure1    -1.31 
+#> 4     1 measure2    -0.479
+#> 5     2 measure2    -1.49 
+#> 6     3 measure2     0.214
 ```
 
 Alternatively we can just use the `-` prefix to tell R which columns to ignore:
@@ -480,12 +480,12 @@ wideExample %>%
 #> # A tibble: 6 × 3
 #>      id measurement  value
 #>   <int> <chr>        <dbl>
-#> 1     1 measure1    -1.42 
-#> 2     2 measure1    -1.74 
-#> 3     3 measure1    -1.23 
-#> 4     1 measure2    -0.704
-#> 5     2 measure2    -0.617
-#> 6     3 measure2    -1.77
+#> 1     1 measure1    -1.00 
+#> 2     2 measure1     1.47 
+#> 3     3 measure1    -1.31 
+#> 4     1 measure2    -0.479
+#> 5     2 measure2    -1.49 
+#> 6     3 measure2     0.214
 ```
 
 To go from long to wide we have the function `spread()` or `pivot_wider()`. I encourage you to try it out for yourselves.
@@ -504,11 +504,11 @@ dummyXLSX %>%
               sd = sd(values),
               median = median(values))
 #> # A tibble: 3 × 4
-#>   variables     mean     sd   median
-#>   <chr>        <dbl>  <dbl>    <dbl>
-#> 1 age       34.5      3.18  35      
-#> 2 metric1   49.8     15.0   49.9    
-#> 3 someVar    0.00675  0.996  0.00635
+#>   variables      mean    sd   median
+#>   <chr>         <dbl> <dbl>    <dbl>
+#> 1 age       34.5       3.18 35      
+#> 2 metric1   49.8      15.0  49.9    
+#> 3 someVar    0.000478  1.00 -0.00834
 ```
 
 Here is another example where we include the type of the participants.
@@ -530,13 +530,13 @@ dummyXLSX %>%
 #>   <chr>     <chr>   <dbl>  <dbl>   <dbl>
 #> 1 age       a     34.5     3.17  35     
 #> 2 metric1   a     49.5    14.9   49.5   
-#> 3 someVar   a      0.0242  0.996  0.0251
+#> 3 someVar   a      0.0427  0.998  0.0463
 #> 4 age       b     34.5     3.16  34     
 #> 5 metric1   b     50.1    15.1   50.2   
-#> 6 someVar   b      0.0277  0.997  0.0112
+#> 6 someVar   b      0.0172  1.00   0.0432
 #> 7 age       c     34.5     3.21  35     
 #> 8 metric1   c     49.8    15.2   50.1   
-#> 9 someVar   c     -0.0296  0.996 -0.0554
+#> 9 someVar   c     -0.0325  1.01  -0.0338
 ```
 
 

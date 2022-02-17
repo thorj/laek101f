@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 5 Lecture 4: Probability theory | LÆK101F: General statistics, course for M.Sc. and Ph.D students</title>
+<meta name="author" content="Þórarinn Jónmundsson">
+<meta name="description" content="Statistics is based on probability theory. We must therefore learn a little about probability theory before we can learn about statistics.  5.1 The sample space Imagine a simple experiment where...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 5 Lecture 4: Probability theory | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Statistics is based on probability theory. We must therefore learn a little about probability theory before we can learn about statistics.  5.1 The sample space Imagine a simple experiment where...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 5 Lecture 4: Probability theory | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta name="twitter:description" content="Statistics is based on probability theory. We must therefore learn a little about probability theory before we can learn about statistics.  5.1 The sample space Imagine a simple experiment where...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/table1-1.0/table1_defaults.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">LÆK101F: General statistics, course for M.Sc. and Ph.D students</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> General information</a></li>
+<li><a class="" href="lecture-1-r-and-r-basics.html"><span class="header-section-number">2</span> Lecture 1: R and R basics</a></li>
+<li><a class="" href="lecture-2-data-wrangling.html"><span class="header-section-number">3</span> Lecture 2: Data wrangling</a></li>
+<li><a class="" href="lecture-3-plots-and-table1.html"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></li>
+<li><a class="active" href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></li>
+<li><a class="" href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
+<li><a class="" href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/thorj/laek101f">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-4-probability-theory" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Lecture 4: Probability theory<a class="anchor" aria-label="anchor" href="#lecture-4-probability-theory"><i class="fas fa-link"></i></a>
+</h1>
+<p>Statistics is based on probability theory. We must therefore learn a little about probability theory before we can learn about statistics.</p>
+<div id="the-sample-space" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> The sample space<a class="anchor" aria-label="anchor" href="#the-sample-space"><i class="fas fa-link"></i></a>
+</h2>
+<p>Imagine a simple experiment where we toss a coin once. The coin can come up as <em>heads</em> or <em>tails</em>. We therefore say that our experiment has two possible <em>outcomes</em>, viz. heads or tails. The collection (or set) of all possible outcomes of an experiment is called the <em>sample space</em>. For our coin experiment, the sample space is a collection (or set) with two <em>elements</em>, heads or tails. We can denote the sample space of the coin toss mathematically as:</p>
+<p><span class="math display">\[
+S = \{\mbox{Heads}, \mbox{Tails}\}.
+\]</span></p>
+<p>Another experiment is casting a die once. The die can come up as 1, 2, 3, 4, 5, or 6. The sample space <span class="math inline">\(S\)</span> can thus be written:</p>
+<p><span class="math display">\[
+S = \{1, 2, 3, 4, 5, 6\}.
+\]</span></p>
+<p>Here, <span class="math inline">\(S\)</span> has six elements. In both experiments, the sample space is <em>finite</em>. There are only a finite amount of possible outcomes.</p>
+<div id="discrete-and-continuous" class="section level3" number="5.1.1">
+<h3>
+<span class="header-section-number">5.1.1</span> Discrete and continuous<a class="anchor" aria-label="anchor" href="#discrete-and-continuous"><i class="fas fa-link"></i></a>
+</h3>
+<p>In both experiments the sample space was <em>discrete</em>. It is discrete because we can “enumerate” all the options - give them indexes. For the coin experiment, the enumeration is as follows:</p>
+<p><span class="math display">\[
+\begin{array}{c}
+\mbox{Index} &amp; \mbox{Element} \\
+1 &amp; H \\
+2 &amp; T
+\end{array}
+\]</span></p>
+<p>The die example is even simpler.</p>
+<p><span class="math display">\[
+\begin{array}{c}
+\mbox{Index} &amp; \mbox{Element} \\
+1 &amp; 1 \\
+2 &amp; 2 \\
+3 &amp; 3 \\
+4 &amp; 4 \\
+5 &amp; 5 \\
+6 &amp; 6
+\end{array}
+\]</span></p>
+<p>That’s not to say the discreteness implies <em>finiteness</em>. If we imagine a die with “infinite” faces we can still enumerate all the options.</p>
+<p>Now, imagine another experiment where we want measure the temperature in a glass of water that has been boiled. Before we measure the temperature at a given time the temperature can be anywhere between 20<span class="math inline">\(^\circ\)</span>C and 100<span class="math inline">\(^\circ\)</span>C. That is to say, <span class="math inline">\(S = [20, 100]\)</span>. In this case we actually can’t enumerate all the possible values which may seem counterintuitive. In this case, we say that the sample space is <em>continuous</em>; it exists in a <em>continuum</em> where we can <em>smoothly</em> go between values.</p>
+<p>If this feels fuzzy and unclear it is because it is. The continuity and the uncountability of real numbers are tough to grasp and required decades of mathematical work to be made rigorous.</p>
+</div>
+</div>
+<div id="random-variables" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Random variables<a class="anchor" aria-label="anchor" href="#random-variables"><i class="fas fa-link"></i></a>
+</h2>
+<p>We need some way to talk about the outcome of our experiment <strong>before we perform it</strong>. Let’s us denote the outcome of the experiment <strong>before we perform it</strong> with <span class="math inline">\(X\)</span>. We refer to <span class="math inline">\(X\)</span> as a <em>random variable</em>. To make things more conecrete let’s return to the coin-tossing experiment. We can write:</p>
+<p><span class="math display">\[
+X = \mbox{the outcome of our coin toss}.
+\]</span></p>
+<p>Thinking back to our sample space <span class="math inline">\(S = \{H, T\}\)</span> (H for Heads, T for Tails) we see that our random variable <span class="math inline">\(X\)</span> can take on two possible values: <span class="math inline">\(X = H\)</span> or <span class="math inline">\(X = T\)</span>. We therefore say that our random variable <span class="math inline">\(X\)</span> is discrete. If <span class="math inline">\(X\)</span> could take on any value existing in a continuum, we would call <span class="math inline">\(X\)</span> a continuous random variable (think about the temperature experiment).</p>
+</div>
+<div id="probability-of-an-outcome" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Probability of an outcome<a class="anchor" aria-label="anchor" href="#probability-of-an-outcome"><i class="fas fa-link"></i></a>
+</h2>
+<p>Having defined random variables and the values that they can take we are finally in the position to talk about the <em>probability</em> of a random variable <span class="math inline">\(X\)</span> taking the value <span class="math inline">\(x\)</span>. Note the difference between upper-case <span class="math inline">\(X\)</span> and lower-case <span class="math inline">\(x\)</span>. This distinction <strong>is important</strong>! <span class="math inline">\(X\)</span> is our <strong>random variable</strong> and <span class="math inline">\(x\)</span> is <strong>what we observe</strong>; <span class="math inline">\(x\)</span> <strong>is not a random variable</strong>. For the die-casting experiment <span class="math inline">\(X\)</span> is the outcome <strong>before we toss the die</strong>. After we toss the die, and let’s assume it comes up as 6, then we say that <span class="math inline">\(X = 6\)</span>.</p>
+<p>Now, how likely are we to see 6 as an outcome of our experiment? Assuming that our die is unbiased, we expect a 1-in-6 chance to observe 6. To understand why recall the sample space for this experiment. It was <span class="math inline">\(S = \{1, 2, 3, 4, 5, 6\}\)</span>. There are six elements and we assume that any one of them is as likely to appear as the other. This can be written mathematicall as:</p>
+<p><span class="math display">\[
+P(X = x) = \frac16.
+\]</span></p>
+<p>The equation above can be parsed in English as follows: The probability (<span class="math inline">\(P\)</span>) that our random varible <span class="math inline">\(X\)</span> takes on the value <span class="math inline">\(x\)</span> (<span class="math inline">\(P(X = x)\)</span>) is one over six (<span class="math inline">\(P(X = x) = 1/6\)</span>). Note that it doesn’t matter what <span class="math inline">\(x\)</span> is; the probability is always <span class="math inline">\(1/6\)</span>.</p>
+<p>This “equal spreading” of the probability is the naive definition of probability. We give each potential outcome equal weight. If <span class="math inline">\(|S|\)</span> is the number of elements in the sample space (6 for the die) then under equal probability we have that:</p>
+<p><span class="math display">\[
+P(X = x) = \frac{1}{|S|}
+\]</span></p>
+<p>Note that this becomes a problem as soon as we allow for infinite sample spaces. Thinking about the temperature example, the number of elements in the closed interval <span class="math inline">\([20, 100]\)</span> is infinite, so the probability of picking a specific value <span class="math inline">\(x\)</span> at random is 0. At this level we therefore stick to two “rules”:</p>
+<ol style="list-style-type: decimal">
+<li><p>If <span class="math inline">\(X\)</span> is discrete, we allow <span class="math inline">\(P(X = x)\)</span>.</p></li>
+<li><p>If <span class="math inline">\(X\)</span> is continuous we need to consider an interval around <span class="math inline">\(x\)</span>. That is, <span class="math inline">\(P(a &lt; X &lt; b)\)</span> which reads as “the probability that <span class="math inline">\(X\)</span> is between <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>”.</p></li>
+</ol>
+<div id="the-probability-massdensity-function" class="section level3" number="5.3.1">
+<h3>
+<span class="header-section-number">5.3.1</span> The probability mass/density function<a class="anchor" aria-label="anchor" href="#the-probability-massdensity-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>The probability mass function <span class="math inline">\(f(x)\)</span> gives us the probability that the discrete random variable<span class="math inline">\(X\)</span> takes the value <span class="math inline">\(x\)</span>. We have already seen the explicit form of <span class="math inline">\(f(x)\)</span>:</p>
+<p><span class="math display">\[
+f(x) = P(X = x).
+\]</span></p>
+<p>The probability mass function has two properties: <span class="math inline">\(f(x) \geq 0\)</span> and <span class="math inline">\(\sum _{x \in S} f(x) = 1\)</span>. Here is a plot of the probability mass function of the die:</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
+<p>All the bars are of the same height because each outcome is just as likely. Here is a more involved example where the die is biased. We write:</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;P(X = 1) = 1/10, \quad P(X = 2) = 2/10, \quad P(X = 3) = 3/10 \\ 
+&amp;P(X = 4) = 2/10, \quad P(X = 5) = 2/10, \quad P(X = 6) = 0/10
+\end{aligned}
+\]</span></p>
+<p>As you can see, all probabilities are greater or equal to 0 and they add up to 1. Graphically, the probability mass function is:</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<p>The bars are no longer of equal of height as the probabilities are no longer equal.</p>
+<p>When <span class="math inline">\(X\)</span> is a continuous random variable we speak of the probability <em>density</em> function.</p>
+</div>
+<div id="the-cumulative-distribution-function" class="section level3" number="5.3.2">
+<h3>
+<span class="header-section-number">5.3.2</span> The cumulative distribution function<a class="anchor" aria-label="anchor" href="#the-cumulative-distribution-function"><i class="fas fa-link"></i></a>
+</h3>
+<p>The cumulative distribution function of a random variable <span class="math inline">\(X\)</span> is:</p>
+<p><span class="math display">\[
+F(x) = P(X \leq x).
+\]</span></p>
+<p>The above can be parsed as: what is the probability of our random variable <span class="math inline">\(X\)</span> taking any value less than or equal to <span class="math inline">\(x\)</span>.</p>
+<p>There exists a connection between the CDF and the density/mass functions. The mass function gives us the probability for a specific outcome but the CDF gives us the cumulative probability up to a specific event. Compare the graph of the CDF to the probability mass function graph for the example above.</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<p>For many continuous random variables there exists no explicit form of the CDF and we must thus rely on the density function.</p>
+</div>
+</div>
+<div id="properties-of-random-variables" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> Properties of random variables<a class="anchor" aria-label="anchor" href="#properties-of-random-variables"><i class="fas fa-link"></i></a>
+</h2>
+<div id="independence" class="section level3" number="5.4.1">
+<h3>
+<span class="header-section-number">5.4.1</span> Independence<a class="anchor" aria-label="anchor" href="#independence"><i class="fas fa-link"></i></a>
+</h3>
+<p>We say that two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent of each other if the outcome of one random variable has no effect on the outcome of the other random variable. An example is tossing two coins. The outcome of one toss should have no influence on the outcome of the other toss.</p>
+<p>If two random variables are not independent we say that they are dependent.</p>
+</div>
+<div id="identically-distributed" class="section level3" number="5.4.2">
+<h3>
+<span class="header-section-number">5.4.2</span> Identically distributed<a class="anchor" aria-label="anchor" href="#identically-distributed"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let <span class="math inline">\(X_1, X_2, \ldots , X_n\)</span> be a collection of random variables. We say that they are identically distributed if they have same probability distribution.</p>
+</div>
+<div id="expected-value" class="section level3" number="5.4.3">
+<h3>
+<span class="header-section-number">5.4.3</span> Expected value<a class="anchor" aria-label="anchor" href="#expected-value"><i class="fas fa-link"></i></a>
+</h3>
+<p>The expected value of a random variable <span class="math inline">\(X\)</span> is denoted with <span class="math inline">\(E(X)\)</span>. You can think of it as the average of <span class="math inline">\(X\)</span>. We calculate the expected value of <span class="math inline">\(X\)</span> by summing over the product of the potential outcomes of <span class="math inline">\(X\)</span> and the probability of the outcome. An example will make this clearer. Let’s return to the die where <span class="math inline">\(X\)</span> is the outcome of the toss. Since each outcome is equally likely the expected value of <span class="math inline">\(X\)</span> is simply:</p>
+<p><span class="math display">\[
+\begin{aligned}
+E(X) &amp;= \sum _{x \in S} x P(X = x) \\
+&amp;= 1 \cdot P(X = 1) + 2 \cdot P(X = 2) + \ldots + 6 \cdot P(X = 6) \\
+&amp;= (1 + 2 + 3 + 4 + 5 + 6) \cdot \frac16 \\
+&amp;=3.5
+\end{aligned}
+\]</span></p>
+<p>The expected value is a linear operator. Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be random variables and assume that <span class="math inline">\(E(X) = \mu _X\)</span> and <span class="math inline">\(E(Y) = \mu _Y\)</span>. Then the expected value of <span class="math inline">\(X\)</span> <strong>and</strong> <span class="math inline">\(Y\)</span> is:
+<span class="math display">\[
+E(X + Y) = E(X) + E(Y) = \mu _X + \mu _Y
+\]</span></p>
+<p>Furthermore, if <span class="math inline">\(a\)</span> is any constant then we have that</p>
+<p><span class="math display">\[
+E(aX) = aE(X) = a\mu_X.
+\]</span></p>
+<p>There is a very important result about the expected value of a random variable <span class="math inline">\(X\)</span>. It is called the <strong>law of large numbers</strong> and it states that as our sample of <span class="math inline">\(X\)</span> grows, the closer the mean of the sample is to the expected value of <span class="math inline">\(X\)</span>. Let’s toss a die a bunch of times and take the average of our throws. The plot below shows the average of our sample as a function of our sample size. The red line is the expected value of <span class="math inline">\(X\)</span> which we calculated to be 3.5. As you can see, the more often we throw the die, the closer our calculated sample mean is to the theoretical expected value.</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+</div>
+<div id="variance" class="section level3" number="5.4.4">
+<h3>
+<span class="header-section-number">5.4.4</span> Variance<a class="anchor" aria-label="anchor" href="#variance"><i class="fas fa-link"></i></a>
+</h3>
+<p>The variance of a random variable <span class="math inline">\(X\)</span> tells us how “dispersed” our random variable is from its expected value and is denoted <span class="math inline">\(Var(X)\)</span>. The higher the variance, the bigger the dispersion. Below is a plot of two samples with the same mean but a different variance.</p>
+<p><img src="04-lecture4_files/figure-html/unnamed-chunk-6-1.png" width="672">
+The square root the variance is called the standard deviation which is often denoted with <span class="math inline">\(\sigma\)</span>.</p>
+</div>
+</div>
+<div id="probability-distributions" class="section level2" number="5.5">
+<h2>
+<span class="header-section-number">5.5</span> Probability distributions<a class="anchor" aria-label="anchor" href="#probability-distributions"><i class="fas fa-link"></i></a>
+</h2>
+<p>The probability distribution of a random variable <span class="math inline">\(X\)</span> completely describes the probabilities of the outcomes of <span class="math inline">\(X\)</span></p>
+</div>
+<div id="examples-of-discrete-distributions" class="section level2" number="5.6">
+<h2>
+<span class="header-section-number">5.6</span> Examples of discrete distributions<a class="anchor" aria-label="anchor" href="#examples-of-discrete-distributions"><i class="fas fa-link"></i></a>
+</h2>
+<div id="bernoulli-distribution" class="section level3" number="5.6.1">
+<h3>
+<span class="header-section-number">5.6.1</span> Bernoulli distribution<a class="anchor" aria-label="anchor" href="#bernoulli-distribution"><i class="fas fa-link"></i></a>
+</h3>
+<p>Imagine the coin-toss experiment. If the coin comes up as heads we will consider our experiment a success. We can encode the outcome of our experiment such that it takes on the value of 1 if it is a success (heads) and 0 otherwise. Our random variable <span class="math inline">\(X\)</span> is thus 1 if we get heads and 0 otherwise. The only thing missing is the probability of success (or by symmetry the probability of failure) which we will denote with <span class="math inline">\(p\)</span>. If the coin is unbiased, <span class="math inline">\(p\)</span> is 0.5 as there is a 50/50 chance of success or failure.</p>
+<p>When we can describe our experiment in such a way we say that <span class="math inline">\(X\)</span> is a Bernoulli random variable with success parameter <span class="math inline">\(p\)</span>. Most experiments can be reduced to a Bernoulli trial. Let’s take our die again. We will consider our experiment a success if we roll 6. As there is a 1/6 chance of rolling a 6, our success parameter <span class="math inline">\(p\)</span> is 1/6. Our experiment is a failure if we get any other outcome; that is if we get 1, 2, 3, 4, or 5. The probability of failure is thus 5/6. This is the general rule of thumb, the probability of failure is <span class="math inline">\(1- p\)</span>.</p>
+<p>The expected value of <span class="math inline">\(X\)</span> is <span class="math inline">\(E(X) = p\)</span> and the variance is <span class="math inline">\(Var(X) = p(1-p)\)</span>. The probability mass function of <span class="math inline">\(X\)</span> is:</p>
+<p><span class="math display">\[
+f(x) = P(X = x) = p^x (1 - p)^{1 - x}
+\]</span></p>
+</div>
+<div id="binomial-distribution" class="section level3" number="5.6.2">
+<h3>
+<span class="header-section-number">5.6.2</span> Binomial distribution<a class="anchor" aria-label="anchor" href="#binomial-distribution"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s say we toss the unbiased coin 3 times. We are then performing 3 Bernoulli trials, each with success parameter <span class="math inline">\(p\)</span>. Once more we will consider an outcome of heads as a success. Here there are many possible permutations available:</p>
+<p><span class="math display">\[
+HHH, HHT, HTH, THH, HTT, THT, TTH, TTT.
+\]</span></p>
+<p>For our particular experiment we aren’t interested in <strong>when</strong> we get heads but <strong>how many</strong> heads we get. Notice that we then have the following:</p>
+<p><span class="math display">\[
+\begin{array}{c}
+\mbox{Number of heads} &amp; \mbox{Outcomes} \\
+0 &amp; TTT \\
+1 &amp; HTT, THT, TTH\\
+2 &amp; HHT, HTH, THH\\
+3 &amp; HHH
+\end{array}
+\]</span>
+We see that outcomes with 0 and 3 heads are equally likely (<span class="math inline">\(P(X = 0) = P(X = 3) = 1/8\)</span>), while <span class="math inline">\(P(X = 1) = P(X = 2) = 3/8\)</span>. Here we can define the random variable <span class="math inline">\(X\)</span> as the number of heads and we say that it is binomially distributed with parameters <span class="math inline">\(n\)</span> and <span class="math inline">\(p\)</span>. <span class="math inline">\(n\)</span> is the number of Bernoulli trials (number of coin flips, die throws) and <span class="math inline">\(p\)</span> is the success probability. The expected value of <span class="math inline">\(X\)</span> is <span class="math inline">\(E(X) = np\)</span> and the variance of <span class="math inline">\(X\)</span> is <span class="math inline">\(Var(X) = np(1-p)\)</span>. The probability mass function is:</p>
+<p><span class="math display">\[
+f(x) = P(X = x) = \binom{n}{k} p^k (1-p)^{n - k},
+\]</span></p>
+<p>where <span class="math inline">\(k\)</span> is the number of successes. Note the similarity with the Bernoulli distribution.</p>
+<p>Let’s simulate the scenario above. We will toss a coin three times for 10000 iterations and for each iteration keep track the number of heads. You can see the result in the plot below.</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<p>We can compute probabilities such as <span class="math inline">\(P(X = x)\)</span> and <span class="math inline">\(P(X &lt;= x)\)</span> with the <code><a href="https://rdrr.io/r/stats/Binomial.html">dbinom()</a></code> and <code><a href="https://rdrr.io/r/stats/Binomial.html">pbinom()</a></code> functions.</p>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># P(X = 2)</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">dbinom</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">2</span>, size <span class="op">=</span> <span class="fl">3</span>, prob <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.375</span>
+<span class="co"># P(X &lt;= 2)</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html">pbinom</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">2</span>, size <span class="op">=</span> <span class="fl">3</span>, prob <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.875</span></code></pre></div>
+</div>
+<div id="poisson-distribution" class="section level3" number="5.6.3">
+<h3>
+<span class="header-section-number">5.6.3</span> Poisson distribution<a class="anchor" aria-label="anchor" href="#poisson-distribution"><i class="fas fa-link"></i></a>
+</h3>
+<p>The third discrete distribution is the Poisson distribution. We use the binomial distribution to model counts within some interval. Unlike the binomial distribution which has a fixed upper bound <span class="math inline">\(n\)</span> the Poisson distribution has no ceiling. The Poisson distribution has a single parameter <span class="math inline">\(\lambda\)</span> which describes the expected number of outcomes within the interval. The defining characteristic of the Poisson distribution is that its expected value is equal to its variance. That is: <span class="math inline">\(E(X) = \lambda = Var(X)\)</span>.</p>
+<p>Below is a plot of 10000 draws from the Poisson distribution with rate parameter <span class="math inline">\(\lambda = 5\)</span>.</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<p>We can compute probabilities such as <span class="math inline">\(P(X = x)\)</span> and <span class="math inline">\(P(X &lt;= x)\)</span> with the <code><a href="https://rdrr.io/r/stats/Poisson.html">dpois()</a></code> and <code><a href="https://rdrr.io/r/stats/Poisson.html">ppois()</a></code> functions.</p>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># P(X = 5)</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">dpois</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">5</span>, lambda <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.1754674</span>
+<span class="co"># P(X &lt;= 5)</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">ppois</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">5</span>, lambda <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.6159607</span></code></pre></div>
+</div>
+</div>
+<div id="examples-of-continuous-distributions" class="section level2" number="5.7">
+<h2>
+<span class="header-section-number">5.7</span> Examples of continuous distributions<a class="anchor" aria-label="anchor" href="#examples-of-continuous-distributions"><i class="fas fa-link"></i></a>
+</h2>
+<div id="the-normal-distribution" class="section level3" number="5.7.1">
+<h3>
+<span class="header-section-number">5.7.1</span> The normal distribution<a class="anchor" aria-label="anchor" href="#the-normal-distribution"><i class="fas fa-link"></i></a>
+</h3>
+<p>The normal distribution is the most important probability distribution you will see in this course. Many continuous variables can be described with the normal distribution. The normal distribution is completely described by the expected value and variance (standard deviation). That means that if we know the expected value and the variance we can completely reconstruct the distribution. Another property of the normal distribution is symmetry. If a normal distribution has expected value <span class="math inline">\(\mu\)</span> and standard deviation <span class="math inline">\(\sigma\)</span>, roughly 68%, 95%, and 99.7% of all measurements are within one, two, and three standard deviations respectively.</p>
+<p>Let’s look at the density of a normally distributed random variable <span class="math inline">\(Z\)</span> with expected value 0 and standard deviation 1.</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
+<p>A normal distribution doesn’t have to have expected value 0 and standard deviation 1 but when it does we refer to it as the <em>standard normal distribution</em>. Any normal distribution can be transformed into the standard normal distribution by <em>centering</em> and scaling the random variable. For example: imagine that <span class="math inline">\(X\)</span> is a normally distributed random variable with parameters <span class="math inline">\(\mu = 10\)</span> and <span class="math inline">\(\sigma = 5\)</span>. The density looks like:</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
+<p>If we center <span class="math inline">\(X\)</span> by subtracting the expected value, and scale <span class="math inline">\(X\)</span> by dividing with the standard deviation:</p>
+<p><span class="math display">\[
+Z = \frac{X - \mu}{\sigma} = \frac{X - 10}{5},
+\]</span></p>
+<p>we see that <span class="math inline">\(Z\)</span> is a normally distributed random variable with expected value 0 and standard deviation 1.</p>
+<p>Compared to the probability mass function we have spent little time discussing the probability density function. The probability density function is a little trickier to use as it relies on calculus. Say we have <span class="math inline">\(Z\)</span>, a random variable from the standard normal distribution, and we want to know the probability that <span class="math inline">\(Z\)</span> is between -1, and 1, or <span class="math inline">\(P(-1 \leq Z \leq 1)\)</span>. When we were working with the probability mass function it was enough for us to add up the probabilities for the respected values. But since <span class="math inline">\(Z\)</span> is continuous, the probability of <span class="math inline">\(Z\)</span> taking any specific value is 0. We must thus look at intervals. To compute the probability that a random variable is within that region requires integration, something we won’t cover in this course.</p>
+<div class="inline-figure">
+<img src="04-lecture4_files/figure-html/unnamed-chunk-14-1.png" width="672">
+The area of the red, shaded area is approximately 0.6826895, so:</div>
+<p><span class="math display">\[
+P(-1 \leq Z \leq 1) \approx 68\%.
+\]</span></p>
+<p>We can calculate other probabilities such as <span class="math inline">\(P(Z &gt; 2)\)</span> and <span class="math inline">\(P(Z &lt; -0.5)\)</span>. For <span class="math inline">\(P(Z &gt; 2)\)</span> we can use the fact that probabilities must add up to 1 so we can rewrite <span class="math inline">\(P(Z &gt; 2) = 1 - P(Z &lt;= 2)\)</span>.</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<p>We can use R to calculate the area of the red curves. To do so we must use the <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> function. Let’s compute the probabilities of all three cases:</p>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q <span class="op">=</span> <span class="op">-</span><span class="fl">0.5</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.3085375</span>
+<span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">2</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.02275013</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">1</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.6826895</span></code></pre></div>
+</div>
+<div id="the-t-distribution" class="section level3" number="5.7.2">
+<h3>
+<span class="header-section-number">5.7.2</span> The <span class="math inline">\(t\)</span>-distribution<a class="anchor" aria-label="anchor" href="#the-t-distribution"><i class="fas fa-link"></i></a>
+</h3>
+<p>Closely related to the normal distribution is the <span class="math inline">\(t\)</span>-distribution. It is reminiscent of the normal distribution but it has “heavier tails”. The number of degrees of freedom determine the shape of the distribution. We will discuss the <span class="math inline">\(t\)</span>-distribution better later.</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-17-1.png" width="672"></div>
+<p>We can compute probabilities <span class="math inline">\(P(X &lt; x)\)</span>, where <span class="math inline">\(X\)</span> is a random variable with the <span class="math inline">\(t\)</span>-distribution, with the <code><a href="https://rdrr.io/r/stats/TDist.html">pt()</a></code> function. The <code><a href="https://rdrr.io/r/stats/TDist.html">pt()</a></code> function requires two inputs, <span class="math inline">\(x\)</span> and the number of degrees of freedom:</p>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">2</span>, df <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.05096974</span></code></pre></div>
+<p>Compare this value to when we computed <code>pnorm(q = 1, mean = 0, sd = 1)</code>. It is greater for the <span class="math inline">\(t\)</span>-distribution which is a consequence of its heavier tails.</p>
+</div>
+<div id="the-chi-2-distribution" class="section level3" number="5.7.3">
+<h3>
+<span class="header-section-number">5.7.3</span> The <span class="math inline">\(\chi ^2\)</span> distribution<a class="anchor" aria-label="anchor" href="#the-chi-2-distribution"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <span class="math inline">\(\chi ^2\)</span> distribution is based on the normal distribution. It is not symmetrical and like the <span class="math inline">\(t\)</span>-distribution it has a single parameter, namely the number of degrees of freedom.</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<p>We can compute probabilities <span class="math inline">\(P(X &lt; x)\)</span>, where <span class="math inline">\(X\)</span> is a random variable with the <span class="math inline">\(\chi^2\)</span>-distribution, with the <code><a href="https://rdrr.io/r/stats/Chisquare.html">pchisq()</a></code> function. The <code><a href="https://rdrr.io/r/stats/Chisquare.html">pchisq()</a></code> function requires two inputs, <span class="math inline">\(x\)</span> and the number of degrees of freedom:</p>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">pchisq</a></span><span class="op">(</span>q <span class="op">=</span> <span class="fl">2</span>, df <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.1572992</span></code></pre></div>
+</div>
+</div>
+<div id="the-central-limit-theorem" class="section level2" number="5.8">
+<h2>
+<span class="header-section-number">5.8</span> The central limit theorem<a class="anchor" aria-label="anchor" href="#the-central-limit-theorem"><i class="fas fa-link"></i></a>
+</h2>
+<p>A very important result from probability theory is the <strong>Central limit theorem</strong>. It says that the mean of a sample will resemble the normal distribution more closely as the sample grows. Furthermore, the variance decreases as the sample size increases.</p>
+<p>Remember the Poisson distribution from before?</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+<p>Let’s draw random samples from our Poisson distribution above. Our samples will be of size 5, 25, 100, 500. For each sample we will compute the mean and store it. After repeating this process 5000 times, we will plot the results:</p>
+<div class="inline-figure"><img src="04-lecture4_files/figure-html/unnamed-chunk-22-1.png" width="672"></div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-3-plots-and-table1.html"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></div>
+<div class="next"><a href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-4-probability-theory"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></li>
+<li>
+<a class="nav-link" href="#the-sample-space"><span class="header-section-number">5.1</span> The sample space</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#discrete-and-continuous"><span class="header-section-number">5.1.1</span> Discrete and continuous</a></li></ul>
+</li>
+<li><a class="nav-link" href="#random-variables"><span class="header-section-number">5.2</span> Random variables</a></li>
+<li>
+<a class="nav-link" href="#probability-of-an-outcome"><span class="header-section-number">5.3</span> Probability of an outcome</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-probability-massdensity-function"><span class="header-section-number">5.3.1</span> The probability mass/density function</a></li>
+<li><a class="nav-link" href="#the-cumulative-distribution-function"><span class="header-section-number">5.3.2</span> The cumulative distribution function</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#properties-of-random-variables"><span class="header-section-number">5.4</span> Properties of random variables</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#independence"><span class="header-section-number">5.4.1</span> Independence</a></li>
+<li><a class="nav-link" href="#identically-distributed"><span class="header-section-number">5.4.2</span> Identically distributed</a></li>
+<li><a class="nav-link" href="#expected-value"><span class="header-section-number">5.4.3</span> Expected value</a></li>
+<li><a class="nav-link" href="#variance"><span class="header-section-number">5.4.4</span> Variance</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#probability-distributions"><span class="header-section-number">5.5</span> Probability distributions</a></li>
+<li>
+<a class="nav-link" href="#examples-of-discrete-distributions"><span class="header-section-number">5.6</span> Examples of discrete distributions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#bernoulli-distribution"><span class="header-section-number">5.6.1</span> Bernoulli distribution</a></li>
+<li><a class="nav-link" href="#binomial-distribution"><span class="header-section-number">5.6.2</span> Binomial distribution</a></li>
+<li><a class="nav-link" href="#poisson-distribution"><span class="header-section-number">5.6.3</span> Poisson distribution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#examples-of-continuous-distributions"><span class="header-section-number">5.7</span> Examples of continuous distributions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-normal-distribution"><span class="header-section-number">5.7.1</span> The normal distribution</a></li>
+<li><a class="nav-link" href="#the-t-distribution"><span class="header-section-number">5.7.2</span> The \(t\)-distribution</a></li>
+<li><a class="nav-link" href="#the-chi-2-distribution"><span class="header-section-number">5.7.3</span> The \(\chi ^2\) distribution</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#the-central-limit-theorem"><span class="header-section-number">5.8</span> The central limit theorem</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/thorj/laek101f/blob/master/04-lecture4.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/thorj/laek101f/edit/master/04-lecture4.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-16.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

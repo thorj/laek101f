@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 Lecture 2: Data wrangling | LÆK101F: General statistics, course for M.Sc. and Ph.D students</title>
+<meta name="author" content="Þórarinn Jónmundsson">
+<meta name="description" content="library(tidyverse) library(here) # relative paths library(readxl)  3.1 R Projects and workflows Last week we used the mtcars data set which is included with R. When we want load external data we...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 3 Lecture 2: Data wrangling | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta property="og:type" content="book">
+<meta property="og:description" content="library(tidyverse) library(here) # relative paths library(readxl)  3.1 R Projects and workflows Last week we used the mtcars data set which is included with R. When we want load external data we...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 Lecture 2: Data wrangling | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta name="twitter:description" content="library(tidyverse) library(here) # relative paths library(readxl)  3.1 R Projects and workflows Last week we used the mtcars data set which is included with R. When we want load external data we...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/table1-1.0/table1_defaults.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">LÆK101F: General statistics, course for M.Sc. and Ph.D students</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> General information</a></li>
+<li><a class="" href="lecture-1-r-and-r-basics.html"><span class="header-section-number">2</span> Lecture 1: R and R basics</a></li>
+<li><a class="active" href="lecture-2-data-wrangling.html"><span class="header-section-number">3</span> Lecture 2: Data wrangling</a></li>
+<li><a class="" href="lecture-3-plots-and-table1.html"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></li>
+<li><a class="" href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></li>
+<li><a class="" href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
+<li><a class="" href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/thorj/laek101f">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-2-data-wrangling" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Lecture 2: Data wrangling<a class="anchor" aria-label="anchor" href="#lecture-2-data-wrangling"><i class="fas fa-link"></i></a>
+</h1>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/">here</a></span><span class="op">)</span> <span class="co"># relative paths</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readxl.tidyverse.org">readxl</a></span><span class="op">)</span></code></pre></div>
+<div id="r-projects-and-workflows" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> R Projects and workflows<a class="anchor" aria-label="anchor" href="#r-projects-and-workflows"><i class="fas fa-link"></i></a>
+</h2>
+<p>Last week we used the <code>mtcars</code> data set which is included with R. When we want load external data we have to tell R where to find it. To tell R where our files are, we need to supply R with the file paths. This is a good opportunity to introduce some basic workflow.</p>
+<p>Let us assume that we have been tasked with performing a preliminary analysis of some data set. Our supervisor expects us to:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Present our results in a couple of days.</p></li>
+<li><p>Hand over the preliminary analysis to the resident data scientist for downstream modeling.</p></li>
+</ol>
+<p>There are thus two things we have to keep in mind; we need to perform the preliminary analysis AND we need to do it in such a way that the data scientist can continue our work as painlessly as possible. We need to <em>get organized</em>. This means:</p>
+<ul>
+<li><p>For each project we work on, we create a <em>dedicated folder</em> for that specific project. Any files relevant to a project are <strong>placed in the project folder</strong>.</p></li>
+<li><p>The project folder is compartmentalized! That is, there are multiple subdirectories within each project folder, each serving a specific purpose.</p></li>
+</ul>
+<p>Here is an example layout for this hypothetical scenario:</p>
+<pre><code>Within folder ourProject:
+-code/      code to wrangle original data
+-data/      output of code
+-raw/       original data files
+-report/    our .Rmd file</code></pre>
+<p>Having created our project folder with the relevant structure the next thing we do is to create an <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-RStudio-Projects">R project file</a>. By creating an R project, we are telling R where our base of operations is (our working directory). This means that we can use relative paths, namely, instead of writing full file path names like <code>C:\Documents\ourProject\data\someData.csv</code> it suffices to write <code>data\someData.csv</code>.</p>
+<p>Finally, I recommend you use the <code>here</code> package as <code>.Rmd</code> files use their location as the working directory. Using the file structure above as an example, since our <code>.Rmd</code> file will be saved within <code>report</code> if we try to point to the data file <code>someData.csv</code> with <code>data/someData.csv</code> we will be met with an error. <code>here</code> looks for the location of the R project file <code>.Rproj</code> and sets all file paths relative to <code>.Rproj</code>.</p>
+<p>After completing the preliminary analysis we can simply hand over the <code>ourProject</code> directory to the data scientist. This is reproducible research in its most basic form.</p>
+<div id="more-intricate-workflow" class="section level3" number="3.1.1">
+<h3>
+<span class="header-section-number">3.1.1</span> More intricate workflow<a class="anchor" aria-label="anchor" href="#more-intricate-workflow"><i class="fas fa-link"></i></a>
+</h3>
+<p>Look into <a href="https://snakemake.readthedocs.io/en/stable/">Snakemake</a>, <code>renv</code>, <a href="https://github.com/">github</a>, <code>DiagrammeR</code>, and <a href="https://www.docker.com/">Docker</a>.</p>
+</div>
+</div>
+<div id="the-anatomy-of-a-file-and-external-data" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> The anatomy of a file and external data<a class="anchor" aria-label="anchor" href="#the-anatomy-of-a-file-and-external-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Consider the following data:</p>
+<pre><code>id;type;age
+1;a;30
+2;b;37
+3;a;42</code></pre>
+<p>The first line is called the <strong>header</strong>. It is where the names of the columns (sometimes referred to as fields) are stated. Note that not all data comes with a header line. Most functions which read data into memory assume that there is a header line so you don’t have to explicitly state that your file has one. The lines that follow our header store the data values. The semicolon <code>;</code> between each value acts as the <strong>delimiter</strong>. The delimiter helps R to map values to their respective columns. The delimiter is not necessarily <code>;</code>. Here is a non exhaustive list:</p>
+<ul>
+<li><p>Comma <code>,</code>. Data where the comma is the delimiter are typically stored in <code>.csv</code> files. <code>.csv</code> stands for <em>Comma-Separated Values</em>. You can read in <code>.csv</code> files with the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv()</a></code> function from <code>readr</code>.</p></li>
+<li><p>Semicolon <code>;</code>. Data where the semicolon is the delimiter are typically stored in <code>.csv</code> files as well. You can read in data with semicolon-separated values with the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv2()</a></code> function from <code>readr</code>.</p></li>
+<li><p>Tab <code>\t</code>. Data where <code>\t</code> (tab) is the delimiter are typically stored in <code>.csv</code> or <code>.tsv</code> files. <code>.tsv</code> stands for <em>Tab-Separated Values</em>. You can read in <code>.tsv</code> files with the <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv()</a></code> function from <code>readr</code>.</p></li>
+</ul>
+<p>There are other delimiters. You can use the general function <code><a href="https://readr.tidyverse.org/reference/read_delim.html">read_delim()</a></code> to specify them (and the ones mentioned above). Finally, Excel spreadsheets <code>.xls</code> and <code>.xlsx</code> are quite common as well. To read those into R we can use the <code>readxl</code> package.</p>
+<p>Below are a few examples where I use <code>here</code>, <code>readr</code>, and <code>readxl</code> to read in some dummy data I created (see Appendix).</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyTSV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_tsv</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">'data'</span>, <span class="st">'l2_data_tsv.txt'</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 10000 Columns: 4</span>
+<span class="co">#&gt; ── Column specification ──────────────────────────────────────────────────</span>
+<span class="co">#&gt; Delimiter: "\t"</span>
+<span class="co">#&gt; chr (1): type</span>
+<span class="co">#&gt; dbl (3): id, age, metric1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="va">dummyCSV</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">'data'</span>, <span class="st">'l2_data_csv.txt'</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 10000 Columns: 4</span>
+<span class="co">#&gt; ── Column specification ──────────────────────────────────────────────────</span>
+<span class="co">#&gt; Delimiter: ","</span>
+<span class="co">#&gt; chr (1): type</span>
+<span class="co">#&gt; dbl (3): id, age, metric1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="va">dumyCSV2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv2</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">'data'</span>, <span class="st">'l2_data_csv2.txt'</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.</span>
+<span class="co">#&gt; Rows: 10000 Columns: 4</span>
+<span class="co">#&gt; ── Column specification ──────────────────────────────────────────────────</span>
+<span class="co">#&gt; Delimiter: ";"</span>
+<span class="co">#&gt; chr (1): type</span>
+<span class="co">#&gt; dbl (2): id, age</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ℹ Use `spec()` to retrieve the full column specification for this data.</span>
+<span class="co">#&gt; ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
+<span class="va">dummyXLSX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html">read_xlsx</a></span><span class="op">(</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">'data'</span>, <span class="st">'l2_data_excel.xlsx'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span>
+<span class="co">#&gt; # A tibble: 10,000 × 4</span>
+<span class="co">#&gt;       id type    age metric1</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1     1 a        32    31.4</span>
+<span class="co">#&gt;  2     2 c        33    42.4</span>
+<span class="co">#&gt;  3     3 a        41    40.4</span>
+<span class="co">#&gt;  4     4 b        37    75.7</span>
+<span class="co">#&gt;  5     5 a        35    66.9</span>
+<span class="co">#&gt;  6     6 c        37    64.8</span>
+<span class="co">#&gt;  7     7 c        40    52.0</span>
+<span class="co">#&gt;  8     8 b        34    35.7</span>
+<span class="co">#&gt;  9     9 b        36    30.2</span>
+<span class="co">#&gt; 10    10 c        36    34.5</span>
+<span class="co">#&gt; # … with 9,990 more rows</span></code></pre></div>
+</div>
+<div id="factors" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Factors<a class="anchor" aria-label="anchor" href="#factors"><i class="fas fa-link"></i></a>
+</h2>
+<p>We will continue to use <code>dummyXLSX</code>. Let’s get an overview of the data with the <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code> function from <code>dplyr</code>:</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">dummyXLSX</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 10,000</span>
+<span class="co">#&gt; Columns: 4</span>
+<span class="co">#&gt; $ id      &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,…</span>
+<span class="co">#&gt; $ type    &lt;chr&gt; "a", "c", "a", "b", "a", "c", "c", "b", "b…</span>
+<span class="co">#&gt; $ age     &lt;dbl&gt; 32, 33, 41, 37, 35, 37, 40, 34, 36, 36, 37…</span>
+<span class="co">#&gt; $ metric1 &lt;dbl&gt; 31.41350, 42.44945, 40.40657, 75.74094, 66…</span></code></pre></div>
+<p>From <code><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse()</a></code> we see that we have four variables, three of which are of type double and one which is a character. Let’s use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function from the last lecture to further probe our data:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dummyXLSX</span><span class="op">)</span>
+<span class="co">#&gt;        id            type                age       </span>
+<span class="co">#&gt;  Min.   :    1   Length:10000       Min.   :23.00  </span>
+<span class="co">#&gt;  1st Qu.: 2501   Class :character   1st Qu.:32.00  </span>
+<span class="co">#&gt;  Median : 5000   Mode  :character   Median :35.00  </span>
+<span class="co">#&gt;  Mean   : 5000                      Mean   :34.51  </span>
+<span class="co">#&gt;  3rd Qu.: 7500                      3rd Qu.:37.00  </span>
+<span class="co">#&gt;  Max.   :10000                      Max.   :45.00  </span>
+<span class="co">#&gt;     metric1      </span>
+<span class="co">#&gt;  Min.   :-13.54  </span>
+<span class="co">#&gt;  1st Qu.: 39.62  </span>
+<span class="co">#&gt;  Median : 49.94  </span>
+<span class="co">#&gt;  Mean   : 49.82  </span>
+<span class="co">#&gt;  3rd Qu.: 59.91  </span>
+<span class="co">#&gt;  Max.   :102.87</span></code></pre></div>
+<p>All looks well except the <code>type</code> variable which only takes on values <code>a</code>, <code>b</code>, and <code>c</code>. I would like to see just how many observations fall under each type. This is a good opportunity to discuss factor variables. A factor variable is a variable which has <em>levels</em> and <em>labels</em>. The levels of <code>type</code> are the aforementioned <code>a</code>, <code>b</code>, and <code>c</code>, (the values <code>type</code> takes) and labels contains the “name” of each level. For example, <code>a</code> could be a participant with diabetes, <code>b</code> a participant with heart disease and <code>c</code> our controls. One of the levels of a factor variable will be the <em>baseline</em>. Unless told to do otherwise, R will arrange levels in alphabetical order so for <code>type</code>, <code>a</code> will be the baseline since it is the first letter of the alphabet.</p>
+<p>Let’s create a new variable based on the schema above.</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op">&lt;-</span> 
+    <span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>factorType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">type</span>, 
+                               levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span><span class="op">)</span>, 
+                               labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Diabetes'</span>, <span class="st">'Heart disease'</span>, <span class="st">'Control'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dummyXLSX</span><span class="op">)</span>
+<span class="co">#&gt;        id            type                age       </span>
+<span class="co">#&gt;  Min.   :    1   Length:10000       Min.   :23.00  </span>
+<span class="co">#&gt;  1st Qu.: 2501   Class :character   1st Qu.:32.00  </span>
+<span class="co">#&gt;  Median : 5000   Mode  :character   Median :35.00  </span>
+<span class="co">#&gt;  Mean   : 5000                      Mean   :34.51  </span>
+<span class="co">#&gt;  3rd Qu.: 7500                      3rd Qu.:37.00  </span>
+<span class="co">#&gt;  Max.   :10000                      Max.   :45.00  </span>
+<span class="co">#&gt;     metric1               factorType  </span>
+<span class="co">#&gt;  Min.   :-13.54   Diabetes     :3424  </span>
+<span class="co">#&gt;  1st Qu.: 39.62   Heart disease:3292  </span>
+<span class="co">#&gt;  Median : 49.94   Control      :3284  </span>
+<span class="co">#&gt;  Mean   : 49.82                       </span>
+<span class="co">#&gt;  3rd Qu.: 59.91                       </span>
+<span class="co">#&gt;  Max.   :102.87</span></code></pre></div>
+</div>
+<div id="filter" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Filter<a class="anchor" aria-label="anchor" href="#filter"><i class="fas fa-link"></i></a>
+</h2>
+<p>Now, say that I want to restrict my analysis to participants who scored over 50 on the “test” for <code>dummyXLSX</code> (variable <code>metric1</code>). A very useful tool is the <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> function from <code>dplyr</code> which allows us to subset our data based on logic operations.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">metric1</span> <span class="op">&gt;</span> <span class="fl">50</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 4,978 × 5</span>
+<span class="co">#&gt;       id type    age metric1 factorType   </span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;        </span>
+<span class="co">#&gt;  1     4 b        37    75.7 Heart disease</span>
+<span class="co">#&gt;  2     5 a        35    66.9 Diabetes     </span>
+<span class="co">#&gt;  3     6 c        37    64.8 Control      </span>
+<span class="co">#&gt;  4     7 c        40    52.0 Control      </span>
+<span class="co">#&gt;  5    13 a        33    62.7 Diabetes     </span>
+<span class="co">#&gt;  6    15 b        37    60.4 Heart disease</span>
+<span class="co">#&gt;  7    17 b        38    75.3 Heart disease</span>
+<span class="co">#&gt;  8    19 c        38    61.5 Control      </span>
+<span class="co">#&gt;  9    20 a        32    76.1 Diabetes     </span>
+<span class="co">#&gt; 10    21 c        32    61.0 Control      </span>
+<span class="co">#&gt; # … with 4,968 more rows</span></code></pre></div>
+<p>Note how over half of our observations are gone. We can filter our data even further, for example by restricting our analysis to participants with Diabetes and Heart disease who scored higher than 50 on <code>metric1</code>.</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">metric1</span> <span class="op">&gt;</span> <span class="fl">50</span>, <span class="va">type</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'a'</span>, <span class="st">'b'</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3,328 × 5</span>
+<span class="co">#&gt;       id type    age metric1 factorType   </span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;        </span>
+<span class="co">#&gt;  1     4 b        37    75.7 Heart disease</span>
+<span class="co">#&gt;  2     5 a        35    66.9 Diabetes     </span>
+<span class="co">#&gt;  3    13 a        33    62.7 Diabetes     </span>
+<span class="co">#&gt;  4    15 b        37    60.4 Heart disease</span>
+<span class="co">#&gt;  5    17 b        38    75.3 Heart disease</span>
+<span class="co">#&gt;  6    20 a        32    76.1 Diabetes     </span>
+<span class="co">#&gt;  7    23 a        31    54.4 Diabetes     </span>
+<span class="co">#&gt;  8    25 a        34    51.7 Diabetes     </span>
+<span class="co">#&gt;  9    26 b        29    57.0 Heart disease</span>
+<span class="co">#&gt; 10    30 b        32    54.7 Heart disease</span>
+<span class="co">#&gt; # … with 3,318 more rows</span></code></pre></div>
+<p>The resulting data is even smaller. Below is a list of some of the operators we can use to compare values:</p>
+<ul>
+<li><p><code>&gt;</code>: Used for <span class="math inline">\(x &gt; y\)</span> which is read as <em>x is greater than y</em>.</p></li>
+<li><p><code>&lt;</code>: Used for <span class="math inline">\(x &lt; y\)</span> which is read as <em>x is lesser than y</em>.</p></li>
+<li><p><code>&gt;=</code>: Used for <span class="math inline">\(x \geq y\)</span> which is read as <em>x is greater OR equal to y</em></p></li>
+<li><p><code>&lt;=</code>: Used for <span class="math inline">\(x \leq y\)</span> which is read as <em>x is lesser OR equal to y</em>.</p></li>
+<li><p><code>==</code>: Used for <span class="math inline">\(x = y\)</span> which is read as <em>x is the same as y</em>. The double <code>==</code> is <strong>not a mistake</strong>.</p></li>
+</ul>
+<p>Here is a small example of <code>==</code>:</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">factorType</span> <span class="op">==</span> <span class="st">'Diabetes'</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3,424 × 5</span>
+<span class="co">#&gt;       id type    age metric1 factorType</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;     </span>
+<span class="co">#&gt;  1     1 a        32    31.4 Diabetes  </span>
+<span class="co">#&gt;  2     3 a        41    40.4 Diabetes  </span>
+<span class="co">#&gt;  3     5 a        35    66.9 Diabetes  </span>
+<span class="co">#&gt;  4    12 a        30    34.8 Diabetes  </span>
+<span class="co">#&gt;  5    13 a        33    62.7 Diabetes  </span>
+<span class="co">#&gt;  6    14 a        35    49.6 Diabetes  </span>
+<span class="co">#&gt;  7    20 a        32    76.1 Diabetes  </span>
+<span class="co">#&gt;  8    22 a        36    49.0 Diabetes  </span>
+<span class="co">#&gt;  9    23 a        31    54.4 Diabetes  </span>
+<span class="co">#&gt; 10    24 a        35    33.2 Diabetes  </span>
+<span class="co">#&gt; # … with 3,414 more rows</span></code></pre></div>
+</div>
+<div id="ifelse-and-case_when" class="section level2" number="3.5">
+<h2>
+<span class="header-section-number">3.5</span> ifelse and case_when<a class="anchor" aria-label="anchor" href="#ifelse-and-case_when"><i class="fas fa-link"></i></a>
+</h2>
+<p>Assume we want to create a new variable such that participants who scored higher than 50 on <code>metric1</code> are labeled as <em>high</em> and those who scored lower or equal to 50 are labeled as low. We can use the <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> function to this end. First and example and then a dissection.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op">&lt;-</span>
+    <span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>scoreCat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">metric1</span> <span class="op">&gt;</span> <span class="fl">50</span>, <span class="st">'High'</span>, <span class="st">'Low'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span>
+<span class="co">#&gt; # A tibble: 10,000 × 6</span>
+<span class="co">#&gt;       id type    age metric1 factorType    scoreCat</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;fct&gt;         &lt;chr&gt;   </span>
+<span class="co">#&gt;  1     1 a        32    31.4 Diabetes      Low     </span>
+<span class="co">#&gt;  2     2 c        33    42.4 Control       Low     </span>
+<span class="co">#&gt;  3     3 a        41    40.4 Diabetes      Low     </span>
+<span class="co">#&gt;  4     4 b        37    75.7 Heart disease High    </span>
+<span class="co">#&gt;  5     5 a        35    66.9 Diabetes      High    </span>
+<span class="co">#&gt;  6     6 c        37    64.8 Control       High    </span>
+<span class="co">#&gt;  7     7 c        40    52.0 Control       High    </span>
+<span class="co">#&gt;  8     8 b        34    35.7 Heart disease Low     </span>
+<span class="co">#&gt;  9     9 b        36    30.2 Heart disease Low     </span>
+<span class="co">#&gt; 10    10 c        36    34.5 Control       Low     </span>
+<span class="co">#&gt; # … with 9,990 more rows</span></code></pre></div>
+<p>So how does <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> work? The function takes in three inputs: a test we want to perform (is the <code>metric1</code> score higher than 50?), an action if the test is true (High), and an action if the test is false (metric1 <span class="math inline">\(\leq\)</span> 50; Low). We can create complicated tests with the <code>&amp;</code> and <code>|</code> operators which symbolize AND and OR respectively.</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op">&lt;-</span>
+    <span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>scoreCatAge <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">metric1</span> <span class="op">&gt;</span> <span class="fl">50</span> <span class="op">&amp;</span> <span class="va">age</span> <span class="op">&gt;</span> <span class="fl">30</span>, <span class="st">'Both true'</span>, <span class="st">'One or both false'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">metric1</span>, <span class="va">scoreCatAge</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 10,000 × 3</span>
+<span class="co">#&gt;      age metric1 scoreCatAge      </span>
+<span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;            </span>
+<span class="co">#&gt;  1    32    31.4 One or both false</span>
+<span class="co">#&gt;  2    33    42.4 One or both false</span>
+<span class="co">#&gt;  3    41    40.4 One or both false</span>
+<span class="co">#&gt;  4    37    75.7 Both true        </span>
+<span class="co">#&gt;  5    35    66.9 Both true        </span>
+<span class="co">#&gt;  6    37    64.8 Both true        </span>
+<span class="co">#&gt;  7    40    52.0 Both true        </span>
+<span class="co">#&gt;  8    34    35.7 One or both false</span>
+<span class="co">#&gt;  9    36    30.2 One or both false</span>
+<span class="co">#&gt; 10    36    34.5 One or both false</span>
+<span class="co">#&gt; # … with 9,990 more rows</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>orStatement <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">metric1</span> <span class="op">&gt;</span> <span class="fl">50</span> <span class="op">|</span> <span class="va">age</span> <span class="op">&lt;</span> <span class="fl">30</span>, <span class="st">'One or both true'</span>, <span class="st">'Both false'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">metric1</span>, <span class="va">orStatement</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 10,000 × 3</span>
+<span class="co">#&gt;      age metric1 orStatement     </span>
+<span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           </span>
+<span class="co">#&gt;  1    32    31.4 Both false      </span>
+<span class="co">#&gt;  2    33    42.4 Both false      </span>
+<span class="co">#&gt;  3    41    40.4 Both false      </span>
+<span class="co">#&gt;  4    37    75.7 One or both true</span>
+<span class="co">#&gt;  5    35    66.9 One or both true</span>
+<span class="co">#&gt;  6    37    64.8 One or both true</span>
+<span class="co">#&gt;  7    40    52.0 One or both true</span>
+<span class="co">#&gt;  8    34    35.7 Both false      </span>
+<span class="co">#&gt;  9    36    30.2 Both false      </span>
+<span class="co">#&gt; 10    36    34.5 Both false      </span>
+<span class="co">#&gt; # … with 9,990 more rows</span></code></pre></div>
+<p>Assume we want to create a variable which combines multiple scenarios. It is possible to nest <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> within <code>itself()</code> but this quickly becomes obnoxious and confusing. This is where <code><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when()</a></code> comes in as it allows us to strictly define what value our new variable takes based on the scenario. Here is one:</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>scenarios <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html">case_when</a></span><span class="op">(</span><span class="va">age</span> <span class="op">&gt;</span> <span class="fl">35</span> <span class="op">&amp;</span> <span class="va">metric1</span> <span class="op">&lt;</span> <span class="fl">50</span> <span class="op">&amp;</span> <span class="va">type</span> <span class="op">==</span> <span class="st">'c'</span> <span class="op">~</span> <span class="st">'Control, &gt; 35, &lt; 50'</span>,
+                                 <span class="va">age</span> <span class="op">&gt;</span> <span class="fl">35</span> <span class="op">&amp;</span> <span class="va">metric1</span> <span class="op">&gt;</span> <span class="fl">50</span> <span class="op">&amp;</span> <span class="va">type</span> <span class="op">==</span> <span class="st">'b'</span> <span class="op">~</span> <span class="st">'Heart, &gt; 35, &gt; 50'</span>,
+                                 <span class="va">age</span> <span class="op">&lt;=</span> <span class="fl">35</span> <span class="op">&amp;</span> <span class="va">metric1</span> <span class="op">&lt;=</span> <span class="fl">50</span> <span class="op">&amp;</span> <span class="va">type</span> <span class="op">==</span> <span class="st">'a'</span> <span class="op">~</span> <span class="st">'Diabetes, &lt;= 35, &lt;= 50'</span>,
+                                 <span class="cn">TRUE</span> <span class="op">~</span> <span class="st">'Whatever does not fit'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">metric1</span>, <span class="va">type</span>, <span class="va">scenarios</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 10,000 × 4</span>
+<span class="co">#&gt;      age metric1 type  scenarios             </span>
+<span class="co">#&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                 </span>
+<span class="co">#&gt;  1    32    31.4 a     Diabetes, &lt;= 35, &lt;= 50</span>
+<span class="co">#&gt;  2    33    42.4 c     Whatever does not fit </span>
+<span class="co">#&gt;  3    41    40.4 a     Whatever does not fit </span>
+<span class="co">#&gt;  4    37    75.7 b     Heart, &gt; 35, &gt; 50     </span>
+<span class="co">#&gt;  5    35    66.9 a     Whatever does not fit </span>
+<span class="co">#&gt;  6    37    64.8 c     Whatever does not fit </span>
+<span class="co">#&gt;  7    40    52.0 c     Whatever does not fit </span>
+<span class="co">#&gt;  8    34    35.7 b     Whatever does not fit </span>
+<span class="co">#&gt;  9    36    30.2 b     Whatever does not fit </span>
+<span class="co">#&gt; 10    36    34.5 c     Control, &gt; 35, &lt; 50   </span>
+<span class="co">#&gt; # … with 9,990 more rows</span></code></pre></div>
+</div>
+<div id="summarize-and-group_by" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> summarize and group_by<a class="anchor" aria-label="anchor" href="#summarize-and-group_by"><i class="fas fa-link"></i></a>
+</h2>
+<p>A preliminary analysis can be divided into two (roughly) parts: the numerical analysis and the graphical analysis.
+Common statistics we are asked to compute are the sample size, mean, standard deviation, minimum, maximum, and quantiles (typically the 2.5% and 97.5% percentiles) of our sample. For that end we have the following functions: <code><a href="https://dplyr.tidyverse.org/reference/context.html">n()</a></code>, <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>, <code><a href="https://rdrr.io/r/stats/sd.html">sd()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code>, <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code>, and <code><a href="https://rdrr.io/r/stats/quantile.html">quantile()</a></code>. All these functions take in some numerical vector and return the statistic of interest. We will discuss these statistics in more detail next week.</p>
+<p>Let’s compute these statistics for variable <code>age</code>:</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">dummyXLSX</span><span class="op">)</span>
+<span class="co">#&gt; [1] 10000</span>
+<span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dummyXLSX</span><span class="op">$</span><span class="va">age</span><span class="op">)</span>
+<span class="co">#&gt; [1] 34.5138</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">dummyXLSX</span><span class="op">$</span><span class="va">age</span><span class="op">)</span>
+<span class="co">#&gt; [1] 3.182487</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">dummyXLSX</span><span class="op">$</span><span class="va">age</span><span class="op">)</span>
+<span class="co">#&gt; [1] 23</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">dummyXLSX</span><span class="op">$</span><span class="va">age</span><span class="op">)</span>
+<span class="co">#&gt; [1] 45</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">dummyXLSX</span><span class="op">$</span><span class="va">age</span>, probs <span class="op">=</span> <span class="fl">0.025</span><span class="op">)</span>
+<span class="co">#&gt; 2.5% </span>
+<span class="co">#&gt;   28</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">dummyXLSX</span><span class="op">$</span><span class="va">age</span>, probs <span class="op">=</span> <span class="fl">0.975</span><span class="op">)</span>
+<span class="co">#&gt; 97.5% </span>
+<span class="co">#&gt;    41</span></code></pre></div>
+<p>An alternative way to do the above is to use the <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> function:</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>sampleSize <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, 
+              mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, 
+              standardDev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, 
+              mini <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, 
+              maxi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, 
+              q025 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">age</span>, <span class="fl">0.025</span><span class="op">)</span>, 
+              q975 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">age</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 × 7</span>
+<span class="co">#&gt;   sampleSize  mean standardDev  mini  maxi  q025  q975</span>
+<span class="co">#&gt;        &lt;int&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1      10000  34.5        3.18    23    45    28    41</span></code></pre></div>
+<p>Both methods yield the same answer. Now, imagine that we want to compute each of these statistics stratified by the type of the patient. This can be done with base R function but I recommend using the <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> function with the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function. To put it simply, the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function allows us to define groups and then “wrangle” based on those groups. Let’s see what happens.</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>sampleSize <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, 
+              mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, 
+              standardDev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, 
+              mini <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, 
+              maxi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">age</span><span class="op">)</span>, 
+              q025 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">age</span>, <span class="fl">0.025</span><span class="op">)</span>, 
+              q975 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">age</span>, <span class="fl">0.975</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3 × 8</span>
+<span class="co">#&gt;   type  sampleSize  mean standardDev  mini  maxi  q025  q975</span>
+<span class="co">#&gt;   &lt;chr&gt;      &lt;int&gt; &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 a           3424  34.5        3.17    23    45    28    41</span>
+<span class="co">#&gt; 2 b           3292  34.5        3.16    24    45    28    41</span>
+<span class="co">#&gt; 3 c           3284  34.5        3.21    24    45    28    41</span></code></pre></div>
+<p>The code is basically the same as before save for that one additional line. Pretty convenient, right?</p>
+</div>
+<div id="gather-and-spread" class="section level2" number="3.7">
+<h2>
+<span class="header-section-number">3.7</span> gather and spread<a class="anchor" aria-label="anchor" href="#gather-and-spread"><i class="fas fa-link"></i></a>
+</h2>
+<p>Data can be <em>long</em> or <em>wide</em>. When our data is wide we have one column for each variable. Imagine we conducted a study where we took some measurements twice over the research period. The data could look something like this:</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wideExample</span> <span class="op">&lt;-</span> 
+    <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, 
+       measure1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span>, 
+       measure2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wideExample</span>
+<span class="co">#&gt; # A tibble: 3 × 3</span>
+<span class="co">#&gt;      id measure1 measure2</span>
+<span class="co">#&gt;   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1    -1.00   -0.479</span>
+<span class="co">#&gt; 2     2     1.47   -1.49 </span>
+<span class="co">#&gt; 3     3    -1.31    0.214</span></code></pre></div>
+<p>Now, it might actually be more beneficial for each measurement to have its own row. When each measurement has its own row we say that the data is long. To convert from wide to long we use the <code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code> function. It has actually been superseeded by <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> but I’m more used to <code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code>. The function <code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code> takes in: the names of the two new columns we are creating (“key”, “value”) and then a selection of columns. We want each measurement to have its own line so our selection will be <code>measure1</code> and <code>measure2</code>.</p>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wideExample</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">measurement</span>, <span class="va">value</span>, <span class="va">measure1</span>, <span class="va">measure2</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 6 × 3</span>
+<span class="co">#&gt;      id measurement  value</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1 measure1    -1.00 </span>
+<span class="co">#&gt; 2     2 measure1     1.47 </span>
+<span class="co">#&gt; 3     3 measure1    -1.31 </span>
+<span class="co">#&gt; 4     1 measure2    -0.479</span>
+<span class="co">#&gt; 5     2 measure2    -1.49 </span>
+<span class="co">#&gt; 6     3 measure2     0.214</span></code></pre></div>
+<p>Alternatively we can just use the <code>-</code> prefix to tell R which columns to ignore:</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wideExample</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">measurement</span>, <span class="va">value</span>, <span class="op">-</span><span class="va">id</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 6 × 3</span>
+<span class="co">#&gt;      id measurement  value</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1 measure1    -1.00 </span>
+<span class="co">#&gt; 2     2 measure1     1.47 </span>
+<span class="co">#&gt; 3     3 measure1    -1.31 </span>
+<span class="co">#&gt; 4     1 measure2    -0.479</span>
+<span class="co">#&gt; 5     2 measure2    -1.49 </span>
+<span class="co">#&gt; 6     3 measure2     0.214</span></code></pre></div>
+<p>To go from long to wide we have the function <code><a href="https://tidyr.tidyverse.org/reference/spread.html">spread()</a></code> or <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>. I encourage you to try it out for yourselves.</p>
+<div id="why-this-is-useful" class="section level3" number="3.7.1">
+<h3>
+<span class="header-section-number">3.7.1</span> Why this is useful<a class="anchor" aria-label="anchor" href="#why-this-is-useful"><i class="fas fa-link"></i></a>
+</h3>
+<p>The long format is often useful when we want to fit models where we have repeated measurements. It’s also useful for when we want to summarize multiple variables simultaneously. Recall from the <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> section when we summarized <code>age</code>. There are many more variables that we might be interested in summarizing such as <code>metric1</code>. Here is an example where we combine <code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code>, <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code>, and <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code>.</p>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Let's add another variable to dummyXLSX</span>
+<span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>someVar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">variables</span>, <span class="va">values</span>, <span class="va">age</span>, <span class="va">metric1</span>, <span class="va">someVar</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">variables</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span>, 
+              sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span>,
+              median <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 3 × 4</span>
+<span class="co">#&gt;   variables      mean    sd   median</span>
+<span class="co">#&gt;   &lt;chr&gt;         &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 age       34.5       3.18 35      </span>
+<span class="co">#&gt; 2 metric1   49.8      15.0  49.9    </span>
+<span class="co">#&gt; 3 someVar    0.000478  1.00 -0.00834</span></code></pre></div>
+<p>Here is another example where we include the type of the participants.</p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>someVar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">variables</span>, <span class="va">values</span>, <span class="va">age</span>, <span class="va">metric1</span>, <span class="va">someVar</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">variables</span>, <span class="va">type</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span>, 
+              sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span>,
+              median <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">type</span><span class="op">)</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'variables'. You can override using the `.groups` argument.</span>
+<span class="co">#&gt; # A tibble: 9 × 5</span>
+<span class="co">#&gt; # Groups:   variables [3]</span>
+<span class="co">#&gt;   variables type     mean     sd  median</span>
+<span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 age       a     34.5     3.17  35     </span>
+<span class="co">#&gt; 2 metric1   a     49.5    14.9   49.5   </span>
+<span class="co">#&gt; 3 someVar   a      0.0427  0.998  0.0463</span>
+<span class="co">#&gt; 4 age       b     34.5     3.16  34     </span>
+<span class="co">#&gt; 5 metric1   b     50.1    15.1   50.2   </span>
+<span class="co">#&gt; 6 someVar   b      0.0172  1.00   0.0432</span>
+<span class="co">#&gt; 7 age       c     34.5     3.21  35     </span>
+<span class="co">#&gt; 8 metric1   c     49.8    15.2   50.1   </span>
+<span class="co">#&gt; 9 someVar   c     -0.0325  1.01  -0.0338</span></code></pre></div>
+</div>
+</div>
+<div id="appendix" class="section level2" number="3.8">
+<h2>
+<span class="header-section-number">3.8</span> Appendix<a class="anchor" aria-label="anchor" href="#appendix"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/">here</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/colearendt/xlsx">xlsx</a></span><span class="op">)</span>
+
+<span class="co"># Set seed for reproducibility</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+
+<span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10000</span>
+
+<span class="co"># Create fake data with research ID, </span>
+<span class="co"># participant type, age, and performance</span>
+<span class="co"># metric score</span>
+
+<span class="va">id</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="va">n</span>
+<span class="va">type</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span><span class="op">)</span>, size <span class="op">=</span> <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+<span class="va">age</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, mean <span class="op">=</span> <span class="fl">35</span>, sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="va">metric1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, mean <span class="op">=</span> <span class="fl">50</span>, sd <span class="op">=</span> <span class="fl">15</span><span class="op">)</span>
+
+<span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">type</span>, <span class="va">age</span>, <span class="va">metric1</span><span class="op">)</span>
+
+<span class="co"># CSV</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">d</span>, file <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">'data'</span>, <span class="st">'l2_data_csv.txt'</span><span class="op">)</span>, 
+            row.names <span class="op">=</span> <span class="cn">F</span>, quote <span class="op">=</span> <span class="cn">F</span>, sep <span class="op">=</span> <span class="st">','</span><span class="op">)</span>
+<span class="co"># CSV2</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">d</span>, file <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">'data'</span>, <span class="st">'l2_data_csv2.txt'</span><span class="op">)</span>, 
+            row.names <span class="op">=</span> <span class="cn">F</span>, quote <span class="op">=</span> <span class="cn">F</span>, sep <span class="op">=</span> <span class="st">';'</span><span class="op">)</span>
+<span class="co"># TSV</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/write.table.html">write.table</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">d</span>, file <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">'data'</span>, <span class="st">'l2_data_tsv.txt'</span><span class="op">)</span>, 
+            row.names <span class="op">=</span> <span class="cn">F</span>, quote <span class="op">=</span> <span class="cn">F</span>, sep <span class="op">=</span> <span class="st">'\t'</span><span class="op">)</span>
+<span class="co"># Excel</span>
+<span class="fu"><a href="https://rdrr.io/pkg/xlsx/man/write.xlsx.html">write.xlsx</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">d</span>, file <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="st">'data'</span>, <span class="st">'l2_data_excel.xlsx'</span><span class="op">)</span>, 
+           row.names <span class="op">=</span> <span class="cn">F</span>, sheetName <span class="op">=</span> <span class="st">'DummyData'</span><span class="op">)</span></code></pre></div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-1-r-and-r-basics.html"><span class="header-section-number">2</span> Lecture 1: R and R basics</a></div>
+<div class="next"><a href="lecture-3-plots-and-table1.html"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-2-data-wrangling"><span class="header-section-number">3</span> Lecture 2: Data wrangling</a></li>
+<li>
+<a class="nav-link" href="#r-projects-and-workflows"><span class="header-section-number">3.1</span> R Projects and workflows</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#more-intricate-workflow"><span class="header-section-number">3.1.1</span> More intricate workflow</a></li></ul>
+</li>
+<li><a class="nav-link" href="#the-anatomy-of-a-file-and-external-data"><span class="header-section-number">3.2</span> The anatomy of a file and external data</a></li>
+<li><a class="nav-link" href="#factors"><span class="header-section-number">3.3</span> Factors</a></li>
+<li><a class="nav-link" href="#filter"><span class="header-section-number">3.4</span> Filter</a></li>
+<li><a class="nav-link" href="#ifelse-and-case_when"><span class="header-section-number">3.5</span> ifelse and case_when</a></li>
+<li><a class="nav-link" href="#summarize-and-group_by"><span class="header-section-number">3.6</span> summarize and group_by</a></li>
+<li>
+<a class="nav-link" href="#gather-and-spread"><span class="header-section-number">3.7</span> gather and spread</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#why-this-is-useful"><span class="header-section-number">3.7.1</span> Why this is useful</a></li></ul>
+</li>
+<li><a class="nav-link" href="#appendix"><span class="header-section-number">3.8</span> Appendix</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/thorj/laek101f/blob/master/02-lecture2.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/thorj/laek101f/edit/master/02-lecture2.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-16.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

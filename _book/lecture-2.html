@@ -45,6 +45,9 @@
 <li><a class="" href="lecture-1.html"><span class="header-section-number">2</span> Lecture 1</a></li>
 <li><a class="active" href="lecture-2.html"><span class="header-section-number">3</span> Lecture 2</a></li>
 <li><a class="" href="lecture-3.html"><span class="header-section-number">4</span> Lecture 3</a></li>
+<li><a class="" href="lecture-4.html"><span class="header-section-number">5</span> Lecture 4</a></li>
+<li><a class="" href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
+<li><a class="" href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
 </ul>
 
         <div class="book-extra">
@@ -437,35 +440,35 @@ Common statistics we are asked to compute are the sample size, mean, standard de
 <span class="co">#&gt; # A tibble: 3 × 3</span>
 <span class="co">#&gt;      id measure1 measure2</span>
 <span class="co">#&gt;   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1    -1.42   -0.704</span>
-<span class="co">#&gt; 2     2    -1.74   -0.617</span>
-<span class="co">#&gt; 3     3    -1.23   -1.77</span></code></pre></div>
+<span class="co">#&gt; 1     1  -2.06     -0.410</span>
+<span class="co">#&gt; 2     2   0.0191   -0.115</span>
+<span class="co">#&gt; 3     3   1.40     -0.440</span></code></pre></div>
 <p>Now, it might actually be more beneficial for each measurement to have its own row. When each measurement has its own row we say that the data is long. To convert from wide to long we use the <code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code> function. It has actually been superseeded by <code><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer()</a></code> but I’m more used to <code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code>. The function <code><a href="https://tidyr.tidyverse.org/reference/gather.html">gather()</a></code> takes in: the names of the two new columns we are creating (“key”, “value”) and then a selection of columns. We want each measurement to have its own line so our selection will be <code>measure1</code> and <code>measure2</code>.</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">wideExample</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">measurement</span>, <span class="va">value</span>, <span class="va">measure1</span>, <span class="va">measure2</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 6 × 3</span>
-<span class="co">#&gt;      id measurement  value</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1 measure1    -1.42 </span>
-<span class="co">#&gt; 2     2 measure1    -1.74 </span>
-<span class="co">#&gt; 3     3 measure1    -1.23 </span>
-<span class="co">#&gt; 4     1 measure2    -0.704</span>
-<span class="co">#&gt; 5     2 measure2    -0.617</span>
-<span class="co">#&gt; 6     3 measure2    -1.77</span></code></pre></div>
+<span class="co">#&gt;      id measurement   value</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;         &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1 measure1    -2.06  </span>
+<span class="co">#&gt; 2     2 measure1     0.0191</span>
+<span class="co">#&gt; 3     3 measure1     1.40  </span>
+<span class="co">#&gt; 4     1 measure2    -0.410 </span>
+<span class="co">#&gt; 5     2 measure2    -0.115 </span>
+<span class="co">#&gt; 6     3 measure2    -0.440</span></code></pre></div>
 <p>Alternatively we can just use the <code>-</code> prefix to tell R which columns to ignore:</p>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">wideExample</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
     <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">measurement</span>, <span class="va">value</span>, <span class="op">-</span><span class="va">id</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 6 × 3</span>
-<span class="co">#&gt;      id measurement  value</span>
-<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;        &lt;dbl&gt;</span>
-<span class="co">#&gt; 1     1 measure1    -1.42 </span>
-<span class="co">#&gt; 2     2 measure1    -1.74 </span>
-<span class="co">#&gt; 3     3 measure1    -1.23 </span>
-<span class="co">#&gt; 4     1 measure2    -0.704</span>
-<span class="co">#&gt; 5     2 measure2    -0.617</span>
-<span class="co">#&gt; 6     3 measure2    -1.77</span></code></pre></div>
+<span class="co">#&gt;      id measurement   value</span>
+<span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;         &lt;dbl&gt;</span>
+<span class="co">#&gt; 1     1 measure1    -2.06  </span>
+<span class="co">#&gt; 2     2 measure1     0.0191</span>
+<span class="co">#&gt; 3     3 measure1     1.40  </span>
+<span class="co">#&gt; 4     1 measure2    -0.410 </span>
+<span class="co">#&gt; 5     2 measure2    -0.115 </span>
+<span class="co">#&gt; 6     3 measure2    -0.440</span></code></pre></div>
 <p>To go from long to wide we have the function <code><a href="https://tidyr.tidyverse.org/reference/spread.html">spread()</a></code> or <code><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider()</a></code>. I encourage you to try it out for yourselves.</p>
 <div id="why-this-is-useful" class="section level3" number="3.7.1">
 <h3>
@@ -482,11 +485,11 @@ Common statistics we are asked to compute are the sample size, mean, standard de
               sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span>,
               median <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">values</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3 × 4</span>
-<span class="co">#&gt;   variables     mean     sd   median</span>
-<span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 age       34.5      3.18  35      </span>
-<span class="co">#&gt; 2 metric1   49.8     15.0   49.9    </span>
-<span class="co">#&gt; 3 someVar    0.00675  0.996  0.00635</span></code></pre></div>
+<span class="co">#&gt;   variables     mean    sd  median</span>
+<span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 age       34.5      3.18 35     </span>
+<span class="co">#&gt; 2 metric1   49.8     15.0  49.9   </span>
+<span class="co">#&gt; 3 someVar   -0.00157  1.01 -0.0181</span></code></pre></div>
 <p>Here is another example where we include the type of the participants.</p>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dummyXLSX</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
@@ -500,17 +503,17 @@ Common statistics we are asked to compute are the sample size, mean, standard de
 <span class="co">#&gt; `summarise()` has grouped output by 'variables'. You can override using the `.groups` argument.</span>
 <span class="co">#&gt; # A tibble: 9 × 5</span>
 <span class="co">#&gt; # Groups:   variables [3]</span>
-<span class="co">#&gt;   variables type     mean     sd  median</span>
-<span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 age       a     34.5     3.17  35     </span>
-<span class="co">#&gt; 2 metric1   a     49.5    14.9   49.5   </span>
-<span class="co">#&gt; 3 someVar   a      0.0242  0.996  0.0251</span>
-<span class="co">#&gt; 4 age       b     34.5     3.16  34     </span>
-<span class="co">#&gt; 5 metric1   b     50.1    15.1   50.2   </span>
-<span class="co">#&gt; 6 someVar   b      0.0277  0.997  0.0112</span>
-<span class="co">#&gt; 7 age       c     34.5     3.21  35     </span>
-<span class="co">#&gt; 8 metric1   c     49.8    15.2   50.1   </span>
-<span class="co">#&gt; 9 someVar   c     -0.0296  0.996 -0.0554</span></code></pre></div>
+<span class="co">#&gt;   variables type      mean     sd  median</span>
+<span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 age       a     34.5      3.17  35     </span>
+<span class="co">#&gt; 2 metric1   a     49.5     14.9   49.5   </span>
+<span class="co">#&gt; 3 someVar   a     -0.00533  1.00   0.0235</span>
+<span class="co">#&gt; 4 age       b     34.5      3.16  34     </span>
+<span class="co">#&gt; 5 metric1   b     50.1     15.1   50.2   </span>
+<span class="co">#&gt; 6 someVar   b     -0.0385   0.983 -0.0298</span>
+<span class="co">#&gt; 7 age       c     34.5      3.21  35     </span>
+<span class="co">#&gt; 8 metric1   c     49.8     15.2   50.1   </span>
+<span class="co">#&gt; 9 someVar   c     -0.00868  0.996 -0.0392</span></code></pre></div>
 </div>
 </div>
 <div id="appendix" class="section level2" number="3.8">
@@ -588,7 +591,7 @@ Common statistics we are asked to compute are the sample size, mean, standard de
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-09.</p>
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
