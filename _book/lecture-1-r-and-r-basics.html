@@ -48,6 +48,9 @@
 <li><a class="" href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></li>
 <li><a class="" href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
 <li><a class="" href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
+<li><a class="" href="lecture-7-simple-linear-regression.html"><span class="header-section-number">8</span> Lecture 7: Simple linear regression</a></li>
+<li><a class="" href="lecture-8-multiple-regression.html"><span class="header-section-number">9</span> Lecture 8: Multiple regression</a></li>
+<li><a class="" href="lecture-9-diagnostics.html"><span class="header-section-number">10</span> Lecture 9: Diagnostics</a></li>
 </ul>
 
         <div class="book-extra">
@@ -367,18 +370,18 @@
 <span class="va">smallData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="va">smallData</span>, var2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">smallData</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="va">smallData</span>
 <span class="co">#&gt; # A tibble: 32 × 5</span>
-<span class="co">#&gt;      mpg    hp    wt    var1   var2</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  21     110  2.62 0.941   0.849 </span>
-<span class="co">#&gt;  2  21     110  2.88 0.213   0.501 </span>
-<span class="co">#&gt;  3  22.8    93  2.32 0.212   0.858 </span>
-<span class="co">#&gt;  4  21.4   110  3.22 0.647   0.0926</span>
-<span class="co">#&gt;  5  18.7   175  3.44 0.473   0.424 </span>
-<span class="co">#&gt;  6  18.1   105  3.46 0.448   0.497 </span>
-<span class="co">#&gt;  7  14.3   245  3.57 0.0548  0.979 </span>
-<span class="co">#&gt;  8  24.4    62  3.19 0.284   0.189 </span>
-<span class="co">#&gt;  9  22.8    95  3.15 0.00903 0.302 </span>
-<span class="co">#&gt; 10  19.2   123  3.44 0.336   0.212 </span>
+<span class="co">#&gt;      mpg    hp    wt   var1  var2</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt;  1  21     110  2.62 0.190  0.334</span>
+<span class="co">#&gt;  2  21     110  2.88 0.0457 0.192</span>
+<span class="co">#&gt;  3  22.8    93  2.32 0.473  0.131</span>
+<span class="co">#&gt;  4  21.4   110  3.22 0.462  0.597</span>
+<span class="co">#&gt;  5  18.7   175  3.44 0.137  0.607</span>
+<span class="co">#&gt;  6  18.1   105  3.46 0.989  0.813</span>
+<span class="co">#&gt;  7  14.3   245  3.57 0.141  0.550</span>
+<span class="co">#&gt;  8  24.4    62  3.19 0.661  0.218</span>
+<span class="co">#&gt;  9  22.8    95  3.15 0.340  0.428</span>
+<span class="co">#&gt; 10  19.2   123  3.44 0.248  0.374</span>
 <span class="co">#&gt; # … with 22 more rows</span></code></pre></div>
 <p>Note how we had to overwrite <code>smallData</code> when we used the <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> function.</p>
 </div>
@@ -460,7 +463,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-16.</p>
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-21.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 8 Lecture 7: Simple linear regression | LÆK101F: General statistics, course for M.Sc. and Ph.D students</title>
+<meta name="author" content="Þórarinn Jónmundsson">
+<meta name="description" content="library(tidyverse) library(cowplot) library(knitr) library(kableExtra)  8.1 The model When we are working with a simple linear regression model we have the dependent variable \(Y\), the...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 8 Lecture 7: Simple linear regression | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta property="og:type" content="book">
+<meta property="og:description" content="library(tidyverse) library(cowplot) library(knitr) library(kableExtra)  8.1 The model When we are working with a simple linear regression model we have the dependent variable \(Y\), the...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 8 Lecture 7: Simple linear regression | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta name="twitter:description" content="library(tidyverse) library(cowplot) library(knitr) library(kableExtra)  8.1 The model When we are working with a simple linear regression model we have the dependent variable \(Y\), the...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/table1-1.0/table1_defaults.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">LÆK101F: General statistics, course for M.Sc. and Ph.D students</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> General information</a></li>
+<li><a class="" href="lecture-1-r-and-r-basics.html"><span class="header-section-number">2</span> Lecture 1: R and R basics</a></li>
+<li><a class="" href="lecture-2-data-wrangling.html"><span class="header-section-number">3</span> Lecture 2: Data wrangling</a></li>
+<li><a class="" href="lecture-3-plots-and-table1.html"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></li>
+<li><a class="" href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></li>
+<li><a class="" href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
+<li><a class="" href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
+<li><a class="active" href="lecture-7-simple-linear-regression.html"><span class="header-section-number">8</span> Lecture 7: Simple linear regression</a></li>
+<li><a class="" href="lecture-8-multiple-regression.html"><span class="header-section-number">9</span> Lecture 8: Multiple regression</a></li>
+<li><a class="" href="lecture-9-diagnostics.html"><span class="header-section-number">10</span> Lecture 9: Diagnostics</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/thorj/laek101f">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-7-simple-linear-regression" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> Lecture 7: Simple linear regression<a class="anchor" aria-label="anchor" href="#lecture-7-simple-linear-regression"><i class="fas fa-link"></i></a>
+</h1>
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span></code></pre></div>
+<div id="the-model" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> The model<a class="anchor" aria-label="anchor" href="#the-model"><i class="fas fa-link"></i></a>
+</h2>
+<p>When we are working with a simple linear regression model we have the <em>dependent</em> variable <span class="math inline">\(Y\)</span>, the <em>independent</em> variable <span class="math inline">\(x\)</span>, and the <em>error</em> <span class="math inline">\(\varepsilon\)</span>. The error <span class="math inline">\(\varepsilon\)</span> is stochastic and we assume that it comes from a normal distribution with parameters <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma ^2\)</span>, where <span class="math inline">\(\sigma ^2\)</span> is unknown. We can also write this as <span class="math inline">\(\varepsilon \sim N(0, \sigma ^2)\)</span>.
+We assume the following relationship between the variables:</p>
+<p><span class="math display">\[
+Y = \beta _ 0 + \beta _ 1 x + \varepsilon 
+\]</span></p>
+<p>We call this model the <em>simple</em> linear regression model because we only have one independent variable. The goal of linear regression is to estimate <em>parameters</em> <span class="math inline">\(\beta _ 0\)</span>, <span class="math inline">\(\beta _ 1\)</span>, and <span class="math inline">\(\sigma\)</span>. Sometimes I will refer to <span class="math inline">\(\beta _ 0\)</span> as the <em>intercept</em> and <span class="math inline">\(\beta_1\)</span> as the <em>slope</em>. When we have <em>measured</em> <span class="math inline">\(Y\)</span> we denote it with <span class="math inline">\(y\)</span>. Note: <span class="math inline">\(Y\)</span> <strong>is a random variable</strong> and <span class="math inline">\(y\)</span> is the <em>observed</em> value of <span class="math inline">\(Y\)</span>. Since <span class="math inline">\(\varepsilon\)</span> is normally distributed then so is <span class="math inline">\(Y\)</span>. In fact, we have that <span class="math inline">\(Y \sim (\beta _ 0 + \beta _ 1 x, \sigma ^2)\)</span>.</p>
+</div>
+<div id="interlude-pulse-data" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> Interlude: pulse data<a class="anchor" aria-label="anchor" href="#interlude-pulse-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Let’s load in the <code>pulse</code> data again and filter it so that we only have observations from the stationary group.</p>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv2</a></span><span class="op">(</span><span class="st">'https://notendur.hi.is/thj73/data/pulseEn.csv'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">intervention</span> <span class="op">==</span> <span class="st">'stationary'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>Let’s plot the first pulse measurement agains the second pulse measurement.</p>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">firstPulse</span>, y <span class="op">=</span> <span class="va">secondPulse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="07-lecture7_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<p>As you guys can see there seems to exists a <em>linear</em> relationship between the two variables. <strong>The goal of linear regression is to find the best line through these points</strong>. Unfortunately, we can draw infinite lines in the plane.</p>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">firstPulse</span>, y <span class="op">=</span> <span class="va">secondPulse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="fl">0</span>, intercept <span class="op">=</span> <span class="fl">70</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="fl">1</span>, intercept <span class="op">=</span> <span class="fl">4</span>, lty <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="fl">1.2</span>, intercept <span class="op">=</span> <span class="op">-</span><span class="fl">4</span>, lty <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="fl">1.4</span>, intercept <span class="op">=</span> <span class="op">-</span><span class="fl">20</span>, lty <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="fl">1.6</span>, intercept <span class="op">=</span> <span class="op">-</span><span class="fl">40</span>, lty <span class="op">=</span> <span class="fl">6</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="fl">1</span>, intercept <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="fl">1</span>, intercept <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="07-lecture7_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<p>To find the “best” line we need to come up with some measure we can use to <em>compare</em> the lines.</p>
+</div>
+<div id="the-least-squares-method" class="section level2" number="8.3">
+<h2>
+<span class="header-section-number">8.3</span> The least squares method<a class="anchor" aria-label="anchor" href="#the-least-squares-method"><i class="fas fa-link"></i></a>
+</h2>
+<p>If we had complete information we could find the best line easily. Consider the following line:
+<span class="math display">\[
+y = 1 + 2x
+\]</span>
+We can completely reconstruct the line above from two measurements. As there is a random element in our model (<span class="math inline">\(\varepsilon\)</span>) our measurements are “corrupted” and we need to “guess”. Here is an example of a “guess”:</p>
+<p><span class="math display">\[
+\tilde{y} = \tilde{\beta} _ 0 + \tilde{\beta} _ 1 x.
+\]</span></p>
+<p>Here <span class="math inline">\(\tilde{\beta} _ 0\)</span> and <span class="math inline">\(\tilde{\beta} _ 1\)</span> are our “guesses”. Luckily, we don’t have to guess randomly as there exists a closed-form solution to the problem. It turns out that the <em>best</em> combination of <span class="math inline">\(\tilde{\beta} _ 0\)</span> and <span class="math inline">\(\tilde{\beta} _ 1\)</span> is the combination that <strong>minimizes</strong> the following expression:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\sum _ {i = 1}^n (y_ i -(\tilde{\beta} _ 0 + \tilde{\beta} _ 1x_i))^2 &amp; = \sum _ {i = 1} ^n (y_i - \tilde{y}_ i)^2 \\
+&amp;= \sum _ {i = 1}^n e_i ^2.
+\end{aligned}
+\]</span></p>
+<p>We are trying to <em>minimize</em> the <em>square sum</em> above. This is where the method gets its name; this is the measure we were looking for.</p>
+<p>The quantity <span class="math inline">\(e_i\)</span> is called the <span class="math inline">\(i\)</span>-th <em>residual</em> and it quantifies how much our guess diverges from our observed value. Once the best guesses of <span class="math inline">\(\beta _ 0\)</span> and <span class="math inline">\(\beta _ 1\)</span> have been found it is customary to denote them as <span class="math inline">\(\hat{\beta} _ 0\)</span> and <span class="math inline">\(\hat{\beta} _ 1\)</span>.</p>
+</div>
+<div id="finding-the-best-line-in-r" class="section level2" number="8.4">
+<h2>
+<span class="header-section-number">8.4</span> Finding the best line in R<a class="anchor" aria-label="anchor" href="#finding-the-best-line-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>We can use the <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> function in R to fit a linear model to our pulse data.</p>
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">linearModel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">secondPulse</span> <span class="op">~</span> <span class="va">firstPulse</span>, data <span class="op">=</span> <span class="va">pulse</span><span class="op">)</span></code></pre></div>
+<p>To see the results of our model we use the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function:</p>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">linearModel</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = secondPulse ~ firstPulse, data = pulse)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;     Min      1Q  Median      3Q     Max </span>
+<span class="co">#&gt; -24.123  -3.082   0.301   2.582  53.678 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)    3.487      2.371   1.471    0.143    </span>
+<span class="co">#&gt; firstPulse     0.952      0.033  28.852   &lt;2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 5.809 on 255 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.7655, Adjusted R-squared:  0.7646 </span>
+<span class="co">#&gt; F-statistic: 832.4 on 1 and 255 DF,  p-value: &lt; 2.2e-16</span></code></pre></div>
+<p>There is a lot to unpack here but for now concentrate on the “Coefficients” part of the output.</p>
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">linearModel</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span>booktabs <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+3.4874648
+</td>
+<td style="text-align:right;">
+2.3710335
+</td>
+<td style="text-align:right;">
+1.470863
+</td>
+<td style="text-align:right;">
+0.1425611
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+firstPulse
+</td>
+<td style="text-align:right;">
+0.9520395
+</td>
+<td style="text-align:right;">
+0.0329972
+</td>
+<td style="text-align:right;">
+28.852160
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>From the output we see that <span class="math inline">\(\hat{\beta} _ 0\)</span> is 3.487 and <span class="math inline">\(\hat{\beta} _ 1\)</span> is 0.952. Let’s plot the best line over our measurements.</p>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">firstPulse</span>, y <span class="op">=</span> <span class="va">secondPulse</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">'lm'</span>, se <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="07-lecture7_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+</div>
+<div id="hypothesis-tests-1" class="section level2" number="8.5">
+<h2>
+<span class="header-section-number">8.5</span> Hypothesis tests<a class="anchor" aria-label="anchor" href="#hypothesis-tests-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Each estimate has its standard error, <span class="math inline">\(t\)</span>-statistic and <span class="math inline">\(p\)</span>-value. The hypothesis test is:</p>
+<p><span class="math display">\[
+\begin{aligned}
+H_0&amp;: \mbox{ parameter } \beta _ i = 0 \\
+H_1&amp;: \mbox{ parameter } \beta _ i \neq 0
+\end{aligned}
+\]</span></p>
+<p>The test statistic of the hypothesis is:
+<span class="math display">\[
+t = \frac{\hat{\beta} _ i}{se(\hat{\beta} _ i)}
+\]</span></p>
+<p>Looking at the <span class="math inline">\(p\)</span>-value column we can see that we can comfortably reject the null hypothesis (<span class="math inline">\(\alpha = 0.05\)</span>) for the slope, but not the intercept. We can get the confidence intervals for our parameters using the <code>conf.int()</code> function:</p>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">linearModel</span>, level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span>
+<span class="co">#&gt;                  2.5 %   97.5 %</span>
+<span class="co">#&gt; (Intercept) -1.1818366 8.156766</span>
+<span class="co">#&gt; firstPulse   0.8870579 1.017021</span></code></pre></div>
+<p>Sometimes we want to plot our coefficients with their confidence intervals. This can done quite easily with the <code>conf.int</code> option of the <code>tidy()</code> function from the package <code>broom</code>.</p>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">linearModel</span>, conf.int <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">estimate</span>, y <span class="op">=</span> <span class="va">term</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_errorbarh.html">geom_errorbarh</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>xmin <span class="op">=</span> <span class="va">conf.low</span>, xmax <span class="op">=</span> <span class="va">conf.high</span><span class="op">)</span>, height <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">'red'</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> </code></pre></div>
+<div class="inline-figure"><img src="07-lecture7_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+</div>
+<div id="what-about-sigma-2" class="section level2" number="8.6">
+<h2>
+<span class="header-section-number">8.6</span> What about <span class="math inline">\(\sigma ^2\)</span>?<a class="anchor" aria-label="anchor" href="#what-about-sigma-2"><i class="fas fa-link"></i></a>
+</h2>
+<p>We denote the estimate of <span class="math inline">\(\sigma ^2\)</span> with <span class="math inline">\(\hat{\sigma}^2\)</span> and define it as:
+<span class="math display">\[
+\hat{\sigma}^2 = \frac{1}{n - k}\sum _ {i = 1} ^n (y_i - \hat{y}_ i)^2,
+\]</span>
+where <span class="math inline">\(k\)</span> is the number of parameters in our model (excluding <span class="math inline">\(\sigma ^2\)</span>). The estimate <span class="math inline">\(\hat{\sigma}\)</span> can be seen in the output of the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function. Alternatively we can use the <code>glance()</code> function from the <code>broom</code> package.</p>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html">glance</a></span><span class="op">(</span><span class="va">linearModel</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span>booktabs <span class="op">=</span> <span class="cn">T</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:right;">
+r.squared
+</th>
+<th style="text-align:right;">
+adj.r.squared
+</th>
+<th style="text-align:right;">
+sigma
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+<th style="text-align:right;">
+df
+</th>
+<th style="text-align:right;">
+logLik
+</th>
+<th style="text-align:right;">
+AIC
+</th>
+<th style="text-align:right;">
+BIC
+</th>
+<th style="text-align:right;">
+deviance
+</th>
+<th style="text-align:right;">
+df.residual
+</th>
+<th style="text-align:right;">
+nobs
+</th>
+</tr></thead>
+<tbody><tr>
+<td style="text-align:right;">
+0.7655058
+</td>
+<td style="text-align:right;">
+0.7645863
+</td>
+<td style="text-align:right;">
+5.808717
+</td>
+<td style="text-align:right;">
+832.4471
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+-815.8187
+</td>
+<td style="text-align:right;">
+1637.637
+</td>
+<td style="text-align:right;">
+1648.285
+</td>
+<td style="text-align:right;">
+8604.003
+</td>
+<td style="text-align:right;">
+255
+</td>
+<td style="text-align:right;">
+257
+</td>
+</tr></tbody>
+</table></div>
+<p>We see that <span class="math inline">\(\hat{\sigma}\)</span> is roughly 5.8087.</p>
+</div>
+<div id="the-coefficient-of-determination-r2" class="section level2" number="8.7">
+<h2>
+<span class="header-section-number">8.7</span> The coefficient of determination <span class="math inline">\(R^2\)</span><a class="anchor" aria-label="anchor" href="#the-coefficient-of-determination-r2"><i class="fas fa-link"></i></a>
+</h2>
+<p>One way to evaluate the goodness of our fit is to compute the coefficient of determination <span class="math inline">\(R^2\)</span>:</p>
+<p><span class="math display">\[
+R^2 = 1 - \frac{\sum _ {i = 1} ^n (y_i - \hat{y}_ i)^2}{\sum _ {i = 1} ^n (y_i - \bar{y}_ i)^2}
+\]</span></p>
+<p>The denominator of <span class="math inline">\(R^2\)</span> is the <em>variation in the data</em> while the numerator is the sum squares of our residuals. The value of <span class="math inline">\(R^2\)</span> represents the amount of variation in the data explained by the model. For our model, the <span class="math inline">\(R^2\)</span> value is 0.7655. That is, our model explains 76.5% of the variation in the data. That’s pretty decent.</p>
+<p>When we have a simple linear regression model the coefficient of correlation <span class="math inline">\(r\)</span> and the coefficient of determination <span class="math inline">\(R^2\)</span> are related. We can compute the correlation between two variables with the <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code> function.</p>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">pulse</span><span class="op">$</span><span class="va">firstPulse</span>, <span class="va">pulse</span><span class="op">$</span><span class="va">secondPulse</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.8749319</span></code></pre></div>
+<p>Observe what happens if we raise the correlation coefficient to the power of two:</p>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">pulse</span><span class="op">$</span><span class="va">firstPulse</span>, <span class="va">pulse</span><span class="op">$</span><span class="va">secondPulse</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span>
+<span class="co">#&gt; [1] 0.7655058</span></code></pre></div>
+</div>
+<div id="prediction" class="section level2" number="8.8">
+<h2>
+<span class="header-section-number">8.8</span> Prediction<a class="anchor" aria-label="anchor" href="#prediction"><i class="fas fa-link"></i></a>
+</h2>
+<p>Having fitted our model we can now use it to make predictions. There are two types of prediction: interpolation and extrapolation.</p>
+<ul>
+<li><p>Interpolation: We use our model to predict the value of a new observation that falls <em>within</em> the range of our independent variable.</p></li>
+<li><p>Extrapolation: We use our model to predict the value of a new observation that falls <em>outside</em> of the range of our independent variable.</p></li>
+</ul>
+<p>Interpolation usually works well with our model but extrapolation can be dangerous.</p>
+<p>We use use <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function to make predictions.</p>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">newData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>firstPulse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">78.7674</span>, <span class="fl">200</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">linearModel</span>, <span class="va">newData</span><span class="op">)</span>
+<span class="co">#&gt;         1         2 </span>
+<span class="co">#&gt;  78.47714 193.89537</span></code></pre></div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></div>
+<div class="next"><a href="lecture-8-multiple-regression.html"><span class="header-section-number">9</span> Lecture 8: Multiple regression</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-7-simple-linear-regression"><span class="header-section-number">8</span> Lecture 7: Simple linear regression</a></li>
+<li><a class="nav-link" href="#the-model"><span class="header-section-number">8.1</span> The model</a></li>
+<li><a class="nav-link" href="#interlude-pulse-data"><span class="header-section-number">8.2</span> Interlude: pulse data</a></li>
+<li><a class="nav-link" href="#the-least-squares-method"><span class="header-section-number">8.3</span> The least squares method</a></li>
+<li><a class="nav-link" href="#finding-the-best-line-in-r"><span class="header-section-number">8.4</span> Finding the best line in R</a></li>
+<li><a class="nav-link" href="#hypothesis-tests-1"><span class="header-section-number">8.5</span> Hypothesis tests</a></li>
+<li><a class="nav-link" href="#what-about-sigma-2"><span class="header-section-number">8.6</span> What about \(\sigma ^2\)?</a></li>
+<li><a class="nav-link" href="#the-coefficient-of-determination-r2"><span class="header-section-number">8.7</span> The coefficient of determination \(R^2\)</a></li>
+<li><a class="nav-link" href="#prediction"><span class="header-section-number">8.8</span> Prediction</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/thorj/laek101f/blob/master/07-lecture7.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/thorj/laek101f/edit/master/07-lecture7.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-21.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

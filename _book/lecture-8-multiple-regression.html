@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 9 Lecture 8: Multiple regression | LÆK101F: General statistics, course for M.Sc. and Ph.D students</title>
+<meta name="author" content="Þórarinn Jónmundsson">
+<meta name="description" content="library(tidyverse) library(cowplot)  # Theme library(faraway)  # Data library(table1)   # Table1 library(knitr)   # kable library(kableExtra) # Pretty kables  9.1 ANCOVA The analysis of covariance...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 9 Lecture 8: Multiple regression | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta property="og:type" content="book">
+<meta property="og:description" content="library(tidyverse) library(cowplot)  # Theme library(faraway)  # Data library(table1)   # Table1 library(knitr)   # kable library(kableExtra) # Pretty kables  9.1 ANCOVA The analysis of covariance...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 9 Lecture 8: Multiple regression | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta name="twitter:description" content="library(tidyverse) library(cowplot)  # Theme library(faraway)  # Data library(table1)   # Table1 library(knitr)   # kable library(kableExtra) # Pretty kables  9.1 ANCOVA The analysis of covariance...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/table1-1.0/table1_defaults.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">LÆK101F: General statistics, course for M.Sc. and Ph.D students</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> General information</a></li>
+<li><a class="" href="lecture-1-r-and-r-basics.html"><span class="header-section-number">2</span> Lecture 1: R and R basics</a></li>
+<li><a class="" href="lecture-2-data-wrangling.html"><span class="header-section-number">3</span> Lecture 2: Data wrangling</a></li>
+<li><a class="" href="lecture-3-plots-and-table1.html"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></li>
+<li><a class="" href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></li>
+<li><a class="" href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
+<li><a class="" href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
+<li><a class="" href="lecture-7-simple-linear-regression.html"><span class="header-section-number">8</span> Lecture 7: Simple linear regression</a></li>
+<li><a class="active" href="lecture-8-multiple-regression.html"><span class="header-section-number">9</span> Lecture 8: Multiple regression</a></li>
+<li><a class="" href="lecture-9-diagnostics.html"><span class="header-section-number">10</span> Lecture 9: Diagnostics</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/thorj/laek101f">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-8-multiple-regression" class="section level1" number="9">
+<h1>
+<span class="header-section-number">9</span> Lecture 8: Multiple regression<a class="anchor" aria-label="anchor" href="#lecture-8-multiple-regression"><i class="fas fa-link"></i></a>
+</h1>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span>    <span class="co"># Theme</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://people.bath.ac.uk/jjf23/">faraway</a></span><span class="op">)</span>    <span class="co"># Data</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/benjaminrich/table1">table1</a></span><span class="op">)</span>     <span class="co"># Table1</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span>      <span class="co"># kable</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span> <span class="co"># Pretty kables</span></code></pre></div>
+<div id="ancova" class="section level2" number="9.1">
+<h2>
+<span class="header-section-number">9.1</span> ANCOVA<a class="anchor" aria-label="anchor" href="#ancova"><i class="fas fa-link"></i></a>
+</h2>
+<p>The analysis of covariance (ANCOVA) is a linear model with one continuous variables and one categorical (factor) variable. We will use the <code>cathedral</code> data from the <code>faraway</code> package to demonstrate the ANCOVA model. Let’s summarize it quickly.</p>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Load data</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">'cathedral'</span><span class="op">)</span>
+<span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">cathedral</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 25</span>
+<span class="co">#&gt; Columns: 3</span>
+<span class="co">#&gt; $ style &lt;fct&gt; r, r, r, r, r, r, r, r, r, g, g, g, g, g, g,…</span>
+<span class="co">#&gt; $ x     &lt;dbl&gt; 75, 80, 68, 64, 83, 80, 70, 76, 74, 100, 75,…</span>
+<span class="co">#&gt; $ y     &lt;dbl&gt; 502, 522, 425, 344, 407, 451, 551, 530, 547,…</span></code></pre></div>
+<p>Our data consists of 25 observations and 3 variables. The variables we have are <code>style</code>, <code>x</code>, and <code>y</code>.</p>
+<ul>
+<li><p><code>style</code>: The architectural style of the cathedral. It has two levels: <code>r</code> for Romanesque and <code>g</code> for Gothic.</p></li>
+<li><p><code>x</code>: The nave height of the cathedral. Measured in feet.</p></li>
+<li><p><code>y</code>: The length of the cathedral. Measured in feet.</p></li>
+</ul>
+<p>Let’s plot the data to see what it looks like:</p>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cathedral</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">style</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="08-lecture8_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<p>There are many models we can fit to this data but we are interested in three:</p>
+<ol style="list-style-type: decimal">
+<li><p>A model which only uses <code>x</code>: one slope, one intercept.</p></li>
+<li><p>A model which uses <code>x</code> and <code>style</code>: one slope, two intercepts.</p></li>
+<li><p>A model which uses <code>x</code> and <code>style</code>: two slopes, two intercepts.</p></li>
+</ol>
+<div id="the-first-model-one-intercept-one-slope" class="section level3" number="9.1.1">
+<h3>
+<span class="header-section-number">9.1.1</span> The first model: one intercept, one slope<a class="anchor" aria-label="anchor" href="#the-first-model-one-intercept-one-slope"><i class="fas fa-link"></i></a>
+</h3>
+<p>The first model which only uses <code>x</code> assumes that the data is explained by a single line. Let’s fit our model and look at the results.</p>
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ancovM1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">cathedral</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ancovM1</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = y ~ x, data = cathedral)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;      Min       1Q   Median       3Q      Max </span>
+<span class="co">#&gt; -201.601  -31.241    4.378   52.097  147.745 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   76.420     89.258   0.856 0.400739    </span>
+<span class="co">#&gt; x              4.669      1.172   3.985 0.000584 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 85.83 on 23 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.4084, Adjusted R-squared:  0.3827 </span>
+<span class="co">#&gt; F-statistic: 15.88 on 1 and 23 DF,  p-value: 0.0005838</span></code></pre></div>
+<p>Let’s add the regression line to the plot of our data:</p>
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cathedral</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">style</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">'lm'</span>, se <span class="op">=</span> <span class="cn">F</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span>
+<span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></code></pre></div>
+<div class="inline-figure"><img src="08-lecture8_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+</div>
+<div id="the-second-model-same-slope-different-intercepts" class="section level3" number="9.1.2">
+<h3>
+<span class="header-section-number">9.1.2</span> The second model: same slope, different intercepts<a class="anchor" aria-label="anchor" href="#the-second-model-same-slope-different-intercepts"><i class="fas fa-link"></i></a>
+</h3>
+<p>Looking at the plot above we might ask ourselves that maybe <em>two</em> lines describe the data better. Let’s test this by adding <code>style</code> to our model.</p>
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ancovM2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="va">style</span>, data <span class="op">=</span> <span class="va">cathedral</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ancovM2</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = y ~ x + style, data = cathedral)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;     Min      1Q  Median      3Q     Max </span>
+<span class="co">#&gt; -172.67  -30.44   20.38   55.02   96.50 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   44.298     81.648   0.543   0.5929    </span>
+<span class="co">#&gt; x              4.712      1.058   4.452   0.0002 ***</span>
+<span class="co">#&gt; styler        80.393     32.306   2.488   0.0209 *  </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 77.53 on 22 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.5384, Adjusted R-squared:  0.4964 </span>
+<span class="co">#&gt; F-statistic: 12.83 on 2 and 22 DF,  p-value: 0.0002028</span></code></pre></div>
+<p>Look at the output. The coefficient for <code>x</code> is still the slope but now we have two intercept. We have the actual reported intercept term <code>(Intercept)</code> for the baseline level <code>g</code> and then we have <strong>part</strong> of the intercept term for the Romanesque style. To get the actual intercept term for level <code>r</code> we need to <strong>add</strong> the two terms together.</p>
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coefficients</a></span><span class="op">(</span><span class="va">ancovM2</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [1] 124.6905</span></code></pre></div>
+<p>A very useful function is the <code><a href="https://ggplot2.tidyverse.org/reference/fortify.html">fortify()</a></code> function from the <code>ggplot2</code> package which is included with the <code>tidyverse</code> package.</p>
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fortM2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/fortify.html">fortify</a></span><span class="op">(</span><span class="va">ancovM2</span><span class="op">)</span>
+<span class="va">fortM2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 25 × 9</span>
+<span class="co">#&gt;        y     x style  .hat .sigma  .cooksd .fitted  .resid</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;</span>
+<span class="co">#&gt;  1   502    75 r     0.111   79.2 0.00447     478.   23.9 </span>
+<span class="co">#&gt;  2   522    80 r     0.117   79.2 0.00345     502.   20.4 </span>
+<span class="co">#&gt;  3   425    68 r     0.119   79.2 0.00342     445.  -20.1 </span>
+<span class="co">#&gt;  4   344    64 r     0.131   77.0 0.0653      426.  -82.2 </span>
+<span class="co">#&gt;  5   407    83 r     0.125   75.2 0.107       516. -109.  </span>
+<span class="co">#&gt;  6   451    80 r     0.117   78.5 0.0213      502.  -50.6 </span>
+<span class="co">#&gt;  7   551    70 r     0.115   76.1 0.0757      455.   96.5 </span>
+<span class="co">#&gt;  8   530    76 r     0.112   78.6 0.0175      483.   47.2 </span>
+<span class="co">#&gt;  9   547    74 r     0.111   77.5 0.0423      473.   73.6 </span>
+<span class="co">#&gt; 10   519   100 g     0.180   79.3 0.000185    515.    3.54</span>
+<span class="co">#&gt; # … with 15 more rows, and 1 more variable: .stdresid &lt;dbl&gt;</span></code></pre></div>
+<p>The <code><a href="https://ggplot2.tidyverse.org/reference/fortify.html">fortify()</a></code> function gives us a data frame with the independent and dependent variables along with the predicted values and some diagnostics quantities. For this lecture we will only concern ourselves with the independent and dependent variables as well as the <code>.fitted</code> column.</p>
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fortM2</span> <span class="op">&lt;-</span> 
+    <span class="va">fortM2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">y</span>, <span class="va">x</span>, <span class="va">style</span>, <span class="va">.fitted</span><span class="op">)</span></code></pre></div>
+<p>We can now use our fortified data frame to plot the results of our model:</p>
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">fortM2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, color <span class="op">=</span> <span class="va">style</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.fitted</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span> </code></pre></div>
+<div class="inline-figure"><img src="08-lecture8_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
+<p>We now see that we have two lines. They are parallel which should make sense as they have the same slope. The only difference between the two is the intercept.</p>
+</div>
+<div id="the-third-model-two-slopes-two-intercepts" class="section level3" number="9.1.3">
+<h3>
+<span class="header-section-number">9.1.3</span> The third model: two slopes, two intercepts<a class="anchor" aria-label="anchor" href="#the-third-model-two-slopes-two-intercepts"><i class="fas fa-link"></i></a>
+</h3>
+<p>Allowing two intercept seems to have improved our model. What if we allow a second slope as well?</p>
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ancovM3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span> <span class="op">*</span> <span class="va">style</span>, data <span class="op">=</span> <span class="va">cathedral</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ancovM3</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = y ~ x * style, data = cathedral)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;     Min      1Q  Median      3Q     Max </span>
+<span class="co">#&gt; -172.68  -30.22   23.75   55.78   89.50 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)   37.111     85.675   0.433 0.669317    </span>
+<span class="co">#&gt; x              4.808      1.112   4.322 0.000301 ***</span>
+<span class="co">#&gt; styler       204.722    347.207   0.590 0.561733    </span>
+<span class="co">#&gt; x:styler      -1.669      4.641  -0.360 0.722657    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 79.11 on 21 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.5412, Adjusted R-squared:  0.4757 </span>
+<span class="co">#&gt; F-statistic: 8.257 on 3 and 21 DF,  p-value: 0.0008072</span></code></pre></div>
+<p>We now have four coefficients. We have the intercept <code>(Intercept)</code> and slope <code>x</code> of the regression line for the Gothic-style cathedral and we have the intercept <code>styler</code> and slope <code>x:styler</code> for the regression line of the Romanesque-style cathedral. To get the true intercept and slope for the Romanesque style we need to add the intercept terms together and the slope terms:</p>
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coefficients</a></span><span class="op">(</span><span class="va">ancovM3</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [1] 241.8327</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coefficients</a></span><span class="op">(</span><span class="va">ancovM3</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [1] 3.138068</span></code></pre></div>
+<p>We plot the regression lines over our data using the <code><a href="https://ggplot2.tidyverse.org/reference/fortify.html">fortify()</a></code> version of our data:</p>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/fortify.html">fortify</a></span><span class="op">(</span><span class="va">ancovM3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, color <span class="op">=</span> <span class="va">style</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">.fitted</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="08-lecture8_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
+</div>
+<div id="three-models-but-which-model" class="section level3" number="9.1.4">
+<h3>
+<span class="header-section-number">9.1.4</span> Three models, but which model?<a class="anchor" aria-label="anchor" href="#three-models-but-which-model"><i class="fas fa-link"></i></a>
+</h3>
+<p>We have fitted three models to our data. We now need some way to select the <em>best</em> model of the three, based on some measure. Let’s get the coefficient of determination <span class="math inline">\(R^2\)</span> and its adjusted version for each model and compare the values:</p>
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'Model 1'</span>, <span class="st">'Model 2'</span>, <span class="st">'Model 3'</span><span class="op">)</span>, 
+       r2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ancovM1</span><span class="op">)</span><span class="op">$</span><span class="va">r.squared</span>, 
+              <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ancovM2</span><span class="op">)</span><span class="op">$</span><span class="va">r.squared</span>, 
+              <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ancovM3</span><span class="op">)</span><span class="op">$</span><span class="va">r.squared</span><span class="op">)</span>, 
+       r2adj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ancovM1</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span>, 
+              <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ancovM2</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span>, 
+              <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ancovM3</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+model
+</th>
+<th style="text-align:right;">
+r2
+</th>
+<th style="text-align:right;">
+r2adj
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Model 1
+</td>
+<td style="text-align:right;">
+0.4084474
+</td>
+<td style="text-align:right;">
+0.3827277
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Model 2
+</td>
+<td style="text-align:right;">
+0.5383801
+</td>
+<td style="text-align:right;">
+0.4964147
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Model 3
+</td>
+<td style="text-align:right;">
+0.5412070
+</td>
+<td style="text-align:right;">
+0.4756651
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>As you can see <span class="math inline">\(R^2\)</span> increased as we added variables to our model. This is an inherit property of <span class="math inline">\(R^2\)</span> and a reason why we can’t rely on it blindly when judging the quality of our model. The adjusted <span class="math inline">\(R^2\)</span> fluctuates however. The reason for this fluctuation is that the adjusted <span class="math inline">\(R^2\)</span> penalizes the addition of variables to a model. Based on the table above, model two looks like the candidate model. We can actually test this with the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function.</p>
+<p>Notice how both the first and second model are “embedded” in some sense in the third model. I say this because the third model contains <strong>all</strong> the variables that are used in the first and second model. To test whether a “reduced” model performs better than the “full” model we use the <code><a href="https://rdrr.io/r/stats/anova.html">anova()</a></code> function:</p>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">ancovM2</span>, <span class="va">ancovM3</span><span class="op">)</span>
+<span class="co">#&gt; Analysis of Variance Table</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Model 1: y ~ x + style</span>
+<span class="co">#&gt; Model 2: y ~ x * style</span>
+<span class="co">#&gt;   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)</span>
+<span class="co">#&gt; 1     22 132223                           </span>
+<span class="co">#&gt; 2     21 131413  1     809.7 0.1294 0.7227</span></code></pre></div>
+<p>The null hypothesis of the test above is that adding a variable (or variables) did not improve our fit. If model three had outperformed model two we would have been able to reject the null hypothesis but we were unsuccessful. The results of the ANOVA test should not have come as a surprise when you think about the adjusted <span class="math inline">\(R^2\)</span> values and the output of the summaries of the models.</p>
+<p>Bottom line: seems like a model with two intercepts and one slope fits the data best of the three models we constructed.</p>
+</div>
+</div>
+<div id="two-way-anova" class="section level2" number="9.2">
+<h2>
+<span class="header-section-number">9.2</span> Two-way ANOVA<a class="anchor" aria-label="anchor" href="#two-way-anova"><i class="fas fa-link"></i></a>
+</h2>
+<p>The two-way ANOVA is a linear model with two categorical (factor variable) and a continuous response. We will use the <code>rats</code> data from the <code>faraway</code> package.</p>
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">'rats'</span><span class="op">)</span>
+<span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">rats</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 48</span>
+<span class="co">#&gt; Columns: 3</span>
+<span class="co">#&gt; $ time   &lt;dbl&gt; 0.31, 0.82, 0.43, 0.45, 0.45, 1.10, 0.45, 0…</span>
+<span class="co">#&gt; $ poison &lt;fct&gt; I, I, I, I, I, I, I, I, I, I, I, I, I, I, I…</span>
+<span class="co">#&gt; $ treat  &lt;fct&gt; A, B, C, D, A, B, C, D, A, B, C, D, A, B, C…</span></code></pre></div>
+<p>The data consists of 48 lines and 3 columns. The variables of the data set are <code>time</code>, <code>poison</code>, and <code>treat</code>:</p>
+<ul>
+<li><p><code>time</code>: The survival time of the rats. Measured in tens of hours.</p></li>
+<li><p><code>poison</code>: The type of poison the rats were subjected to. The variable has three levels: <code>I</code>, <code>II</code>, and <code>III</code>.</p></li>
+<li><p><code>treat</code>: The treatment the rats were subject to. The variable has four levels: <code>A</code>, <code>B</code>, <code>C</code>, and <code>D</code>.</p></li>
+</ul>
+<p>Let’s plot our data:</p>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rats</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">poison</span>, y <span class="op">=</span> <span class="va">time</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">treat</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="08-lecture8_files/figure-html/unnamed-chunk-17-1.png" width="672">
+Looking at the plots above it seems that poison III is the most potent. Similarly, treatment B seems to have the greatest efficacy. But is there an <em>interaction</em> between the two variables? That is, does the effect of one variable depend on the other? If there is no interaction, we simply use an additive model; we <em>add</em> the effects of variable <span class="math inline">\(x\)</span> to variable <span class="math inline">\(y\)</span>. If there is an interaction, things can get complicated.</p>
+<p>To check for interactions <em>graphically</em> we create an <em>interaction</em> plot:</p>
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">rats</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">poison</span>, y <span class="op">=</span> <span class="va">time</span>, group <span class="op">=</span> <span class="va">treat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">treat</span><span class="op">)</span>, fun.y <span class="op">=</span> <span class="va">mean</span>, geom <span class="op">=</span> <span class="st">'line'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span>
+<span class="co">#&gt; Warning: `fun.y` is deprecated. Use `fun` instead.</span></code></pre></div>
+<div class="inline-figure"><img src="08-lecture8_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
+<p>The <span class="math inline">\(x\)</span>-axis is the poison type, the <span class="math inline">\(y\)</span>-axis the <em>mean</em> survival time. If the lines start crossing, we expect an interaction effect. The plot above shows that there may be some interactions, but the graphical evidence is unconvincing. Let’s formally test if there is an interaction effect.</p>
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">anov2w</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">time</span> <span class="op">~</span> <span class="va">treat</span> <span class="op">*</span> <span class="va">poison</span>, data <span class="op">=</span> <span class="va">rats</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">anov2w</span><span class="op">)</span>
+<span class="co">#&gt; Analysis of Variance Table</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Response: time</span>
+<span class="co">#&gt;              Df  Sum Sq Mean Sq F value    Pr(&gt;F)    </span>
+<span class="co">#&gt; treat         3 0.92121 0.30707 13.8056 3.777e-06 ***</span>
+<span class="co">#&gt; poison        2 1.03301 0.51651 23.2217 3.331e-07 ***</span>
+<span class="co">#&gt; treat:poison  6 0.25014 0.04169  1.8743    0.1123    </span>
+<span class="co">#&gt; Residuals    36 0.80073 0.02224                      </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></code></pre></div>
+<p>We see that both treatment and poison seem to be significant but the interaction between the two variables <code>treat:poison</code> is not significant. We therefore conclude that the interactions are not significant.</p>
+<div id="same-method-different-data-set" class="section level3" number="9.2.1">
+<h3>
+<span class="header-section-number">9.2.1</span> Same method, different data set<a class="anchor" aria-label="anchor" href="#same-method-different-data-set"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s look at another example. We will use the <code>ToothGrowth</code> data which is included with R.</p>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">ToothGrowth</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 60</span>
+<span class="co">#&gt; Columns: 3</span>
+<span class="co">#&gt; $ len  &lt;dbl&gt; 4.2, 11.5, 7.3, 5.8, 6.4, 10.0, 11.2, 11.2, 5…</span>
+<span class="co">#&gt; $ supp &lt;fct&gt; VC, VC, VC, VC, VC, VC, VC, VC, VC, VC, VC, V…</span>
+<span class="co">#&gt; $ dose &lt;dbl&gt; 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, …</span></code></pre></div>
+<p>The data consists of 60 lines and 3 columns. The variables of the data set are <code>len</code>, <code>supp</code>, and <code>dose</code>:</p>
+<ul>
+<li><p><code>len</code>: The length of the tooth.</p></li>
+<li><p><code>supp</code>: Supplement type. The variable has two levels: <code>OJ</code> (orange juice) and <code>VC</code> (vitamin C).</p></li>
+<li><p><code>dose</code>: The dose in milligrams. The levels are <code>0.5</code>, <code>1.0</code>, and <code>2.0</code>.</p></li>
+</ul>
+<p>This data set is much bigger than the <code>rats</code> one so we will summarize it quickly with the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function.</p>
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">ToothGrowth</span><span class="op">)</span>
+<span class="co">#&gt;       len        supp         dose      </span>
+<span class="co">#&gt;  Min.   : 4.20   OJ:30   Min.   :0.500  </span>
+<span class="co">#&gt;  1st Qu.:13.07   VC:30   1st Qu.:0.500  </span>
+<span class="co">#&gt;  Median :19.25           Median :1.000  </span>
+<span class="co">#&gt;  Mean   :18.81           Mean   :1.167  </span>
+<span class="co">#&gt;  3rd Qu.:25.27           3rd Qu.:2.000  </span>
+<span class="co">#&gt;  Max.   :33.90           Max.   :2.000</span></code></pre></div>
+<p>Notice that <code>dose</code> is treated as a continuous variable. This is something that we don’t want. The numbers represent a category. We will therefore recast <code>dose</code> as a factor variable.</p>
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ToothGrowth</span> <span class="op">&lt;-</span> 
+    <span class="va">ToothGrowth</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dose <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">dose</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Let’s plot our data:</p>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ToothGrowth</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dose</span>, y <span class="op">=</span> <span class="va">len</span>, fill <span class="op">=</span> <span class="va">supp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_fill_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="08-lecture8_files/figure-html/unnamed-chunk-23-1.png" width="672"></div>
+<p>Let’s also plot the interactions.</p>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ToothGrowth</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dose</span>, y <span class="op">=</span> <span class="va">len</span>, group <span class="op">=</span> <span class="va">supp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/stat_summary.html">stat_summary</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">supp</span><span class="op">)</span>, fun.y <span class="op">=</span> <span class="va">mean</span>, geom <span class="op">=</span> <span class="st">'line'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span>
+<span class="co">#&gt; Warning: `fun.y` is deprecated. Use `fun` instead.</span></code></pre></div>
+<div class="inline-figure"><img src="08-lecture8_files/figure-html/unnamed-chunk-24-1.png" width="672"></div>
+<p>We see that under <code>VC</code> the mean length grows nicely as we increase the dose. For the <code>OJ</code> group we see a shift going from dose <code>1.0</code> to dose <code>2.0</code>. The two treatment lines cross at dose <code>2.0</code>. Let’s formally test if there is an interaction:</p>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">anov2wtooth</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">len</span> <span class="op">~</span> <span class="va">supp</span> <span class="op">*</span> <span class="va">dose</span>, data <span class="op">=</span> <span class="va">ToothGrowth</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">anov2wtooth</span><span class="op">)</span>
+<span class="co">#&gt; Analysis of Variance Table</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Response: len</span>
+<span class="co">#&gt;           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    </span>
+<span class="co">#&gt; supp       1  205.35  205.35  15.572 0.0002312 ***</span>
+<span class="co">#&gt; dose       2 2426.43 1213.22  92.000 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; supp:dose  2  108.32   54.16   4.107 0.0218603 *  </span>
+<span class="co">#&gt; Residuals 54  712.11   13.19                      </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></code></pre></div>
+<p>This time we see that the supplement, dose AND interaction between those two variables are significant.</p>
+</div>
+</div>
+<div id="multiple-linear-regression" class="section level2" number="9.3">
+<h2>
+<span class="header-section-number">9.3</span> Multiple linear regression<a class="anchor" aria-label="anchor" href="#multiple-linear-regression"><i class="fas fa-link"></i></a>
+</h2>
+<p>There is no reason to stop at three variables. We can continuously add variables to our model and R will happily fit it for us.</p>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv2</a></span><span class="op">(</span><span class="st">'https://notendur.hi.is/thj73/data/pulseEn.csv'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">secondPulse</span> <span class="op">~</span> <span class="va">firstPulse</span><span class="op">*</span><span class="va">intervention</span> <span class="op">+</span> <span class="va">sex</span> <span class="op">+</span> <span class="va">height</span> <span class="op">+</span> <span class="va">weight</span>, data <span class="op">=</span> <span class="va">pulse</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = secondPulse ~ firstPulse * intervention + sex + </span>
+<span class="co">#&gt;     height + weight, data = pulse)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;     Min      1Q  Median      3Q     Max </span>
+<span class="co">#&gt; -29.622  -5.599  -0.322   3.788  53.701 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                                     Estimate Std. Error</span>
+<span class="co">#&gt; (Intercept)                        33.936496   6.050011</span>
+<span class="co">#&gt; firstPulse                          0.880819   0.075194</span>
+<span class="co">#&gt; interventionstationary            -31.353887   7.469346</span>
+<span class="co">#&gt; sex                                -0.752416   1.227185</span>
+<span class="co">#&gt; height                              0.008287   0.006409</span>
+<span class="co">#&gt; weight                              0.002131   0.006963</span>
+<span class="co">#&gt; firstPulse:interventionstationary   0.074302   0.101535</span>
+<span class="co">#&gt;                                   t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)                         5.609 3.61e-08 ***</span>
+<span class="co">#&gt; firstPulse                         11.714  &lt; 2e-16 ***</span>
+<span class="co">#&gt; interventionstationary             -4.198 3.27e-05 ***</span>
+<span class="co">#&gt; sex                                -0.613    0.540    </span>
+<span class="co">#&gt; height                              1.293    0.197    </span>
+<span class="co">#&gt; weight                              0.306    0.760    </span>
+<span class="co">#&gt; firstPulse:interventionstationary   0.732    0.465    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 12.18 on 436 degrees of freedom</span>
+<span class="co">#&gt;   (28 observations deleted due to missingness)</span>
+<span class="co">#&gt; Multiple R-squared:  0.6795, Adjusted R-squared:  0.6751 </span>
+<span class="co">#&gt; F-statistic:   154 on 6 and 436 DF,  p-value: &lt; 2.2e-16</span></code></pre></div>
+<p>That’s not to say that more is always better. The general rule of thumb is <strong>parsimony</strong> or smaller is better. We want our model to generalize to data that it hasn’t seen before (predict). If we tailor our model too closely to the data we use to construct it we run at risk of <strong>overfitting</strong>.</p>
+<div id="the-problem-of-overfitting" class="section level3" number="9.3.1">
+<h3>
+<span class="header-section-number">9.3.1</span> The problem of overfitting<a class="anchor" aria-label="anchor" href="#the-problem-of-overfitting"><i class="fas fa-link"></i></a>
+</h3>
+<p>I am going to create fake data set to demonstrate the danger of overfitting. First I create the “truth”. I want my dependent variable <span class="math inline">\(y\)</span> to be created from independent variable <span class="math inline">\(x\)</span>. I want them to be related in the following way:</p>
+<p><span class="math display">\[
+y = 1 + 2 \cdot x = \beta _ 0 + \beta _ 1 x.
+\]</span></p>
+<p>Of course there needs to be some sort of randomness in the model because otherwise there would be no point in the analysis. I therefore add <span class="math inline">\(\varepsilon \sim N(0, \sigma ^2) = N(0, 3^2)\)</span> to the data to create fluctuations.</p>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create data</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">10</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+<span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">*</span> <span class="va">x</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span>n <span class="op">=</span> <span class="va">n</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="va">overData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></code></pre></div>
+<p>Let’s fit a linear model to this data and see what we get:</p>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lmSmall</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">overData</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmSmall</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = y ~ x, data = overData)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;     Min      1Q  Median      3Q     Max </span>
+<span class="co">#&gt; -5.1252 -1.8286  0.4301  2.5616  3.0235 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)  </span>
+<span class="co">#&gt; (Intercept)   2.7254     1.3108   2.079   0.0712 .</span>
+<span class="co">#&gt; x             1.2258     0.6731   1.821   0.1061  </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 3.152 on 8 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.2931, Adjusted R-squared:  0.2047 </span>
+<span class="co">#&gt; F-statistic: 3.316 on 1 and 8 DF,  p-value: 0.1061</span></code></pre></div>
+<p>The results are kinda poor but that’s OK; this is just an example. Let’s add more variables to the data.</p>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">overData</span> <span class="op">&lt;-</span> 
+    <span class="va">overData</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>x2 <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">2</span>, x3 <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">3</span>, 
+           x4 <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">4</span>, x5 <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">5</span>, 
+           x6 <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">6</span>, x7 <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">7</span>, 
+           x8 <span class="op">=</span> <span class="va">x</span><span class="op">^</span><span class="fl">8</span><span class="op">)</span></code></pre></div>
+<p>Notice now what happens when I fit a model which includes <strong>all</strong> of the variables.</p>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lmFull</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">.</span>, data <span class="op">=</span> <span class="va">overData</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmFull</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = y ~ ., data = overData)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;          1          2          3          4          5 </span>
+<span class="co">#&gt; -7.619e-02 -5.659e-01 -2.188e-01  7.279e-05  1.308e+00 </span>
+<span class="co">#&gt;          6          7          8          9         10 </span>
+<span class="co">#&gt;  2.595e-01 -1.734e+00 -1.127e-01  1.058e+00  8.274e-02 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)</span>
+<span class="co">#&gt; (Intercept)   4.6104     5.3893   0.855    0.549</span>
+<span class="co">#&gt; x            -3.3422     7.7297  -0.432    0.740</span>
+<span class="co">#&gt; x2           -1.6993    61.1088  -0.028    0.982</span>
+<span class="co">#&gt; x3           10.8544    51.8809   0.209    0.869</span>
+<span class="co">#&gt; x4          -12.8163    78.8381  -0.163    0.897</span>
+<span class="co">#&gt; x5           11.0604   122.0096   0.091    0.942</span>
+<span class="co">#&gt; x6           -6.2146    68.9239  -0.090    0.943</span>
+<span class="co">#&gt; x7            1.7458    17.3631   0.101    0.936</span>
+<span class="co">#&gt; x8           -0.1794     1.6103  -0.111    0.929</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 2.509 on 1 degrees of freedom</span>
+<span class="co">#&gt; Multiple R-squared:  0.944,  Adjusted R-squared:  0.4961 </span>
+<span class="co">#&gt; F-statistic: 2.108 on 8 and 1 DF,  p-value: 0.4896</span></code></pre></div>
+<p>Notice how large <span class="math inline">\(R^2\)</span>. It’s almost 1 which is as good as it can get! Let’s plot the two regression “lines” we get from the fit to see what is actually going on. We begin by adding the predicted model values to our data and then reduce the data set and pivot it to the long format.</p>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">overDataLong</span> <span class="op">&lt;-</span> 
+    <span class="va">overData</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>smallPred <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lmSmall</span><span class="op">)</span>, 
+           fullPred <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lmFull</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">smallPred</span>, <span class="va">fullPred</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">regression</span>, <span class="va">value</span>, <span class="op">-</span><span class="va">x</span>, <span class="op">-</span><span class="va">y</span><span class="op">)</span>
+<span class="va">overDataLong</span>
+<span class="co">#&gt;             x          y regression      value</span>
+<span class="co">#&gt; 1  -0.2529076  5.0295283  smallPred  2.4154335</span>
+<span class="co">#&gt; 2   1.3672866  4.9041030  smallPred  4.4014570</span>
+<span class="co">#&gt; 3  -0.6712572 -2.2062362  smallPred  1.9026233</span>
+<span class="co">#&gt; 4   4.1905616  2.7370235  smallPred  7.8622089</span>
+<span class="co">#&gt; 5   1.6590155  7.6928238  smallPred  4.7590564</span>
+<span class="co">#&gt; 6  -0.6409368 -0.4166744  smallPred  1.9397899</span>
+<span class="co">#&gt; 7   1.9748581  4.9011454  smallPred  5.1462141</span>
+<span class="co">#&gt; 8   2.4766494  8.7848075  smallPred  5.7613066</span>
+<span class="co">#&gt; 9   2.1515627  7.7667890  smallPred  5.3628174</span>
+<span class="co">#&gt; 10  0.3892232  3.5601504  smallPred  3.2025533</span>
+<span class="co">#&gt; 11 -0.2529076  5.0295283   fullPred  5.1057217</span>
+<span class="co">#&gt; 12  1.3672866  4.9041030   fullPred  5.4700126</span>
+<span class="co">#&gt; 13 -0.6712572 -2.2062362   fullPred -1.9874255</span>
+<span class="co">#&gt; 14  4.1905616  2.7370235   fullPred  2.7369508</span>
+<span class="co">#&gt; 15  1.6590155  7.6928238   fullPred  6.3851049</span>
+<span class="co">#&gt; 16 -0.6409368 -0.4166744   fullPred -0.6761837</span>
+<span class="co">#&gt; 17  1.9748581  4.9011454   fullPred  6.6351488</span>
+<span class="co">#&gt; 18  2.4766494  8.7848075   fullPred  8.8975269</span>
+<span class="co">#&gt; 19  2.1515627  7.7667890   fullPred  6.7091933</span>
+<span class="co">#&gt; 20  0.3892232  3.5601504   fullPred  3.4774106</span></code></pre></div>
+<p>Now let’s plot the lines:</p>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">overDataLong</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">value</span>, color <span class="op">=</span> <span class="va">regression</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="08-lecture8_files/figure-html/unnamed-chunk-32-1.png" width="672"></div>
+<p>The full model goes out of its way to be as close to each data point as it can. This may seem nice on paper but the full model is completely useless to make prediction; even <strong>interpolation</strong> is useless. Let’s see what happens. The range of <code>x</code> is roughly from 0 to 4. Let’s see what happens if we make the model predict for <code>x = 3</code>.</p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">newPredict</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">3</span>, x2 <span class="op">=</span> <span class="fl">3</span><span class="op">^</span><span class="fl">2</span>, x3 <span class="op">=</span> <span class="fl">3</span><span class="op">^</span><span class="fl">3</span>, 
+                         x4 <span class="op">=</span> <span class="fl">3</span><span class="op">^</span><span class="fl">4</span>, x5 <span class="op">=</span> <span class="fl">3</span><span class="op">^</span><span class="fl">5</span>, x6 <span class="op">=</span> <span class="fl">3</span><span class="op">^</span><span class="fl">6</span>, 
+                         x7 <span class="op">=</span> <span class="fl">3</span><span class="op">^</span><span class="fl">7</span>, x8 <span class="op">=</span> <span class="fl">3</span><span class="op">^</span><span class="fl">8</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lmFull</span>, <span class="va">newPredict</span><span class="op">)</span>
+<span class="co">#&gt;        1 </span>
+<span class="co">#&gt; 32.43703</span></code></pre></div>
+<p>The model predicts 32.4370343 which is a <em>terrible</em> estimate. The model is <strong>useless</strong>. It doesn’t generalize.</p>
+<p>To finish this section off I’m going to fit ever-increasing models on this data to better show you how <span class="math inline">\(R^2\)</span> and adjusted <span class="math inline">\(R^2\)</span> behave. I include the code but don’t worry if you don’t understand it.</p>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="va">lmFull</span><span class="op">)</span><span class="op">[</span>, <span class="op">-</span><span class="fl">1</span><span class="op">]</span>
+<span class="va">lmNull</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fl">1</span>, data <span class="op">=</span> <span class="va">overData</span><span class="op">)</span>
+<span class="va">r2Data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>
+<span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="va">lmTmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/update.html">update</a></span><span class="op">(</span><span class="va">lmNull</span>, <span class="va">.</span> <span class="op">~</span> <span class="va">.</span> <span class="op">+</span> <span class="va">X</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="va">i</span><span class="op">]</span><span class="op">)</span>
+    <span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>pred <span class="op">=</span> <span class="op">(</span><span class="va">i</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span>, 
+                      r2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmTmp</span><span class="op">)</span><span class="op">$</span><span class="va">r.squared</span>, 
+                      r2adj <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lmTmp</span><span class="op">)</span><span class="op">$</span><span class="va">adj.r.squared</span><span class="op">)</span>
+    <span class="va">r2Data</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">tmp</span>
+<span class="op">}</span>
+<span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">r2Data</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html">gather</a></span><span class="op">(</span><span class="va">type</span>, <span class="va">val</span>, <span class="op">-</span><span class="va">pred</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>pred <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">pred</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">pred</span>, y <span class="op">=</span> <span class="va">val</span>, color <span class="op">=</span> <span class="va">type</span>, group <span class="op">=</span> <span class="va">type</span>, lty <span class="op">=</span> <span class="va">type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Number of predictors'</span>, y <span class="op">=</span> <span class="st">'Value'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="08-lecture8_files/figure-html/unnamed-chunk-34-1.png" width="672"></div>
+<p>As you can see, <span class="math inline">\(R^2\)</span> increases as we add more variables but <span class="math inline">\(R^2\)</span> adjusted fluctuates. This is why <span class="math inline">\(R^2\)</span> adjusted is typically used when model performance is being evaluated.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-7-simple-linear-regression.html"><span class="header-section-number">8</span> Lecture 7: Simple linear regression</a></div>
+<div class="next"><a href="lecture-9-diagnostics.html"><span class="header-section-number">10</span> Lecture 9: Diagnostics</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-8-multiple-regression"><span class="header-section-number">9</span> Lecture 8: Multiple regression</a></li>
+<li>
+<a class="nav-link" href="#ancova"><span class="header-section-number">9.1</span> ANCOVA</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-first-model-one-intercept-one-slope"><span class="header-section-number">9.1.1</span> The first model: one intercept, one slope</a></li>
+<li><a class="nav-link" href="#the-second-model-same-slope-different-intercepts"><span class="header-section-number">9.1.2</span> The second model: same slope, different intercepts</a></li>
+<li><a class="nav-link" href="#the-third-model-two-slopes-two-intercepts"><span class="header-section-number">9.1.3</span> The third model: two slopes, two intercepts</a></li>
+<li><a class="nav-link" href="#three-models-but-which-model"><span class="header-section-number">9.1.4</span> Three models, but which model?</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#two-way-anova"><span class="header-section-number">9.2</span> Two-way ANOVA</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#same-method-different-data-set"><span class="header-section-number">9.2.1</span> Same method, different data set</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#multiple-linear-regression"><span class="header-section-number">9.3</span> Multiple linear regression</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#the-problem-of-overfitting"><span class="header-section-number">9.3.1</span> The problem of overfitting</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/thorj/laek101f/blob/master/08-lecture8.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/thorj/laek101f/edit/master/08-lecture8.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-21.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

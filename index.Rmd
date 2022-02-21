@@ -106,13 +106,13 @@ tibble(Week = c(rep(1:3, each = 5), 4, 4),
        'Open',
        'Probability theory',
        'Inference',
+       'Inference cont.',
        'ANOVA',
-       'Linear models',
-       'Open',
+       'Simple linear regression',
+       'Linear regression',
+       'Diagnostics',
+       'Open', 
        'Logistic regression',
-       'Surival analysis',
-       'Review', 
-       'Open',
        'Open',
        'Open',
        'Final exam'
@@ -176,7 +176,7 @@ tibble(Assignment = 1:6,
        Due = c('Feb 10th', 'Feb 16th', 'Feb 17th', 
                'Feb 20th', 'Feb 25th', 'Feb 26th'),
        Topics = c('R basics', 'Data analysis', 'Fundamentals of statistics', 
-                  'Linear regression', 'General regression', 'Survival analysis')
+                  'ANOVA', 'General regression', 'Logistic regression')
 ) %>% 
   kbl(align = 'c') %>%
   kable_styling(full_width = F)

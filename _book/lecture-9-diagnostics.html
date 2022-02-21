@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 10 Lecture 9: Diagnostics | LÆK101F: General statistics, course for M.Sc. and Ph.D students</title>
+<meta name="author" content="Þórarinn Jónmundsson">
+<meta name="description" content="library(tidyverse) library(ggrepel) library(cowplot) library(knitr) library(kableExtra) After fitting a model it is important to diagnose it. Things we need to examine are: High leverage points,...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 10 Lecture 9: Diagnostics | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta property="og:type" content="book">
+<meta property="og:description" content="library(tidyverse) library(ggrepel) library(cowplot) library(knitr) library(kableExtra) After fitting a model it is important to diagnose it. Things we need to examine are: High leverage points,...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 10 Lecture 9: Diagnostics | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta name="twitter:description" content="library(tidyverse) library(ggrepel) library(cowplot) library(knitr) library(kableExtra) After fitting a model it is important to diagnose it. Things we need to examine are: High leverage points,...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/table1-1.0/table1_defaults.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">LÆK101F: General statistics, course for M.Sc. and Ph.D students</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> General information</a></li>
+<li><a class="" href="lecture-1-r-and-r-basics.html"><span class="header-section-number">2</span> Lecture 1: R and R basics</a></li>
+<li><a class="" href="lecture-2-data-wrangling.html"><span class="header-section-number">3</span> Lecture 2: Data wrangling</a></li>
+<li><a class="" href="lecture-3-plots-and-table1.html"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></li>
+<li><a class="" href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></li>
+<li><a class="" href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
+<li><a class="" href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
+<li><a class="" href="lecture-7-simple-linear-regression.html"><span class="header-section-number">8</span> Lecture 7: Simple linear regression</a></li>
+<li><a class="" href="lecture-8-multiple-regression.html"><span class="header-section-number">9</span> Lecture 8: Multiple regression</a></li>
+<li><a class="active" href="lecture-9-diagnostics.html"><span class="header-section-number">10</span> Lecture 9: Diagnostics</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/thorj/laek101f">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-9-diagnostics" class="section level1" number="10">
+<h1>
+<span class="header-section-number">10</span> Lecture 9: Diagnostics<a class="anchor" aria-label="anchor" href="#lecture-9-diagnostics"><i class="fas fa-link"></i></a>
+</h1>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/slowkow/ggrepel">ggrepel</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://haozhu233.github.io/kableExtra/">kableExtra</a></span><span class="op">)</span></code></pre></div>
+<p>After fitting a model it is important to diagnose it. Things we need to examine are:</p>
+<ol style="list-style-type: decimal">
+<li><p>High leverage points, outliers, and influential points.</p></li>
+<li><p>The assumptions of linear regression: linearity, normality, heteroskedasticity.</p></li>
+</ol>
+<p>We will be using the pulse data to fit a model which we will then diagnose.</p>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv2</a></span><span class="op">(</span><span class="st">'https://notendur.hi.is/thj73/data/pulseEn.csv'</span><span class="op">)</span> </code></pre></div>
+<p>The model we will fit is the following:</p>
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">secondPulse</span> <span class="op">~</span> <span class="va">firstPulse</span> <span class="op">+</span> <span class="va">intervention</span>, data <span class="op">=</span> <span class="va">pulse</span><span class="op">)</span></code></pre></div>
+<p>Let’s look at the summary of our model:</p>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = secondPulse ~ firstPulse + intervention, data = pulse)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;     Min      1Q  Median      3Q     Max </span>
+<span class="co">#&gt; -29.274  -4.883  -0.122   3.838  53.886 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                         Estimate Std. Error t value</span>
+<span class="co">#&gt; (Intercept)             31.71432    3.68556   8.605</span>
+<span class="co">#&gt; firstPulse               0.91999    0.04822  19.078</span>
+<span class="co">#&gt; interventionstationary -25.99111    1.16796 -22.253</span>
+<span class="co">#&gt;                        Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)              &lt;2e-16 ***</span>
+<span class="co">#&gt; firstPulse               &lt;2e-16 ***</span>
+<span class="co">#&gt; interventionstationary   &lt;2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 12.04 on 451 degrees of freedom</span>
+<span class="co">#&gt;   (17 observations deleted due to missingness)</span>
+<span class="co">#&gt; Multiple R-squared:  0.6903, Adjusted R-squared:  0.689 </span>
+<span class="co">#&gt; F-statistic: 502.7 on 2 and 451 DF,  p-value: &lt; 2.2e-16</span></code></pre></div>
+<p>As you can see, all coefficients are highly significant and our adjusted <span class="math inline">\(R^2\)</span> value is 0.688974. As our model is an ANCOVA model (one continuous variable, one categorical variable) with two intercepts and one slope we can plot the regression lines over our data.</p>
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">intercept1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>
+<span class="va">intercept2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span><span class="op">)</span>
+<span class="va">slope</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>
+<span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html">na.omit</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">firstPulse</span>, y <span class="op">=</span> <span class="va">secondPulse</span>, color <span class="op">=</span> <span class="va">intervention</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="va">slope</span>, intercept <span class="op">=</span> <span class="va">intercept1</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>slope <span class="op">=</span> <span class="va">slope</span>, intercept <span class="op">=</span> <span class="va">intercept2</span>, lty <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">scale_color_brewer</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">'seq'</span>, palette <span class="op">=</span> <span class="st">'Set1'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-lecture9_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+<p>Having fitted our model it’s time to diagnose it. We will use the <code><a href="https://ggplot2.tidyverse.org/reference/fortify.html">fortify()</a></code> function to create a data set which contains (almost) all the variables we need to diagnose the model. I say almost because we need to add the <em>studentized</em> residuals to the data set. We will talk about studentized residuals when we discuss outliers.</p>
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flm1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/fortify.html">fortify</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span>            
+<span class="va">flm1</span><span class="op">$</span><span class="va">.rstudent</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstudent</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span> <span class="co"># studentized residuals</span>
+<span class="va">flm1</span><span class="op">$</span><span class="va">.index</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/rownames.html">rownames</a></span><span class="op">(</span><span class="va">flm1</span><span class="op">)</span>   <span class="co"># observation number</span>
+<span class="va">k</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">ncol</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span><span class="op">)</span>    <span class="co"># number of predictors</span>
+<span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/model.matrix.html">model.matrix</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span><span class="op">)</span>    <span class="co"># number of observations</span>
+<span class="va">flm1</span> <span class="op">&lt;-</span> 
+    <span class="va">flm1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">.index</span>, .before <span class="op">=</span> <span class="st">'secondPulse'</span><span class="op">)</span></code></pre></div>
+<div id="leverages-outliers-and-influential-points" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">10.1</span> Leverages, outliers, and influential points<a class="anchor" aria-label="anchor" href="#leverages-outliers-and-influential-points"><i class="fas fa-link"></i></a>
+</h2>
+<div id="leverage-points" class="section level3" number="10.1.1">
+<h3>
+<span class="header-section-number">10.1.1</span> Leverage points<a class="anchor" aria-label="anchor" href="#leverage-points"><i class="fas fa-link"></i></a>
+</h3>
+<p>Leverages are a way to quantify any “weirdness” in our independent variables. The mathematics of leverages rely on the hat matrix <span class="math inline">\(H\)</span> which we will not discuss as it requires linear algebra. Leverages are between 0 and 1, where a higher leverage implies more “weirdness” in the independent variables. To differentiate between <em>high</em> and <em>not-high</em> leverages we will use the heuristic of <span class="math inline">\(2k/n\)</span> where <span class="math inline">\(k\)</span> is the number of predictors in the model and <span class="math inline">\(n\)</span> the number of observations used in the modeling process.</p>
+<p>The variable <code>.hat</code> in the fortified data represents our leverage values which we will denote with <span class="math inline">\(h_i\)</span> where <span class="math inline">\(i\)</span> is the <span class="math inline">\(i\)</span>-th row in the data. Let’s plot these values and label any point that exceeds our threshold.</p>
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flm1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.index</span>, y <span class="op">=</span> <span class="va">.hat</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html">geom_text_repel</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">.hat</span> <span class="op">&gt;</span> <span class="fl">2</span><span class="op">*</span><span class="va">k</span><span class="op">/</span><span class="va">n</span>, <span class="va">.index</span>, <span class="st">''</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">2</span><span class="op">*</span><span class="va">k</span><span class="op">/</span><span class="va">n</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.ticks.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, 
+          axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-lecture9_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<p>Many data points seem to have a leverage value which exceeds our threshold. The values are relatively small however; remember that it the leverage is between 0 and 1 where a larger value implies more “strangeness”. Let’s take a look at the data of the point with the highest leverage.</p>
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flm1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.index</span> <span class="op">==</span> <span class="fl">170</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+.index
+</th>
+<th style="text-align:right;">
+secondPulse
+</th>
+<th style="text-align:right;">
+firstPulse
+</th>
+<th style="text-align:left;">
+intervention
+</th>
+<th style="text-align:right;">
+.hat
+</th>
+<th style="text-align:right;">
+.sigma
+</th>
+<th style="text-align:right;">
+.cooksd
+</th>
+<th style="text-align:right;">
+.fitted
+</th>
+<th style="text-align:right;">
+.resid
+</th>
+<th style="text-align:right;">
+.stdresid
+</th>
+<th style="text-align:right;">
+.rstudent
+</th>
+</tr></thead>
+<tbody><tr>
+<td style="text-align:left;">
+170
+</td>
+<td style="text-align:right;">
+112
+</td>
+<td style="text-align:right;">
+120
+</td>
+<td style="text-align:left;">
+stationary
+</td>
+<td style="text-align:right;">
+0.0428289
+</td>
+<td style="text-align:right;">
+12.05331
+</td>
+<td style="text-align:right;">
+0.0018259
+</td>
+<td style="text-align:right;">
+116.122
+</td>
+<td style="text-align:right;">
+-4.121973
+</td>
+<td style="text-align:right;">
+-0.3498865
+</td>
+<td style="text-align:right;">
+-0.3495458
+</td>
+</tr></tbody>
+</table></div>
+</div>
+<div id="outliers" class="section level3" number="10.1.2">
+<h3>
+<span class="header-section-number">10.1.2</span> Outliers<a class="anchor" aria-label="anchor" href="#outliers"><i class="fas fa-link"></i></a>
+</h3>
+<p>Outliers are “strange” dependent values. Our main tool to detect outliers are the studentized residuals <span class="math inline">\(t_i\)</span>. The studentized residuals are computed from the <em>standardized</em> residuals <span class="math inline">\(r_i\)</span>. Here is how both are defined:</p>
+<p><span class="math display">\[
+r_i = \frac{e_i}{\sqrt{1 - h_i}\hat{\sigma}}, \quad t_i = r_i \sqrt{\frac{n - k - 1}{n - k - r_i^2}}
+\]</span></p>
+<p>Here, <span class="math inline">\(e_i\)</span> is the residual from our model, <span class="math inline">\(h_i\)</span> is the leverage, <span class="math inline">\(\hat{\sigma}\)</span> is our estimate of <span class="math inline">\(\sigma\)</span>, and <span class="math inline">\(n\)</span> and <span class="math inline">\(k\)</span> are as before. The standardized residual has that name because we have standardized the residual from our model.</p>
+<p>For the <em>studentized</em> residual we define the following heuristic: if the studentized residual exceeds -3 or 3 we will mark that point as a potential outlier.</p>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flm1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.index</span>, y <span class="op">=</span> <span class="va">.rstudent</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">'red'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="op">-</span><span class="fl">2</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">'blue'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">3</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="op">-</span><span class="fl">3</span>, lty <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="st">'green'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html">geom_text_repel</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">.rstudent</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">3</span>, <span class="va">.index</span>, <span class="st">''</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.ticks.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, 
+          axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-lecture9_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+<p>We see that 10 values exceed our threshold and will therefore be subjected to further testing. Under the null hypothesis our studentized residual should come from a <span class="math inline">\(t\)</span>-distribution with <span class="math inline">\(n - k - 1\)</span> degrees of freedom. We will reject the null hypothesis if our studentized residual value exceeds our theoretical <span class="math inline">\(t\)</span>-value. As we will test every residual we need to divide our significance level <span class="math inline">\(\alpha = 0.05\)</span> between the tests. Therefore, our theoretical <span class="math inline">\(t\)</span>-value is <span class="math inline">\(t_{1 - \frac{\alpha}{2n}, n - p - 1}\)</span>. We are distributing our significance level equally between the tests; this method of equally distributing the significance level is called Bonferroni’s correction.</p>
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tval</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="fl">0.05</span><span class="op">/</span><span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="va">n</span><span class="op">)</span>, df <span class="op">=</span> <span class="va">n</span> <span class="op">-</span> <span class="va">k</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span>    <span class="co"># theoretical value</span>
+<span class="va">flm1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rejectNull <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">.rstudent</span><span class="op">)</span> <span class="op">&gt;</span> <span class="va">tval</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">rejectNull</span> <span class="op">==</span> <span class="cn">T</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kbl.html">kbl</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/kable_styling.html">kable_styling</a></span><span class="op">(</span>full_width <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+.index
+</th>
+<th style="text-align:right;">
+secondPulse
+</th>
+<th style="text-align:right;">
+firstPulse
+</th>
+<th style="text-align:left;">
+intervention
+</th>
+<th style="text-align:right;">
+.hat
+</th>
+<th style="text-align:right;">
+.sigma
+</th>
+<th style="text-align:right;">
+.cooksd
+</th>
+<th style="text-align:right;">
+.fitted
+</th>
+<th style="text-align:right;">
+.resid
+</th>
+<th style="text-align:right;">
+.stdresid
+</th>
+<th style="text-align:right;">
+.rstudent
+</th>
+<th style="text-align:left;">
+rejectNull
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+146
+</td>
+<td style="text-align:right;">
+134
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+active
+</td>
+<td style="text-align:right;">
+0.0087565
+</td>
+<td style="text-align:right;">
+11.84699
+</td>
+<td style="text-align:right;">
+0.0454224
+</td>
+<td style="text-align:right;">
+86.91370
+</td>
+<td style="text-align:right;">
+47.08630
+</td>
+<td style="text-align:right;">
+3.927545
+</td>
+<td style="text-align:right;">
+3.992052
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+169
+</td>
+<td style="text-align:right;">
+120
+</td>
+<td style="text-align:right;">
+66
+</td>
+<td style="text-align:left;">
+stationary
+</td>
+<td style="text-align:right;">
+0.0039850
+</td>
+<td style="text-align:right;">
+11.78652
+</td>
+<td style="text-align:right;">
+0.0264880
+</td>
+<td style="text-align:right;">
+66.44253
+</td>
+<td style="text-align:right;">
+53.55747
+</td>
+<td style="text-align:right;">
+4.456602
+</td>
+<td style="text-align:right;">
+4.553042
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+270
+</td>
+<td style="text-align:right;">
+150
+</td>
+<td style="text-align:right;">
+70
+</td>
+<td style="text-align:left;">
+active
+</td>
+<td style="text-align:right;">
+0.0058288
+</td>
+<td style="text-align:right;">
+11.78266
+</td>
+<td style="text-align:right;">
+0.0393666
+</td>
+<td style="text-align:right;">
+96.11360
+</td>
+<td style="text-align:right;">
+53.88640
+</td>
+<td style="text-align:right;">
+4.488130
+</td>
+<td style="text-align:right;">
+4.586752
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+470
+</td>
+<td style="text-align:right;">
+134
+</td>
+<td style="text-align:right;">
+60
+</td>
+<td style="text-align:left;">
+active
+</td>
+<td style="text-align:right;">
+0.0087565
+</td>
+<td style="text-align:right;">
+11.84699
+</td>
+<td style="text-align:right;">
+0.0454224
+</td>
+<td style="text-align:right;">
+86.91370
+</td>
+<td style="text-align:right;">
+47.08630
+</td>
+<td style="text-align:right;">
+3.927545
+</td>
+<td style="text-align:right;">
+3.992052
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+</tbody>
+</table></div>
+<p>Four points stand out. Let’s remember their indices as we continue to diagnose the model.</p>
+</div>
+<div id="influential-data-points" class="section level3" number="10.1.3">
+<h3>
+<span class="header-section-number">10.1.3</span> Influential data points<a class="anchor" aria-label="anchor" href="#influential-data-points"><i class="fas fa-link"></i></a>
+</h3>
+<p>An influential data point is a data point whose removal from the data causes large changes in the fit. When the misbehaving data points are singular, that is, there is only one, it can usually be identified quickly and a decision can be made whether to include it or not. However, when there are multiple strange data points they may mask the effect of each other. One of the best ways to determine whether a data point is influential is by examining the studentized residual and the leverages. However, it would be nice if we could somehow combine those two quantities into a single measure to help us with our analysis. That is exactly the purpose of Cook’s distance, which we define as:</p>
+<p><span class="math display">\[
+C_i = \frac{r_i^2}{k} \frac{h_i}{(1 - h_i)}
+\]</span></p>
+<p>So what constitutes a “high” Cook’s distance? It’s relative. Generally you calculate <span class="math inline">\(C_i\)</span> for all your data points, plot them and inspect data points which have a considerably larger <span class="math inline">\(C_i\)</span> value relative to other data points.</p>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flm1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.index</span>, y <span class="op">=</span> <span class="va">.cooksd</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0.02</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html">geom_text_repel</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">.cooksd</span> <span class="op">&gt;</span> <span class="fl">0.02</span>, <span class="va">.index</span>, <span class="st">''</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.ticks.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, 
+          axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-lecture9_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
+<p>We see some influential points. Of the influential points we see some old acquaintances. These are the points we should focus our attention on.</p>
+</div>
+</div>
+<div id="assumptions-of-linear-regression" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">10.2</span> Assumptions of linear regression<a class="anchor" aria-label="anchor" href="#assumptions-of-linear-regression"><i class="fas fa-link"></i></a>
+</h2>
+<div id="heteroskedasticity-and-linearity" class="section level3" number="10.2.1">
+<h3>
+<span class="header-section-number">10.2.1</span> Heteroskedasticity and linearity<a class="anchor" aria-label="anchor" href="#heteroskedasticity-and-linearity"><i class="fas fa-link"></i></a>
+</h3>
+<p>The most important plot to examine linearity and heteroskedasticity is the fitted-values-versus-residuals plot:</p>
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flm1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.fitted</span>, y <span class="op">=</span> <span class="va">.resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">'loess'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></code></pre></div>
+<p><img src="09-lecture9_files/figure-html/unnamed-chunk-12-1.png" width="672">
+From the plot above we don’t really see any evidence of non-linearity however there seems to be evidence of heteroskedasticity. We see this because as <code>.fitted</code> increases so does the size of <code>.resid</code>.</p>
+<p>Another important plot is the residual plot. You can choose to plot the residuals or the standardized residuals, I prefer the standardized residuals.</p>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flm1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.index</span>, y <span class="op">=</span> <span class="va">.stdresid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="fl">0</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.ticks.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, 
+          axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure">
+<img src="09-lecture9_files/figure-html/unnamed-chunk-13-1.png" width="672">
+We use the plot above to evaluate heteroskedasticity as well. It isn’t as obvious on this plot, hence why the fitted-values-versus-residuals plot is the most important one. You should always look at it anyways.</div>
+</div>
+<div id="normality" class="section level3" number="10.2.2">
+<h3>
+<span class="header-section-number">10.2.2</span> Normality<a class="anchor" aria-label="anchor" href="#normality"><i class="fas fa-link"></i></a>
+</h3>
+<p>We use the <span class="math inline">\(QQ\)</span>-plot to assess the normal distribution. The <span class="math inline">\(x\)</span>-axis is the theoretical distribution; the <span class="math inline">\(y\)</span>-axis is the distribution of our residuals.</p>
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flm1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>sample <span class="op">=</span> <span class="va">.stdresid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span>  <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Theoretical'</span>, y <span class="op">=</span> <span class="st">'Actual'</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-lecture9_files/figure-html/unnamed-chunk-14-1.png" width="672"></div>
+<p>Our model completely fails the normal assumption. There are some extremely heavy tails.</p>
+</div>
+</div>
+<div id="what-should-we-do" class="section level2" number="10.3">
+<h2>
+<span class="header-section-number">10.3</span> What should we do?<a class="anchor" aria-label="anchor" href="#what-should-we-do"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><p><em>High-leverage points, outliers, and influential points</em>: Check the data for data entry errors; examine the physical context; exclude the data point. If you choose to exclude the data point you should always report that you did so and why you did it. Otherwise you run at risk of being accused of dishonesty.</p></li>
+<li><p><em>Non-normality, linearity</em>: Transform the response (dependent) variable; add/remove/transform independent variables; change the assumption of the normal assumption (Binomial, Gamma, etc).</p></li>
+<li><p><em>Non-constant variance, correlated errors</em>: Use the generalized least square method. You need to estimate the error structure.</p></li>
+</ul>
+<p>This process requires many iterations of fitting and diagnostics.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-8-multiple-regression.html"><span class="header-section-number">9</span> Lecture 8: Multiple regression</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-9-diagnostics"><span class="header-section-number">10</span> Lecture 9: Diagnostics</a></li>
+<li>
+<a class="nav-link" href="#leverages-outliers-and-influential-points"><span class="header-section-number">10.1</span> Leverages, outliers, and influential points</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#leverage-points"><span class="header-section-number">10.1.1</span> Leverage points</a></li>
+<li><a class="nav-link" href="#outliers"><span class="header-section-number">10.1.2</span> Outliers</a></li>
+<li><a class="nav-link" href="#influential-data-points"><span class="header-section-number">10.1.3</span> Influential data points</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#assumptions-of-linear-regression"><span class="header-section-number">10.2</span> Assumptions of linear regression</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#heteroskedasticity-and-linearity"><span class="header-section-number">10.2.1</span> Heteroskedasticity and linearity</a></li>
+<li><a class="nav-link" href="#normality"><span class="header-section-number">10.2.2</span> Normality</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#what-should-we-do"><span class="header-section-number">10.3</span> What should we do?</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/thorj/laek101f/blob/master/09-lecture9.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/thorj/laek101f/edit/master/09-lecture9.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-21.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 --- 
 title: "LÆK101F: General statistics, course for M.Sc. and Ph.D students "
 author: "Þórarinn Jónmundsson"
-date: "2022-02-16"
+date: "2022-02-21"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -177,7 +177,7 @@ Below you can see a rough plan for the course. Depending on how the course goes 
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Wed </td>
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> H-205 </td>
-   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> ANOVA </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Inference cont. </td>
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> RG: 7-9; TG: 7-9; MD: 7-9; ST21: 5-9 </td>
   </tr>
   <tr>
@@ -186,7 +186,7 @@ Below you can see a rough plan for the course. Depending on how the course goes 
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Thur </td>
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> H-205 </td>
-   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Linear models </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> ANOVA </td>
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> RG: 10; TG: 10; MD: 7-9, ST21: 5-9 </td>
   </tr>
   <tr>
@@ -195,7 +195,7 @@ Below you can see a rough plan for the course. Depending on how the course goes 
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Fri </td>
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> H-205 </td>
-   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Open </td>
+   <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;"> Simple linear regression </td>
    <td style="text-align:center;color: black !important;background-color: #BDC9E1 !important;">  </td>
   </tr>
   <tr>
@@ -204,7 +204,7 @@ Below you can see a rough plan for the course. Depending on how the course goes 
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Mon </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-203 </td>
-   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Logistic regression </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Linear regression </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> RG: 11; TG: 11 </td>
   </tr>
   <tr>
@@ -213,7 +213,7 @@ Below you can see a rough plan for the course. Depending on how the course goes 
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Tue </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-204 </td>
-   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Surival analysis </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Diagnostics </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">  </td>
   </tr>
   <tr>
@@ -222,7 +222,7 @@ Below you can see a rough plan for the course. Depending on how the course goes 
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Wed </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-205 </td>
-   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Review </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Open </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">  </td>
   </tr>
   <tr>
@@ -231,7 +231,7 @@ Below you can see a rough plan for the course. Depending on how the course goes 
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Thur </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> 09:10 - 11:30 </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> H-205 </td>
-   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Open </td>
+   <td style="text-align:center;color: black !important;background-color: #74A9CF !important;"> Logistic regression </td>
    <td style="text-align:center;color: black !important;background-color: #74A9CF !important;">  </td>
   </tr>
   <tr>
@@ -384,7 +384,7 @@ Below is the schedule for the assignments. You are encouraged to form groups of 
    <td style="text-align:center;"> R </td>
    <td style="text-align:center;"> Feb 14th </td>
    <td style="text-align:center;"> Feb 20th </td>
-   <td style="text-align:center;"> Linear regression </td>
+   <td style="text-align:center;"> ANOVA </td>
   </tr>
   <tr>
    <td style="text-align:center;"> 5 </td>
@@ -398,7 +398,7 @@ Below is the schedule for the assignments. You are encouraged to form groups of 
    <td style="text-align:center;"> R </td>
    <td style="text-align:center;"> Feb 23rd </td>
    <td style="text-align:center;"> Feb 26th </td>
-   <td style="text-align:center;"> Survival analysis </td>
+   <td style="text-align:center;"> Logistic regression </td>
   </tr>
 </tbody>
 </table>

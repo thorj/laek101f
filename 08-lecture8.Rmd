@@ -1,0 +1,383 @@
+# Lecture 8: Multiple regression
+```{r, warning = F, message = F}
+library(tidyverse)
+library(cowplot)    # Theme
+library(faraway)    # Data
+library(table1)     # Table1
+library(knitr)      # kable
+library(kableExtra) # Pretty kables
+```
+
+## ANCOVA
+The analysis of covariance (ANCOVA) is a linear model with one continuous variables and one categorical (factor) variable. We will use the `cathedral` data from the `faraway` package to demonstrate the ANCOVA model. Let's summarize it quickly.
+```{r}
+# Load data
+data('cathedral')
+glimpse(cathedral)
+```
+Our data consists of `r nrow(cathedral)` observations and `r ncol(cathedral)` variables. The variables we have are `style`, `x`, and `y`. 
+
+* `style`: The architectural style of the cathedral. It has two levels: `r` for Romanesque and `g` for Gothic.
+
+* `x`: The nave height of the cathedral. Measured in feet.
+
+* `y`: The length of the cathedral. Measured in feet.
+
+Let's plot the data to see what it looks like:
+
+```{r}
+cathedral %>%
+    ggplot(aes(x = x, y = y, color = style)) +
+    geom_point() +
+    scale_color_brewer(type = 'seq', palette = 'Set1') +
+    theme_cowplot() +
+    theme(legend.position = 'bottom')
+```
+
+There are many models we can fit to this data but we are interested in three:
+
+1. A model which only uses `x`: one slope, one intercept.
+
+2. A model which uses `x` and `style`: one slope, two intercepts.
+
+3. A model which uses `x` and `style`: two slopes, two intercepts.
+
+### The first model: one intercept, one slope
+The first model which only uses `x` assumes that the data is explained by a single line. Let's fit our model and look at the results.
+
+```{r}
+ancovM1 <- lm(y ~ x, data = cathedral)
+summary(ancovM1)
+```
+
+Let's add the regression line to the plot of our data:
+
+```{r}
+cathedral %>%
+    ggplot(aes(x = x, y = y)) +
+    geom_point(aes(color = style)) +
+    stat_smooth(method = 'lm', se = F) +
+    scale_color_brewer(type = 'seq', palette = 'Set1') +
+    theme_cowplot() +
+    theme(legend.position = 'bottom')
+```
+
+### The second model: same slope, different intercepts
+Looking at the plot above we might ask ourselves that maybe *two* lines describe the data better. Let's test this by adding `style` to our model.
+
+```{r}
+ancovM2 <- lm(y ~ x + style, data = cathedral)
+summary(ancovM2)
+```
+
+Look at the output. The coefficient for `x` is still the slope but now we have two intercept. We have the actual reported intercept term `(Intercept)` for the baseline level `g` and then we have **part** of the intercept term for the Romanesque style. To get the actual intercept term for level `r` we need to **add** the two terms together.
+
+```{r}
+sum(coefficients(ancovM2)[c(1, 3)])
+```
+
+A very useful function is the `fortify()` function from the `ggplot2` package which is included with the `tidyverse` package.
+
+```{r}
+fortM2 <- fortify(ancovM2)
+fortM2 %>% 
+    as_tibble()
+```
+
+The `fortify()` function gives us a data frame with the independent and dependent variables along with the predicted values and some diagnostics quantities. For this lecture we will only concern ourselves with the independent and dependent variables as well as the `.fitted` column.
+
+```{r}
+fortM2 <- 
+    fortM2 %>%
+    select(y, x, style, .fitted)
+```
+
+We can now use our fortified data frame to plot the results of our model:
+
+```{r}
+fortM2 %>%
+    ggplot(aes(x = x, color = style)) +
+    geom_point(aes(y = y)) +
+    geom_line(aes(y = .fitted)) +
+    scale_color_brewer(type = 'seq', palette = 'Set1') +
+    theme_cowplot() + 
+    theme(legend.position = 'bottom') 
+```
+
+We now see that we have two lines. They are parallel which should make sense as they have the same slope. The only difference between the two is the intercept.
+
+### The third model: two slopes, two intercepts
+Allowing two intercept seems to have improved our model. What if we allow a second slope as well? 
+
+```{r}
+ancovM3 <- lm(y ~ x * style, data = cathedral)
+summary(ancovM3)
+```
+
+We now have four coefficients. We have the intercept `(Intercept)` and slope `x` of the regression line for the Gothic-style cathedral and we have the intercept `styler` and slope `x:styler` for the regression line of the Romanesque-style cathedral. To get the true intercept and slope for the Romanesque style we need to add the intercept terms together and the slope terms:
+
+```{r}
+sum(coefficients(ancovM3)[c(1, 3)])
+sum(coefficients(ancovM3)[c(2, 4)])
+```
+
+We plot the regression lines over our data using the `fortify()` version of our data:
+
+```{r}
+fortify(ancovM3) %>%
+    ggplot(aes(x = x, y = y, color = style)) +
+    geom_point() +
+    geom_line(aes(y = .fitted)) +
+    scale_color_brewer(type = 'seq', palette = 'Set1') +
+    theme_cowplot() +
+    theme(legend.position = 'bottom')
+```
+
+### Three models, but which model?
+We have fitted three models to our data. We now need some way to select the *best* model of the three, based on some measure. Let's get the coefficient of determination $R^2$ and its adjusted version for each model and compare the values:
+
+```{r}
+tibble(model = c('Model 1', 'Model 2', 'Model 3'), 
+       r2 = c(summary(ancovM1)$r.squared, 
+              summary(ancovM2)$r.squared, 
+              summary(ancovM3)$r.squared), 
+       r2adj = c(summary(ancovM1)$adj.r.squared, 
+              summary(ancovM2)$adj.r.squared, 
+              summary(ancovM3)$adj.r.squared)) %>%
+    kbl() %>%
+    kable_styling(full_width = F)
+```
+
+As you can see $R^2$ increased as we added variables to our model. This is an inherit property of $R^2$ and a reason why we can't rely on it blindly when judging the quality of our model. The adjusted $R^2$ fluctuates however. The reason for this fluctuation is that the adjusted $R^2$ penalizes the addition of variables to a model. Based on the table above, model two looks like the candidate model. We can actually test this with the `anova()` function. 
+
+Notice how both the first and second model are "embedded" in some sense in the third model. I say this because the third model contains **all** the variables that are used in the first and second model. To test whether a "reduced" model performs better than the "full" model we use the `anova()` function:
+
+```{r}
+anova(ancovM2, ancovM3)
+```
+
+The null hypothesis of the test above is that adding a variable (or variables) did not improve our fit. If model three had outperformed model two we would have been able to reject the null hypothesis but we were unsuccessful. The results of the ANOVA test should not have come as a surprise when you think about the adjusted $R^2$ values and the output of the summaries of the models.
+
+Bottom line: seems like a model with two intercepts and one slope fits the data best of the three models we constructed.
+
+## Two-way ANOVA
+The two-way ANOVA is a linear model with two categorical (factor variable) and a continuous response. We will use the `rats` data from the `faraway` package.
+
+```{r}
+data('rats')
+glimpse(rats)
+```
+The data consists of `r nrow(rats)` lines and `r ncol(rats)` columns. The variables of the data set are `time`, `poison`, and `treat`:
+
+* `time`: The survival time of the rats. Measured in tens of hours.
+
+* `poison`: The type of poison the rats were subjected to. The variable has three levels: `I`, `II`, and `III`.
+
+* `treat`: The treatment the rats were subject to. The variable has four levels: `A`, `B`, `C`, and `D`.
+
+Let's plot our data:
+
+```{r}
+rats %>%
+    ggplot(aes(x = poison, y = time)) +
+    geom_boxplot() +
+    facet_wrap(~treat) +
+    theme_cowplot()
+```
+Looking at the plots above it seems that poison III is the most potent. Similarly, treatment B seems to have the greatest efficacy. But is there an *interaction* between the two variables? That is, does the effect of one variable depend on the other? If there is no interaction, we simply use an additive model; we *add* the effects of variable $x$ to variable $y$. If there is an interaction, things can get complicated.
+
+To check for interactions *graphically* we create an *interaction* plot:
+
+```{r}
+rats %>%
+    ggplot(aes(x = poison, y = time, group = treat)) +
+    stat_summary(aes(color = treat), fun.y = mean, geom = 'line') +
+    scale_color_brewer(type = 'seq', palette = 'Set1') +
+    theme_cowplot() +
+    theme(legend.position = 'bottom')
+```
+
+The $x$-axis is the poison type, the $y$-axis the *mean* survival time. If the lines start crossing, we expect an interaction effect. The plot above shows that there may be some interactions, but the graphical evidence is unconvincing. Let's formally test if there is an interaction effect.
+
+```{r}
+anov2w <- lm(time ~ treat * poison, data = rats)
+anova(anov2w)
+```
+We see that both treatment and poison seem to be significant but the interaction between the two variables `treat:poison` is not significant. We therefore conclude that the interactions are not significant.
+
+### Same method, different data set
+Let's look at another example. We will use the `ToothGrowth` data which is included with R.
+
+```{r}
+glimpse(ToothGrowth)
+```
+The data consists of `r nrow(ToothGrowth)` lines and `r ncol(ToothGrowth)` columns. The variables of the data set are `len`, `supp`, and `dose`:
+
+* `len`: The length of the tooth.
+
+* `supp`: Supplement type. The variable has two levels: `OJ` (orange juice) and `VC` (vitamin C).
+
+* `dose`: The dose in milligrams. The levels are `0.5`, `1.0`, and `2.0`.
+
+This data set is much bigger than the `rats` one so we will summarize it quickly with the `summary()` function.
+
+```{r}
+summary(ToothGrowth)
+```
+
+Notice that `dose` is treated as a continuous variable. This is something that we don't want. The numbers represent a category. We will therefore recast `dose` as a factor variable.
+
+```{r}
+ToothGrowth <- 
+    ToothGrowth %>%
+    mutate(dose = factor(dose))
+```
+
+Let's plot our data:
+
+```{r}
+ToothGrowth %>%
+    ggplot(aes(x = dose, y = len, fill = supp)) +
+    geom_boxplot() +
+    scale_fill_brewer(type = 'seq', palette = 'Set1') +
+    theme_cowplot() +
+    theme(legend.position = 'bottom')
+```
+
+Let's also plot the interactions.
+
+```{r}
+ToothGrowth %>%
+    ggplot(aes(x = dose, y = len, group = supp)) +
+    stat_summary(aes(color = supp), fun.y = mean, geom = 'line') +
+    scale_color_brewer(type = 'seq', palette = 'Set1') +
+    theme_cowplot() +
+    theme(legend.position = 'bottom')
+```
+
+We see that under `VC` the mean length grows nicely as we increase the dose. For the `OJ` group we see a shift going from dose `1.0` to dose `2.0`. The two treatment lines cross at dose `2.0`. Let's formally test if there is an interaction: 
+
+```{r}
+anov2wtooth <- lm(len ~ supp * dose, data = ToothGrowth)
+anova(anov2wtooth)
+```
+This time we see that the supplement, dose AND interaction between those two variables are significant.
+
+## Multiple linear regression
+There is no reason to stop at three variables. We can continuously add variables to our model and R will happily fit it for us. 
+
+```{r, warning = F, message = F}
+pulse <- read_csv2('https://notendur.hi.is/thj73/data/pulseEn.csv')
+summary(lm(secondPulse ~ firstPulse*intervention + sex + height + weight, data = pulse))
+```
+
+That's not to say that more is always better. The general rule of thumb is **parsimony** or smaller is better. We want our model to generalize to data that it hasn't seen before (predict). If we tailor our model too closely to the data we use to construct it we run at risk of **overfitting**.
+
+### The problem of overfitting
+I am going to create fake data set to demonstrate the danger of overfitting. First I create the "truth". I want my dependent variable $y$ to be created from independent variable $x$. I want them to be related in the following way:
+
+$$
+y = 1 + 2 \cdot x = \beta _ 0 + \beta _ 1 x.
+$$
+
+Of course there needs to be some sort of randomness in the model because otherwise there would be no point in the analysis. I therefore add $\varepsilon \sim N(0, \sigma ^2) = N(0, 3^2)$ to the data to create fluctuations. 
+
+```{r}
+# Create data
+set.seed(1)
+n <- 10
+x <- rnorm(n = n, mean = 1, sd = 2)
+y <- 1 + 2 * x + rnorm(n = n, mean = 0, sd = 3)
+overData <- data.frame(x, y)
+```
+
+Let's fit a linear model to this data and see what we get:
+
+```{r}
+lmSmall <- lm(y ~ x, data = overData)
+summary(lmSmall)
+```
+
+The results are kinda poor but that's OK; this is just an example. Let's add more variables to the data.
+
+```{r}
+overData <- 
+    overData %>%
+    mutate(x2 = x^2, x3 = x^3, 
+           x4 = x^4, x5 = x^5, 
+           x6 = x^6, x7 = x^7, 
+           x8 = x^8)
+```
+
+Notice now what happens when I fit a model which includes **all** of the variables.
+
+```{r}
+lmFull <- lm(y ~ ., data = overData)
+summary(lmFull)
+```
+
+Notice how large $R^2$. It's almost 1 which is as good as it can get! Let's plot the two regression "lines" we get from the fit to see what is actually going on. We begin by adding the predicted model values to our data and then reduce the data set and pivot it to the long format.
+
+```{r}
+overDataLong <- 
+    overData %>%
+    mutate(smallPred = predict(lmSmall), 
+           fullPred = predict(lmFull)) %>%
+    select(x, y, smallPred, fullPred) %>%
+    gather(regression, value, -x, -y)
+overDataLong
+```
+
+Now let's plot the lines:
+
+```{r}
+overDataLong %>%
+    ggplot(aes(x = x)) +
+    geom_point(aes(y = y)) +
+    geom_line(aes(y = value, color = regression)) +
+    scale_color_brewer(type = 'seq', palette = 'Set1') +
+    theme_cowplot() +
+    theme(legend.position = 'bottom')
+```
+
+The full model goes out of its way to be as close to each data point as it can. This may seem nice on paper but the full model is completely useless to make prediction; even **interpolation** is useless. Let's see what happens. The range of `x` is roughly from 0 to 4. Let's see what happens if we make the model predict for `x = 3`. 
+
+```{r}
+newPredict <- data.frame(x = 3, x2 = 3^2, x3 = 3^3, 
+                         x4 = 3^4, x5 = 3^5, x6 = 3^6, 
+                         x7 = 3^7, x8 = 3^8)
+predict(lmFull, newPredict)
+```
+
+The model predicts `r predict(lmFull, newPredict)` which is a *terrible* estimate. The model is **useless**. It doesn't generalize.
+
+To finish this section off I'm going to fit ever-increasing models on this data to better show you how $R^2$ and adjusted $R^2$ behave. I include the code but don't worry if you don't understand it.
+
+```{r}
+X <- model.matrix(lmFull)[, -1]
+lmNull <- lm(y ~ 1, data = overData)
+r2Data <- list()
+for(i in 1:ncol(X)) {
+    lmTmp <- update(lmNull, . ~ . + X[, 1:i])
+    tmp <- data.frame(pred = (i + 1), 
+                      r2 = summary(lmTmp)$r.squared, 
+                      r2adj = summary(lmTmp)$adj.r.squared)
+    r2Data[[i]] <- tmp
+}
+do.call(rbind, r2Data) %>%
+    gather(type, val, -pred) %>%
+    mutate(pred = factor(pred)) %>%
+    ggplot(aes(x = pred, y = val, color = type, group = type, lty = type)) +
+    geom_point() +
+    geom_line() +
+    scale_color_brewer(type = 'seq', palette = 'Set1') +
+    theme_cowplot() +
+    labs(x = 'Number of predictors', y = 'Value') +
+    theme(legend.position = 'bottom')
+```
+
+As you can see, $R^2$ increases as we add more variables but $R^2$ adjusted fluctuates. This is why $R^2$ adjusted is typically used when model performance is being evaluated.
+
+
+
+

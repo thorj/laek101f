@@ -449,9 +449,9 @@ wideExample
 #> # A tibble: 3 × 3
 #>      id measure1 measure2
 #>   <int>    <dbl>    <dbl>
-#> 1     1    -1.00   -0.479
-#> 2     2     1.47   -1.49 
-#> 3     3    -1.31    0.214
+#> 1     1    0.883   -0.338
+#> 2     2    0.683   -0.931
+#> 3     3    1.30    -0.239
 ```
 
 Now, it might actually be more beneficial for each measurement to have its own row. When each measurement has its own row we say that the data is long. To convert from wide to long we use the `gather()` function. It has actually been superseeded by `pivot_longer()` but I'm more used to `gather()`. The function `gather()` takes in: the names of the two new columns we are creating ("key", "value") and then a selection of columns. We want each measurement to have its own line so our selection will be `measure1` and `measure2`.
@@ -463,12 +463,12 @@ wideExample %>%
 #> # A tibble: 6 × 3
 #>      id measurement  value
 #>   <int> <chr>        <dbl>
-#> 1     1 measure1    -1.00 
-#> 2     2 measure1     1.47 
-#> 3     3 measure1    -1.31 
-#> 4     1 measure2    -0.479
-#> 5     2 measure2    -1.49 
-#> 6     3 measure2     0.214
+#> 1     1 measure1     0.883
+#> 2     2 measure1     0.683
+#> 3     3 measure1     1.30 
+#> 4     1 measure2    -0.338
+#> 5     2 measure2    -0.931
+#> 6     3 measure2    -0.239
 ```
 
 Alternatively we can just use the `-` prefix to tell R which columns to ignore:
@@ -480,12 +480,12 @@ wideExample %>%
 #> # A tibble: 6 × 3
 #>      id measurement  value
 #>   <int> <chr>        <dbl>
-#> 1     1 measure1    -1.00 
-#> 2     2 measure1     1.47 
-#> 3     3 measure1    -1.31 
-#> 4     1 measure2    -0.479
-#> 5     2 measure2    -1.49 
-#> 6     3 measure2     0.214
+#> 1     1 measure1     0.883
+#> 2     2 measure1     0.683
+#> 3     3 measure1     1.30 
+#> 4     1 measure2    -0.338
+#> 5     2 measure2    -0.931
+#> 6     3 measure2    -0.239
 ```
 
 To go from long to wide we have the function `spread()` or `pivot_wider()`. I encourage you to try it out for yourselves.
@@ -504,11 +504,11 @@ dummyXLSX %>%
               sd = sd(values),
               median = median(values))
 #> # A tibble: 3 × 4
-#>   variables      mean    sd   median
-#>   <chr>         <dbl> <dbl>    <dbl>
-#> 1 age       34.5       3.18 35      
-#> 2 metric1   49.8      15.0  49.9    
-#> 3 someVar    0.000478  1.00 -0.00834
+#>   variables    mean     sd  median
+#>   <chr>       <dbl>  <dbl>   <dbl>
+#> 1 age       34.5     3.18  35     
+#> 2 metric1   49.8    15.0   49.9   
+#> 3 someVar    0.0160  0.995  0.0306
 ```
 
 Here is another example where we include the type of the participants.
@@ -526,17 +526,17 @@ dummyXLSX %>%
 #> `summarise()` has grouped output by 'variables'. You can override using the `.groups` argument.
 #> # A tibble: 9 × 5
 #> # Groups:   variables [3]
-#>   variables type     mean     sd  median
-#>   <chr>     <chr>   <dbl>  <dbl>   <dbl>
-#> 1 age       a     34.5     3.17  35     
-#> 2 metric1   a     49.5    14.9   49.5   
-#> 3 someVar   a      0.0427  0.998  0.0463
-#> 4 age       b     34.5     3.16  34     
-#> 5 metric1   b     50.1    15.1   50.2   
-#> 6 someVar   b      0.0172  1.00   0.0432
-#> 7 age       c     34.5     3.21  35     
-#> 8 metric1   c     49.8    15.2   50.1   
-#> 9 someVar   c     -0.0325  1.01  -0.0338
+#>   variables type      mean     sd  median
+#>   <chr>     <chr>    <dbl>  <dbl>   <dbl>
+#> 1 age       a     34.5      3.17  35     
+#> 2 metric1   a     49.5     14.9   49.5   
+#> 3 someVar   a      0.00236  0.997  0.0144
+#> 4 age       b     34.5      3.16  34     
+#> 5 metric1   b     50.1     15.1   50.2   
+#> 6 someVar   b      0.00308  1.02   0.0126
+#> 7 age       c     34.5      3.21  35     
+#> 8 metric1   c     49.8     15.2   50.1   
+#> 9 someVar   c      0.0200   1.00   0.0336
 ```
 
 
