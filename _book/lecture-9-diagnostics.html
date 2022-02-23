@@ -51,6 +51,7 @@
 <li><a class="" href="lecture-7-simple-linear-regression.html"><span class="header-section-number">8</span> Lecture 7: Simple linear regression</a></li>
 <li><a class="" href="lecture-8-multiple-regression.html"><span class="header-section-number">9</span> Lecture 8: Multiple regression</a></li>
 <li><a class="active" href="lecture-9-diagnostics.html"><span class="header-section-number">10</span> Lecture 9: Diagnostics</a></li>
+<li><a class="" href="lecture-10-miscellaneous.html"><span class="header-section-number">11</span> Lecture 10: Miscellaneous</a></li>
 </ul>
 
         <div class="book-extra">
@@ -540,12 +541,86 @@ We use the plot above to evaluate heteroskedasticity as well. It isn’t as obvi
 <li><p><em>Non-constant variance, correlated errors</em>: Use the generalized least square method. You need to estimate the error structure.</p></li>
 </ul>
 <p>This process requires many iterations of fitting and diagnostics.</p>
+<div id="our-model" class="section level3" number="10.3.1">
+<h3>
+<span class="header-section-number">10.3.1</span> Our model<a class="anchor" aria-label="anchor" href="#our-model"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let’s try to fix the heteroskedasticity of our data by applying the <code>boxcox()</code> transform. We look for a parameter <span class="math inline">\(\lambda\)</span> such that our data becomes as normally distributed as possible. The transform is as follows:</p>
+<p><span class="math display">\[
+b_i = \begin{cases}
+\frac{(y_i - 1)^{\lambda}}{\lambda} &amp; \mbox{if } y \neq 0 \\
+\log(y_i) &amp; \mbox{if } y = 0
+\end{cases}
+\]</span></p>
+<p>We begin by finding <span class="math inline">\(\lambda\)</span>:</p>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bc</span> <span class="op">&lt;-</span> <span class="fu">MASS</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/boxcox.html">boxcox</a></span><span class="op">(</span><span class="va">lm1</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="09-lecture9_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<p>We see that the peak of the curve is approximately -0.5. We can get the exact value the following way:</p>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lambda</span> <span class="op">&lt;-</span> <span class="va">bc</span><span class="op">$</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">bc</span><span class="op">$</span><span class="va">y</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">bc</span><span class="op">$</span><span class="va">y</span><span class="op">)</span><span class="op">)</span><span class="op">]</span>
+<span class="va">lambda</span>
+<span class="co">#&gt; [1] -0.5050505</span></code></pre></div>
+<p>Let’s add the transform to our data set and refit the model.</p>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pulse</span> <span class="op">&lt;-</span>
+    <span class="va">pulse</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>bi <span class="op">=</span> <span class="op">(</span><span class="va">secondPulse</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">^</span><span class="va">lambda</span><span class="op">/</span><span class="va">lambda</span><span class="op">)</span>
+<span class="va">lm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">bi</span> <span class="op">~</span> <span class="va">firstPulse</span> <span class="op">+</span> <span class="va">intervention</span>, data <span class="op">=</span> <span class="va">pulse</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lm2</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; lm(formula = bi ~ firstPulse + intervention, data = pulse)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residuals:</span>
+<span class="co">#&gt;       Min        1Q    Median        3Q       Max </span>
+<span class="co">#&gt; -0.036528 -0.008213  0.000778  0.006259  0.063756 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;                          Estimate Std. Error t value</span>
+<span class="co">#&gt; (Intercept)            -0.2953687  0.0043028  -68.65</span>
+<span class="co">#&gt; firstPulse              0.0013168  0.0000563   23.39</span>
+<span class="co">#&gt; interventionstationary -0.0324727  0.0013636  -23.82</span>
+<span class="co">#&gt;                        Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)              &lt;2e-16 ***</span>
+<span class="co">#&gt; firstPulse               &lt;2e-16 ***</span>
+<span class="co">#&gt; interventionstationary   &lt;2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Residual standard error: 0.01406 on 451 degrees of freedom</span>
+<span class="co">#&gt;   (17 observations deleted due to missingness)</span>
+<span class="co">#&gt; Multiple R-squared:  0.7433, Adjusted R-squared:  0.7422 </span>
+<span class="co">#&gt; F-statistic: 652.9 on 2 and 451 DF,  p-value: &lt; 2.2e-16</span></code></pre></div>
+<p>The adjusted <span class="math inline">\(R^2\)</span> value has increased significantly. Let’s look at the fitted-versus-residuals plot to see if the heteroskedasticity has disappeared.</p>
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flm2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/fortify.html">fortify</a></span><span class="op">(</span><span class="va">lm2</span><span class="op">)</span>
+<span class="va">flm2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">.fitted</span>, y <span class="op">=</span> <span class="va">.resid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html">stat_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">'loess'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; `geom_smooth()` using formula 'y ~ x'</span></code></pre></div>
+<div class="inline-figure"><img src="09-lecture9_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<p>Now we actually see evidence of non-linearity (notice the parabola). Let’s look at the <span class="math inline">\(QQ\)</span>-plot.</p>
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flm2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>sample <span class="op">=</span> <span class="va">.stdresid</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Theoretical'</span>, y <span class="op">=</span> <span class="st">'Actual'</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="09-lecture9_files/figure-html/unnamed-chunk-20-1.png" width="672">
+The <span class="math inline">\(QQ\)</span>-plot looks better but there is still considerable evidence of non-normality. Back to the drawing board for us.</p>
 
+</div>
 </div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="lecture-8-multiple-regression.html"><span class="header-section-number">9</span> Lecture 8: Multiple regression</a></div>
-<div class="empty"></div>
+<div class="next"><a href="lecture-10-miscellaneous.html"><span class="header-section-number">11</span> Lecture 10: Miscellaneous</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -563,7 +638,9 @@ We use the plot above to evaluate heteroskedasticity as well. It isn’t as obvi
 <li><a class="nav-link" href="#normality"><span class="header-section-number">10.2.2</span> Normality</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#what-should-we-do"><span class="header-section-number">10.3</span> What should we do?</a></li>
+<li>
+<a class="nav-link" href="#what-should-we-do"><span class="header-section-number">10.3</span> What should we do?</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#our-model"><span class="header-section-number">10.3.1</span> Our model</a></li></ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -581,7 +658,7 @@ We use the plot above to evaluate heteroskedasticity as well. It isn’t as obvi
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-21.</p>
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -370,4 +370,100 @@ Our model completely fails the normal assumption. There are some extremely heavy
 
 This process requires many iterations of fitting and diagnostics. 
 
+### Our model
+Let's try to fix the heteroskedasticity of our data by applying the `boxcox()` transform. We look for a parameter $\lambda$ such that our data becomes as normally distributed as possible. The transform is as follows:
+
+$$
+b_i = \begin{cases}
+\frac{(y_i - 1)^{\lambda}}{\lambda} & \mbox{if } y \neq 0 \\
+\log(y_i) & \mbox{if } y = 0
+\end{cases}
+$$
+
+We begin by finding $\lambda$:
+
+
+```r
+bc <- MASS::boxcox(lm1)
+```
+
+<img src="09-lecture9_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+
+We see that the peak of the curve is approximately -0.5. We can get the exact value the following way:
+
+
+```r
+lambda <- bc$x[which(bc$y == max(bc$y))]
+lambda
+#> [1] -0.5050505
+```
+
+Let's add the transform to our data set and refit the model. 
+
+
+```r
+pulse <-
+    pulse %>%
+    mutate(bi = (secondPulse - 1)^lambda/lambda)
+lm2 <- lm(bi ~ firstPulse + intervention, data = pulse)
+```
+
+
+```r
+summary(lm2)
+#> 
+#> Call:
+#> lm(formula = bi ~ firstPulse + intervention, data = pulse)
+#> 
+#> Residuals:
+#>       Min        1Q    Median        3Q       Max 
+#> -0.036528 -0.008213  0.000778  0.006259  0.063756 
+#> 
+#> Coefficients:
+#>                          Estimate Std. Error t value
+#> (Intercept)            -0.2953687  0.0043028  -68.65
+#> firstPulse              0.0013168  0.0000563   23.39
+#> interventionstationary -0.0324727  0.0013636  -23.82
+#>                        Pr(>|t|)    
+#> (Intercept)              <2e-16 ***
+#> firstPulse               <2e-16 ***
+#> interventionstationary   <2e-16 ***
+#> ---
+#> Signif. codes:  
+#> 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> Residual standard error: 0.01406 on 451 degrees of freedom
+#>   (17 observations deleted due to missingness)
+#> Multiple R-squared:  0.7433,	Adjusted R-squared:  0.7422 
+#> F-statistic: 652.9 on 2 and 451 DF,  p-value: < 2.2e-16
+```
+
+The adjusted $R^2$ value has increased significantly. Let's look at the fitted-versus-residuals plot to see if the heteroskedasticity has disappeared.
+
+
+```r
+flm2 <- fortify(lm2)
+flm2 %>%
+    ggplot(aes(x = .fitted, y = .resid)) +
+    geom_point() +
+    stat_smooth(method = 'loess') +
+    theme_cowplot()
+#> `geom_smooth()` using formula 'y ~ x'
+```
+
+<img src="09-lecture9_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+
+Now we actually see evidence of non-linearity (notice the parabola). Let's look at the $QQ$-plot. 
+
+```r
+flm2 %>%
+    ggplot(aes(sample = .stdresid)) +
+    stat_qq() +
+    stat_qq_line() +
+    labs(x = 'Theoretical', y = 'Actual') +
+    theme_cowplot()
+```
+
+<img src="09-lecture9_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+The $QQ$-plot looks better but there is still considerable evidence of non-normality. Back to the drawing board for us.
 

@@ -206,4 +206,61 @@ Our model completely fails the normal assumption. There are some extremely heavy
 
 This process requires many iterations of fitting and diagnostics. 
 
+### Our model
+Let's try to fix the heteroskedasticity of our data by applying the `boxcox()` transform. We look for a parameter $\lambda$ such that our data becomes as normally distributed as possible. The transform is as follows:
+
+$$
+b_i = \begin{cases}
+\frac{(y_i - 1)^{\lambda}}{\lambda} & \mbox{if } y \neq 0 \\
+\log(y_i) & \mbox{if } y = 0
+\end{cases}
+$$
+
+We begin by finding $\lambda$:
+
+```{r}
+bc <- MASS::boxcox(lm1)
+```
+
+We see that the peak of the curve is approximately -0.5. We can get the exact value the following way:
+
+```{r}
+lambda <- bc$x[which(bc$y == max(bc$y))]
+lambda
+```
+
+Let's add the transform to our data set and refit the model. 
+
+```{r}
+pulse <-
+    pulse %>%
+    mutate(bi = (secondPulse - 1)^lambda/lambda)
+lm2 <- lm(bi ~ firstPulse + intervention, data = pulse)
+```
+
+```{r}
+summary(lm2)
+```
+
+The adjusted $R^2$ value has increased significantly. Let's look at the fitted-versus-residuals plot to see if the heteroskedasticity has disappeared.
+
+```{r}
+flm2 <- fortify(lm2)
+flm2 %>%
+    ggplot(aes(x = .fitted, y = .resid)) +
+    geom_point() +
+    stat_smooth(method = 'loess') +
+    theme_cowplot()
+```
+
+Now we actually see evidence of non-linearity (notice the parabola). Let's look at the $QQ$-plot. 
+```{r}
+flm2 %>%
+    ggplot(aes(sample = .stdresid)) +
+    stat_qq() +
+    stat_qq_line() +
+    labs(x = 'Theoretical', y = 'Actual') +
+    theme_cowplot()
+```
+The $QQ$-plot looks better but there is still considerable evidence of non-normality. Back to the drawing board for us.
 

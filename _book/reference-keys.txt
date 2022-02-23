@@ -132,3 +132,14 @@ assumptions-of-linear-regression
 heteroskedasticity-and-linearity
 normality
 what-should-we-do
+our-model
+lecture-10-miscellaneous
+correlation
+definition-and-example
+hypothesis-test
+the-ggpairs-function-from-ggally.
+interpreting-the-coefficients-of-linear-regression
+hypothesis-test-for-multiple-ratios
+two-ratios
+more-ratios
+the-f-distribution

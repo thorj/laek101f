@@ -1,0 +1,249 @@
+# Lecture 10: Miscellaneous
+
+```{r, warning = F, message = F}
+library(tidyverse)
+library(cowplot)
+library(GGally)
+```
+
+
+## Correlation
+
+### Definition and example
+Assume we have $n$ measurements of variables $x$ and $y$. Let $\bar{x}$ and $\bar{y}$ be their means and $s_x$ and $s_y$ their standard deviations. The sample correlation $r$ is then:
+
+$$
+r = \frac{1}{n-1}\sum _ {i = 1} ^n \left(  \frac{x_i - \bar{x}}{s_x} \right) \left(  \frac{y_i - \bar{y}}{s_y} \right).
+$$
+
+The sample correlation can range from -1 to 1, where we call -1 *perfect negative correlation* and 1 *perfect positive correlation*. If $r = 0$ we say that there is no correlation between $x$ and $y$. Here are a few examples:
+
+```{r, warning = F, messge = F, echo = F}
+set.seed(1)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+genCor <- function(r) {
+    y <- scale(x2) * r + scale(residuals(lm(x1 ~ x2))) * sqrt(1 - r^2)
+    return(y)
+}
+r <- c(-0.8, -0.4, 0, 0.5, 0.75, 0.99)
+y.3 <- sapply(r, genCor)
+```
+
+```{r, warning = F, message = F, echo = F}
+y.3 %>% 
+    as_tibble() %>%
+    rename(r_8 = 1, r_4 = 2, r0 = 3, r5 = 4, r75 = 5, r99 = 6) %>%
+    mutate(x = x2) %>%
+    gather(corr, val, -x) %>%
+    mutate(corr = factor(corr, 
+                         levels = c('r_8', 'r_4', 'r0', 'r5', 'r75', 'r99'),
+                         labels = paste0('r = ', r))) %>%
+    ggplot(aes(x =x, y = val)) +
+        geom_point() +
+        facet_wrap(~corr, scales = 'free') +
+        stat_smooth(method = 'lm', se = F) +
+        labs(x = '', y = '') + 
+        theme_cowplot()
+```
+
+### Hypothesis test 
+Let us denote the *population* correlation coefficient with $\rho$. We estimate $\rho$ with $r$. A two-sided hypothesis test for $\rho$ is:
+
+$$
+\begin{aligned}
+H_0 &: \rho = 0 \\
+H_1 &: \rho \neq 0
+\end{aligned}
+$$
+The test statistic of the hypothesis test is:
+$$
+t = \frac{r\sqrt{n - 2}}{\sqrt{1 - r^2}}.
+$$
+
+Under the null hypothesis we expect our $t$-statistic to come from a $t$-distribution with $n-2$ degrees of freedom. We can perform this hypothesis test with the `cor.test()` function in R. Let's look at an example using the `mtcars` data. We are going to see if there is a correlation between `mpg` and `hp`.
+
+We begin by plotting the data:
+
+```{r}
+mtcars %>%
+    ggplot(aes(x = hp, y = mpg)) +
+    geom_point() +
+    stat_smooth(method = 'lm', se = F) +
+    theme_cowplot()
+```
+
+Looking at the plot we suspect that there exists a negative correlation between `hp` and `mpg`. That is, the greater the horsepower of the car the less fuel efficient it is. Let's confirm this by running a hypothesis test.
+
+```{r}
+cor.test(mtcars$hp, mtcars$mpg)
+```
+
+As you can see we reject the null hypothesis.
+
+### The `ggpairs()` function from `GGally`.
+The `ggpairs()` function from the `GGally` package is very useful when we want to look at the correlation between multiple variables. Let's look at the `mtcars` data again. Since `mtcars` has `r ncol(mtcars)` variables I'm going to select four: `mpg`, `hp`, `wt`, and `drat`. 
+
+```{r, warning = F, message = F}
+mtcars %>%
+    select(mpg, hp, wt, drat) %>%
+    ggpairs() +
+    theme_cowplot()
+```
+
+There is a lot of information packed into that graph. We see:
+
+1. The density (or distribution) of our variables on the diagonal.
+
+2. The scatter plots of all combinations for the variables.
+
+3. The correlation between the variables and if that correlation is significantly different from 0.
+
+## Interpreting the coefficients of linear regression
+Let's fit a linear model on some variables from `mtcars`:
+
+```{r}
+lm1 <- lm(mpg ~ hp + wt + drat, data = mtcars)
+summary(lm1)
+```
+
+The *equation* of the model is (roughly):
+
+$$
+\begin{aligned}
+\hat{y} &= \hat{\beta} _ 0 + \hat{\beta} _ 1 \mbox{hp} + \hat{\beta} _ 2 \mbox{wt} + \hat{\beta} _ 3 \mbox{drat} \\
+&= 29.39 - 0.032 \mbox{hp} - 3.23 \mbox{wt} + 1.62 \mbox{drat}
+\end{aligned}
+$$
+
+This is how we interpret the coefficients:
+
+* $\hat{\beta} _ 0$: The value of $\mbox{mpg}$ if $\mbox{hp} = \mbox{wt} = \mbox{drat} = 0$. This is why it is called the *intercept* term.
+
+* $\hat{\beta} _ 1$: The *change* in $\mbox{mpg}$ if we increase $\mbox{hp}$ by one unit and hold $\mbox{wt}$ and $\mbox{drat}$ fixed. The coefficient value for $\hat{\beta} _ 1$ was $-0.032$. That means, all else equal, that we expect $\mbox{mpg}$ to *decrease* by $-0.032$ if we *increase* $\mbox{hp}$ by one unit.
+
+* $\hat{\beta} _ 2$: The *change* in $\mbox{mpg}$ if we increase $\mbox{wt}$ by one unit and hold $\mbox{hp}$ and $\mbox{drat}$ fixed. The coefficient value for $\hat{\beta} _ 2$ was $-3.23$. That means, all else equal, that we expect $\mbox{mpg}$ to *decrease* by $-3.23$ if we *increase* $\mbox{wt}$ by one unit.
+
+* $\hat{\beta} _ 3$: The *change* in $\mbox{mpg}$ if we increase $\mbox{drat}$ by one unit and hold $\mbox{hp}$ and $\mbox{wt}$ fixed. The coefficient value for $\hat{\beta} _ 2$ was $1.62$. That means, all else equal, that we expect $\mbox{mpg}$ to *increase* by $1.62$ if we *increase* $\mbox{drat}$ by one unit.
+
+For those of you with a background in calculus this essentially amounts to taking the derivative of $\hat{y}$ with respect to the variable in question. Using $\mbox{hp}$ as an example:
+
+$$
+\begin{aligned}
+\frac{d\hat{y}}{d\mbox{hp}} &= \frac{d}{d\mbox{hp}} \left( \hat{\beta} _ 0 + \hat{\beta} _ 1 \mbox{hp} + \hat{\beta} _ 2 \mbox{wt} + \hat{\beta} _ 3 \mbox{drat}\right) \\
+&= \hat{\beta} _ 1. 
+\end{aligned}
+$$
+
+## Hypothesis test for multiple ratios
+In lecture 5 we talked about a hypothesis test for *a* ratio. We can generalize this to multiple ratios.
+
+### Two ratios
+We begin by loading the `pulse` data:
+
+```{r, warning = F, message =F}
+pulse <- read_csv2('https://notendur.hi.is/thj73/data/pulseEn.csv') %>%
+    na.omit()
+```
+
+In the pulse data we have the categorical variables `intervention` and `drinks`. Let's create a $2\times 2$ contingency table of those two variables:
+
+```{r}
+# Counts
+table(pulse$intervention, pulse$drinks)
+```
+
+```{r}
+# Proportions
+prop.table(table(pulse$intervention, pulse$drinks), margin = 1)
+```
+
+We can see proportion of non-drinkers in the stationary and active groups is 14% and 15.9% respectively. Let's assume we want to see if there is enough statical evidence to test if these two proportions differ from each other. The hypothesis test is:
+
+$$
+\begin{aligned}
+H_0&: p_1 = p_2 \\
+H_1&: p_1 \neq p_2
+\end{aligned}
+$$
+
+The test statistic of this hypothesis test comes from the $\chi ^2$ distribution with one degree of freedom if the null hypothesis is true. Computing it by hand is quite involved so instead we will let $R$ do it for us with the `prop.test()` function. 
+
+```{r}
+prop.test(table(pulse$intervention, pulse$drinks))
+```
+
+Look at the output of the `prop.test()` function; as you can see we are comparing the proportion of active non-drinkers to stationary non-drinkers. The $p$-value exceeds $\alpha = 0.05$ and we are therefore unable to reject the null hypothesis.
+
+### More ratios
+The $\chi ^2$ test we just performed can be generalized to more proportions. Assume we have $q$ proportions we want to compare. The hypothesis test in is now:
+
+$$
+\begin{aligned}
+H_0&: p_1 = p_2 = \ldots p_q \\
+H_1&: \mbox{at least one } p_i \mbox{ differs}
+\end{aligned}
+$$
+
+Note the similarity with the ANOVA model. The difference here is that we are concerned about proportions rather than means. The test just tells us *if* there is a difference but not *where* the difference is. There exist post-hoc methods to then see where the difference lies the most basic one being Bonferroni corrections.
+
+The test statistic for this hypothesis test also comes from the $\chi ^2$ distribution if the null hypothesis is true. The only difference is the number of degrees of freedom which can be computed as $(l - 1) \cdot (d - 1)$ where $d$ is number of columns in the contingency table and $l$ is the number of lines in the contingency table. Let's work through an example.
+
+In the `ISLR` package there is a data set called `Wage`.
+
+```{r}
+wage <- ISLR::Wage
+```
+
+This data set has `r ncol(wage)` columns and `r nrow(wage)` lines. We are interested in two variables in particular: `race` and `jobclass`. Let's reduce our data to only include those variables.
+
+```{r}
+wage <-
+    wage %>%
+    select(race, jobclass)
+```
+
+Let's create a table of the data:
+
+```{r}
+table(wage$race, wage$jobclass)
+```
+Our table consists of four lines ($l = 4$) and two ($d = 2$) columns. Let's look at the proportions again:
+
+```{r}
+prop.table(table(wage$race, wage$jobclass), margin = 1)
+```
+
+Let's assume we are interested in seeing if there is a difference in the proportions of races within job types.
+
+```{r}
+prop.test(table(wage$race, wage$jobclass))
+```
+
+The degrees of freedom are three which fits in the formula $(l - 1) \cdot (d - 1) = 3 \cdot 1$. The $p$-value is smaller than $\alpha = 0.05$ so we can reject the null hypothesis. There seems to be a difference between the ratios but we don't know where. A natural next step would be a post-hoc analysis.
+
+## The $F$-distribution
+The test statistic of the hypothesis test of the ANOVA model is the $F$-statistic. Under the null hypothesis the $F$-statistic should come from the $F$-distribution. The $F$-distribution has two parameters: df$^1$ and df$^2$ where df stands for degrees of freedom. The two parameters determine the shape of the $F$-distribution:
+
+```{r}
+tibble(f = seq(0.01, 5, by = 0.01), 
+       d1 = df(x = f, df1 = 1, df2 = 1), 
+       d2 = df(x = f, df1 = 2, df2 = 1 ), 
+       d3 = df(x = f, df1 = 5, df2 = 2), 
+       d4 = df(x = f, df1 = 100, df2 = 100)) %>%
+    gather(dist, val, -f) %>%
+    mutate(dist = factor(dist, 
+                         levels = c('d1', 'd2', 'd3', 'd4'), 
+                         labels = c('df1 = 1, df2 = 1', 
+                                    'df1 = 2, df2 = 1', 
+                                    'df1 = 5, df2 = 2', 
+                                    'df1 = 100, df2 = 100'))) %>%
+    ggplot(aes(x = f, y = val, color = dist, lty = dist)) +
+    geom_line() +
+    labs(x = 'F', y = '', color = '', lty = '') +
+    scale_color_brewer(type = 'seq', palette = 'Set1') +
+    theme_cowplot() +
+    theme(legend.position = 'bottom')
+```
+

@@ -66,7 +66,7 @@ Below are a few examples where I use `here`, `readr`, and `readxl` to read in so
 ```r
 dummyTSV <- read_tsv(here('data', 'l2_data_tsv.txt'))
 #> Rows: 10000 Columns: 4
-#> ── Column specification ──────────────────────────────────────────────────
+#> ── Column specification ───────────────────────────────────────────────────
 #> Delimiter: "\t"
 #> chr (1): type
 #> dbl (3): id, age, metric1
@@ -75,7 +75,7 @@ dummyTSV <- read_tsv(here('data', 'l2_data_tsv.txt'))
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 dummyCSV <- read_csv(here('data', 'l2_data_csv.txt'))
 #> Rows: 10000 Columns: 4
-#> ── Column specification ──────────────────────────────────────────────────
+#> ── Column specification ───────────────────────────────────────────────────
 #> Delimiter: ","
 #> chr (1): type
 #> dbl (3): id, age, metric1
@@ -85,7 +85,7 @@ dummyCSV <- read_csv(here('data', 'l2_data_csv.txt'))
 dumyCSV2 <- read_csv2(here('data', 'l2_data_csv2.txt'))
 #> ℹ Using "','" as decimal and "'.'" as grouping mark. Use `read_delim()` for more control.
 #> Rows: 10000 Columns: 4
-#> ── Column specification ──────────────────────────────────────────────────
+#> ── Column specification ───────────────────────────────────────────────────
 #> Delimiter: ";"
 #> chr (1): type
 #> dbl (2): id, age
@@ -449,9 +449,9 @@ wideExample
 #> # A tibble: 3 × 3
 #>      id measure1 measure2
 #>   <int>    <dbl>    <dbl>
-#> 1     1    0.883   -0.338
-#> 2     2    0.683   -0.931
-#> 3     3    1.30    -0.239
+#> 1     1   0.0943   0.0797
+#> 2     2  -0.749    0.390 
+#> 3     3   0.584   -0.325
 ```
 
 Now, it might actually be more beneficial for each measurement to have its own row. When each measurement has its own row we say that the data is long. To convert from wide to long we use the `gather()` function. It has actually been superseeded by `pivot_longer()` but I'm more used to `gather()`. The function `gather()` takes in: the names of the two new columns we are creating ("key", "value") and then a selection of columns. We want each measurement to have its own line so our selection will be `measure1` and `measure2`.
@@ -461,14 +461,14 @@ Now, it might actually be more beneficial for each measurement to have its own r
 wideExample %>%
     gather(measurement, value, measure1, measure2)
 #> # A tibble: 6 × 3
-#>      id measurement  value
-#>   <int> <chr>        <dbl>
-#> 1     1 measure1     0.883
-#> 2     2 measure1     0.683
-#> 3     3 measure1     1.30 
-#> 4     1 measure2    -0.338
-#> 5     2 measure2    -0.931
-#> 6     3 measure2    -0.239
+#>      id measurement   value
+#>   <int> <chr>         <dbl>
+#> 1     1 measure1     0.0943
+#> 2     2 measure1    -0.749 
+#> 3     3 measure1     0.584 
+#> 4     1 measure2     0.0797
+#> 5     2 measure2     0.390 
+#> 6     3 measure2    -0.325
 ```
 
 Alternatively we can just use the `-` prefix to tell R which columns to ignore:
@@ -478,14 +478,14 @@ Alternatively we can just use the `-` prefix to tell R which columns to ignore:
 wideExample %>%
     gather(measurement, value, -id)
 #> # A tibble: 6 × 3
-#>      id measurement  value
-#>   <int> <chr>        <dbl>
-#> 1     1 measure1     0.883
-#> 2     2 measure1     0.683
-#> 3     3 measure1     1.30 
-#> 4     1 measure2    -0.338
-#> 5     2 measure2    -0.931
-#> 6     3 measure2    -0.239
+#>      id measurement   value
+#>   <int> <chr>         <dbl>
+#> 1     1 measure1     0.0943
+#> 2     2 measure1    -0.749 
+#> 3     3 measure1     0.584 
+#> 4     1 measure2     0.0797
+#> 5     2 measure2     0.390 
+#> 6     3 measure2    -0.325
 ```
 
 To go from long to wide we have the function `spread()` or `pivot_wider()`. I encourage you to try it out for yourselves.
@@ -504,11 +504,11 @@ dummyXLSX %>%
               sd = sd(values),
               median = median(values))
 #> # A tibble: 3 × 4
-#>   variables    mean     sd  median
-#>   <chr>       <dbl>  <dbl>   <dbl>
-#> 1 age       34.5     3.18  35     
-#> 2 metric1   49.8    15.0   49.9   
-#> 3 someVar    0.0160  0.995  0.0306
+#>   variables     mean    sd    median
+#>   <chr>        <dbl> <dbl>     <dbl>
+#> 1 age       34.5      3.18 35       
+#> 2 metric1   49.8     15.0  49.9     
+#> 3 someVar    0.00551  1.01 -0.000776
 ```
 
 Here is another example where we include the type of the participants.
@@ -530,13 +530,13 @@ dummyXLSX %>%
 #>   <chr>     <chr>    <dbl>  <dbl>   <dbl>
 #> 1 age       a     34.5      3.17  35     
 #> 2 metric1   a     49.5     14.9   49.5   
-#> 3 someVar   a      0.00236  0.997  0.0144
+#> 3 someVar   a     -0.00407  0.977 -0.0231
 #> 4 age       b     34.5      3.16  34     
 #> 5 metric1   b     50.1     15.1   50.2   
-#> 6 someVar   b      0.00308  1.02   0.0126
+#> 6 someVar   b      0.0155   1.00   0.0122
 #> 7 age       c     34.5      3.21  35     
 #> 8 metric1   c     49.8     15.2   50.1   
-#> 9 someVar   c      0.0200   1.00   0.0336
+#> 9 someVar   c      0.0342   0.983  0.0339
 ```
 
 
