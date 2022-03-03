@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 12 Lecture 11: Logistic regression | LÆK101F: General statistics, course for M.Sc. and Ph.D students</title>
+<meta name="author" content="Þórarinn Jónmundsson">
+<meta name="description" content="library(tidyverse) library(epitools)    # data library(cowplot) library(gridExtra)  12.1 The data We will use data from the Western Collaborative Group Study (WCGS) which was a cohort study...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 12 Lecture 11: Logistic regression | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta property="og:type" content="book">
+<meta property="og:description" content="library(tidyverse) library(epitools)    # data library(cowplot) library(gridExtra)  12.1 The data We will use data from the Western Collaborative Group Study (WCGS) which was a cohort study...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 12 Lecture 11: Logistic regression | LÆK101F: General statistics, course for M.Sc. and Ph.D students">
+<meta name="twitter:description" content="library(tidyverse) library(epitools)    # data library(cowplot) library(gridExtra)  12.1 The data We will use data from the Western Collaborative Group Study (WCGS) which was a cohort study...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="libs/table1-1.0/table1_defaults.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">LÆK101F: General statistics, course for M.Sc. and Ph.D students</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> General information</a></li>
+<li><a class="" href="lecture-1-r-and-r-basics.html"><span class="header-section-number">2</span> Lecture 1: R and R basics</a></li>
+<li><a class="" href="lecture-2-data-wrangling.html"><span class="header-section-number">3</span> Lecture 2: Data wrangling</a></li>
+<li><a class="" href="lecture-3-plots-and-table1.html"><span class="header-section-number">4</span> Lecture 3: Plots and table1</a></li>
+<li><a class="" href="lecture-4-probability-theory.html"><span class="header-section-number">5</span> Lecture 4: Probability theory</a></li>
+<li><a class="" href="lecture-5-inference.html"><span class="header-section-number">6</span> Lecture 5: Inference</a></li>
+<li><a class="" href="lecture-6-anova.html"><span class="header-section-number">7</span> Lecture 6: ANOVA</a></li>
+<li><a class="" href="lecture-7-simple-linear-regression.html"><span class="header-section-number">8</span> Lecture 7: Simple linear regression</a></li>
+<li><a class="" href="lecture-8-multiple-regression.html"><span class="header-section-number">9</span> Lecture 8: Multiple regression</a></li>
+<li><a class="" href="lecture-9-diagnostics.html"><span class="header-section-number">10</span> Lecture 9: Diagnostics</a></li>
+<li><a class="" href="lecture-10-miscellaneous.html"><span class="header-section-number">11</span> Lecture 10: Miscellaneous</a></li>
+<li><a class="active" href="lecture-11-logistic-regression.html"><span class="header-section-number">12</span> Lecture 11: Logistic regression</a></li>
+<li><a class="" href="where-to-go-from-here.html"><span class="header-section-number">13</span> Where to go from here</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/thorj/laek101f">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="lecture-11-logistic-regression" class="section level1" number="12">
+<h1>
+<span class="header-section-number">12</span> Lecture 11: Logistic regression<a class="anchor" aria-label="anchor" href="#lecture-11-logistic-regression"><i class="fas fa-link"></i></a>
+</h1>
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">epitools</span><span class="op">)</span>       <span class="co"># data</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://wilkelab.org/cowplot/">cowplot</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></code></pre></div>
+<div id="the-data" class="section level2" number="12.1">
+<h2>
+<span class="header-section-number">12.1</span> The data<a class="anchor" aria-label="anchor" href="#the-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>We will use data from the <a href="https://clinicaltrials.gov/ct2/show/NCT00005174">Western Collaborative Group Study (WCGS)</a> which was a cohort study including men in California. The men had various risk factors measured at baseline and were then followed until the age of 70, to death, or the occurrence of heart disease, depending on which came first.</p>
+<p>The data is included in the package <em>epitools</em>.</p>
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">'wcgs'</span><span class="op">)</span></code></pre></div>
+<p>The data set consists of 3154 observations and 14 variables. Let’s summarize the data quickly with the <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> function.</p>
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">wcgs</span><span class="op">)</span>
+<span class="co">#&gt;        id             age0          height0     </span>
+<span class="co">#&gt;  Min.   : 2001   Min.   :39.00   Min.   :60.00  </span>
+<span class="co">#&gt;  1st Qu.: 3741   1st Qu.:42.00   1st Qu.:68.00  </span>
+<span class="co">#&gt;  Median :11406   Median :45.00   Median :70.00  </span>
+<span class="co">#&gt;  Mean   :10478   Mean   :46.28   Mean   :69.78  </span>
+<span class="co">#&gt;  3rd Qu.:13115   3rd Qu.:50.00   3rd Qu.:72.00  </span>
+<span class="co">#&gt;  Max.   :22101   Max.   :59.00   Max.   :78.00  </span>
+<span class="co">#&gt;                                                 </span>
+<span class="co">#&gt;     weight0         sbp0            dbp0       </span>
+<span class="co">#&gt;  Min.   : 78   Min.   : 98.0   Min.   : 58.00  </span>
+<span class="co">#&gt;  1st Qu.:155   1st Qu.:120.0   1st Qu.: 76.00  </span>
+<span class="co">#&gt;  Median :170   Median :126.0   Median : 80.00  </span>
+<span class="co">#&gt;  Mean   :170   Mean   :128.6   Mean   : 82.02  </span>
+<span class="co">#&gt;  3rd Qu.:182   3rd Qu.:136.0   3rd Qu.: 86.00  </span>
+<span class="co">#&gt;  Max.   :320   Max.   :230.0   Max.   :150.00  </span>
+<span class="co">#&gt;                                                </span>
+<span class="co">#&gt;      chol0          behpat0          ncigs0    </span>
+<span class="co">#&gt;  Min.   :103.0   Min.   :1.000   Min.   : 0.0  </span>
+<span class="co">#&gt;  1st Qu.:197.2   1st Qu.:2.000   1st Qu.: 0.0  </span>
+<span class="co">#&gt;  Median :223.0   Median :2.000   Median : 0.0  </span>
+<span class="co">#&gt;  Mean   :226.4   Mean   :2.523   Mean   :11.6  </span>
+<span class="co">#&gt;  3rd Qu.:253.0   3rd Qu.:3.000   3rd Qu.:20.0  </span>
+<span class="co">#&gt;  Max.   :645.0   Max.   :4.000   Max.   :99.0  </span>
+<span class="co">#&gt;  NA's   :12                                    </span>
+<span class="co">#&gt;     dibpat0           chd69            typechd      </span>
+<span class="co">#&gt;  Min.   :0.0000   Min.   :0.00000   Min.   :0.0000  </span>
+<span class="co">#&gt;  1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.0000  </span>
+<span class="co">#&gt;  Median :1.0000   Median :0.00000   Median :0.0000  </span>
+<span class="co">#&gt;  Mean   :0.5038   Mean   :0.08148   Mean   :0.1363  </span>
+<span class="co">#&gt;  3rd Qu.:1.0000   3rd Qu.:0.00000   3rd Qu.:0.0000  </span>
+<span class="co">#&gt;  Max.   :1.0000   Max.   :1.00000   Max.   :3.0000  </span>
+<span class="co">#&gt;                                                     </span>
+<span class="co">#&gt;     time169         arcus0      </span>
+<span class="co">#&gt;  Min.   :  18   Min.   :0.0000  </span>
+<span class="co">#&gt;  1st Qu.:2842   1st Qu.:0.0000  </span>
+<span class="co">#&gt;  Median :2942   Median :0.0000  </span>
+<span class="co">#&gt;  Mean   :2684   Mean   :0.2985  </span>
+<span class="co">#&gt;  3rd Qu.:3037   3rd Qu.:1.0000  </span>
+<span class="co">#&gt;  Max.   :3430   Max.   :1.0000  </span>
+<span class="co">#&gt;                 NA's   :2</span></code></pre></div>
+<p>We are going to focus our attention on two variables (for now): <code>sbp0</code> and <code>chd69</code>.</p>
+<ul>
+<li><p><code>sbp0</code>: This variable represents the systolic blood pressure of the study participant at baseline.</p></li>
+<li><p><code>chd69</code>: This variable takes on the value of 1 if the study participant suffered from heart disease before turning 70 and 0 otherwise.</p></li>
+</ul>
+<p>We are going to create a new variable which takes on the value of 1 if the study participant had a systolic blood pressure exceeding 130 at baseline and 0 otherwise. We will call this variable <code>htn</code>, short for hypertension. We will also create factor versions of <code>htn</code> and <code>chd69</code> where we replace 0 and 1 with text.</p>
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">wcgs</span> <span class="op">&lt;-</span>
+    <span class="va">wcgs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>htn <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">sbp0</span> <span class="op">&gt;</span> <span class="fl">130</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span>, 
+           htnf <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">htn</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'No htn'</span>, <span class="st">'Yes htn'</span><span class="op">)</span><span class="op">)</span>, 
+           chd69f <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">chd69</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'No chd'</span>, <span class="st">'Yes chd'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="a-test-of-two-proportions" class="section level2" number="12.2">
+<h2>
+<span class="header-section-number">12.2</span> A test of two proportions<a class="anchor" aria-label="anchor" href="#a-test-of-two-proportions"><i class="fas fa-link"></i></a>
+</h2>
+<p>Now let’s create a simple counts table based on the variables <code>htnf</code> and <code>chd69f</code>.</p>
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">wcgs</span><span class="op">$</span><span class="va">htnf</span>, <span class="va">wcgs</span><span class="op">$</span><span class="va">chd69f</span><span class="op">)</span>
+<span class="co">#&gt;          </span>
+<span class="co">#&gt;           No chd Yes chd</span>
+<span class="co">#&gt;   No htn    1916     131</span>
+<span class="co">#&gt;   Yes htn    981     126</span></code></pre></div>
+<p>Let’s get the proportions version of this table:</p>
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">wcgs</span><span class="op">$</span><span class="va">htnf</span>, <span class="va">wcgs</span><span class="op">$</span><span class="va">chd69f</span><span class="op">)</span>, margin <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt;          </span>
+<span class="co">#&gt;               No chd    Yes chd</span>
+<span class="co">#&gt;   No htn  0.93600391 0.06399609</span>
+<span class="co">#&gt;   Yes htn 0.88617886 0.11382114</span></code></pre></div>
+<p>From the table above we see that roughly 6% of participants <em>without</em> hypertension suffered from heart disease versus the 11% of participants <em>with</em> hypertension. Let’s see if there is a statistically significant difference of proportions.</p>
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">wcgs</span><span class="op">$</span><span class="va">htnf</span>, <span class="va">wcgs</span><span class="op">$</span><span class="va">chd69f</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  2-sample test for equality of proportions with</span>
+<span class="co">#&gt;  continuity correction</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; data:  table(wcgs$htnf, wcgs$chd69f)</span>
+<span class="co">#&gt; X-squared = 23.17, df = 1, p-value = 1.483e-06</span>
+<span class="co">#&gt; alternative hypothesis: two.sided</span>
+<span class="co">#&gt; 95 percent confidence interval:</span>
+<span class="co">#&gt;  0.02762490 0.07202519</span>
+<span class="co">#&gt; sample estimates:</span>
+<span class="co">#&gt;    prop 1    prop 2 </span>
+<span class="co">#&gt; 0.9360039 0.8861789</span></code></pre></div>
+<p>Note that this is testing the proportions of <em>not</em> getting heart disease. Due to symmetry it doesn’t matter which proportion we test but for completeness’ sake we can switch the proportions being tested:</p>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">wcgs</span><span class="op">$</span><span class="va">htnf</span>, <span class="va">wcgs</span><span class="op">$</span><span class="va">chd69f</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  2-sample test for equality of proportions with</span>
+<span class="co">#&gt;  continuity correction</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; data:  table(wcgs$htnf, wcgs$chd69f)[2:1, 2:1]</span>
+<span class="co">#&gt; X-squared = 23.17, df = 1, p-value = 1.483e-06</span>
+<span class="co">#&gt; alternative hypothesis: two.sided</span>
+<span class="co">#&gt; 95 percent confidence interval:</span>
+<span class="co">#&gt;  0.02762490 0.07202519</span>
+<span class="co">#&gt; sample estimates:</span>
+<span class="co">#&gt;     prop 1     prop 2 </span>
+<span class="co">#&gt; 0.11382114 0.06399609</span></code></pre></div>
+<p>As you can see we get the same test statistic and <span class="math inline">\(p\)</span>-value; we have merely changed our “perspective”. From the output we see that the null hypothesis is rejected.</p>
+<div id="the-odds-ratio" class="section level3" number="12.2.1">
+<h3>
+<span class="header-section-number">12.2.1</span> The odds ratio<a class="anchor" aria-label="anchor" href="#the-odds-ratio"><i class="fas fa-link"></i></a>
+</h3>
+<p>Let <span class="math inline">\(\pi\)</span> be some probability of an event happening. Then, since probabilities must add up to one, <span class="math inline">\(1-\pi\)</span> is the probability of an event <em>not</em> happening. The odds <span class="math inline">\(\mathcal{O}\)</span> is defined as the ratio of these two probabilities:</p>
+<p><span class="math display">\[
+\mathcal{O} = \frac{\pi}{1 - \pi}
+\]</span></p>
+<p>So what exactly is an <em>odds ratio</em>? Well, the <em>odds ratio</em> is just the ratio of two odds!</p>
+<p><span class="math display">\[
+\mbox{Odds ratio} = \frac{\mathcal{O}_ 1}{\mathcal{O}_ 2} = \frac{\frac{\pi _ 1}{1 - \pi _ 1}}{\frac{\pi _ 2}{1 - \pi _ 2}}
+\]</span></p>
+<p>Now, let’s think again about the proportions in our table:</p>
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/proportions.html">prop.table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">wcgs</span><span class="op">$</span><span class="va">htnf</span>, <span class="va">wcgs</span><span class="op">$</span><span class="va">chd69f</span><span class="op">)</span>, margin <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
+<span class="co">#&gt;          </span>
+<span class="co">#&gt;               No chd    Yes chd</span>
+<span class="co">#&gt;   No htn  0.93600391 0.06399609</span>
+<span class="co">#&gt;   Yes htn 0.88617886 0.11382114</span></code></pre></div>
+<p>Our rows sum up to one. It doesn’t take a huge leap of faith to consider these proportions as probabilities. That is to say, given that a participant <em>does not suffer</em> from hypertension, the <em>probability</em> of that participant suffering from heart disease is roughly 6%. We can thus convert our probabilities to odds:</p>
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">odds1</span> <span class="op">&lt;-</span> <span class="fl">0.064</span><span class="op">/</span><span class="fl">0.936</span>    <span class="co"># no hypertension</span>
+<span class="va">odds2</span> <span class="op">&lt;-</span> <span class="fl">0.114</span><span class="op">/</span><span class="fl">0.886</span>    <span class="co"># hypertension</span>
+<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">odds1</span>, <span class="va">odds2</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.06837607 0.12866817</span></code></pre></div>
+<p>Consequently, the odds ratio is:</p>
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">odds2</span><span class="op">/</span><span class="va">odds1</span>
+<span class="co">#&gt; [1] 1.881772</span></code></pre></div>
+<p>The numerator here is the odds of heart disease given hypertension and the denominator is the odds of heart disease given no hypertension.</p>
+</div>
+<div id="interpreting-the-odds-ratio" class="section level3" number="12.2.2">
+<h3>
+<span class="header-section-number">12.2.2</span> Interpreting the odds ratio<a class="anchor" aria-label="anchor" href="#interpreting-the-odds-ratio"><i class="fas fa-link"></i></a>
+</h3>
+<p>Since the odds ratio was greater than one we interpret that the following way: the odds of heart disease for a person with hypertension is <strong>greater</strong> than a person <em>without</em> hypertension. In general, the following holds:</p>
+<ul>
+<li><p>Odds ratio greater than 1: Increased odds.</p></li>
+<li><p>Odds ratio less than 1: Decreased odds.</p></li>
+<li><p>Odds ratio equal to 1: No difference.</p></li>
+</ul>
+</div>
+<div id="the-hypothesis-test" class="section level3" number="12.2.3">
+<h3>
+<span class="header-section-number">12.2.3</span> The hypothesis test<a class="anchor" aria-label="anchor" href="#the-hypothesis-test"><i class="fas fa-link"></i></a>
+</h3>
+<p>The (two-sided) hypothesis test for the odds ratio is as follows:</p>
+<p><span class="math display">\[
+\begin{aligned}
+H_0&amp;: \mbox{ Odds ratio } = 1,\\
+H_1&amp;: \mbox{ Odds ratio } \neq 1.
+\end{aligned}
+\]</span></p>
+<p>We can test this hypothesis with <em>Fisher’s exact test</em> using the <code><a href="https://rdrr.io/r/stats/fisher.test.html">fisher.test()</a></code> function in R.</p>
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/fisher.test.html">fisher.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">wcgs</span><span class="op">$</span><span class="va">htnf</span>, <span class="va">wcgs</span><span class="op">$</span><span class="va">chd69f</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;  Fisher's Exact Test for Count Data</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; data:  table(wcgs$htnf, wcgs$chd69f)</span>
+<span class="co">#&gt; p-value = 2.178e-06</span>
+<span class="co">#&gt; alternative hypothesis: true odds ratio is not equal to 1</span>
+<span class="co">#&gt; 95 percent confidence interval:</span>
+<span class="co">#&gt;  1.440895 2.447598</span>
+<span class="co">#&gt; sample estimates:</span>
+<span class="co">#&gt; odds ratio </span>
+<span class="co">#&gt;   1.878226</span></code></pre></div>
+<p>We strongly reject the null hypothesis.</p>
+</div>
+</div>
+<div id="logistic-regression" class="section level2" number="12.3">
+<h2>
+<span class="header-section-number">12.3</span> Logistic regression<a class="anchor" aria-label="anchor" href="#logistic-regression"><i class="fas fa-link"></i></a>
+</h2>
+<p>A logistic regression model is a linear model. It differs from the linear model we have been using throughout this course as it <em>does not assume the normal distribution</em>. <strong>The underlying distribution of logistic regression is the binomial distribution</strong>. Before going into the details of logistic regression we should fit such a model and examine the results. To fit a logistic regression model we use the <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> function. Let’s redo the odds-ratio calculations from before with a logistic model.</p>
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lr1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">chd69</span> <span class="op">~</span> <span class="va">htn</span>, family <span class="op">=</span> <span class="st">'binomial'</span>, data <span class="op">=</span> <span class="va">wcgs</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lr1</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; glm(formula = chd69 ~ htn, family = "binomial", data = wcgs)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Deviance Residuals: </span>
+<span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span>
+<span class="co">#&gt; -0.4916  -0.4916  -0.3637  -0.3637   2.3447  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;             Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="co">#&gt; (Intercept) -2.68280    0.09031  -29.71  &lt; 2e-16 ***</span>
+<span class="co">#&gt; htn          0.63051    0.13081    4.82 1.44e-06 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     Null deviance: 1781.2  on 3153  degrees of freedom</span>
+<span class="co">#&gt; Residual deviance: 1758.4  on 3152  degrees of freedom</span>
+<span class="co">#&gt; AIC: 1762.4</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></code></pre></div>
+<p>The coefficients differ from what we computed by hand above. That is because the coefficients are on the <em>log-odds</em> scale. We need to transform our log-odds to the odds scale to reclaim our previous estimates. We can do so with the exponential function <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code>:</p>
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lr1</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; (Intercept)         htn </span>
+<span class="co">#&gt;  0.06837161  1.87856292</span></code></pre></div>
+<p>This is starting to look more familiar. The intercept is the odds of a participant without hypertension (<code>htn</code> is 0) developing heart disease. Compare the value to the one we computed by hand:</p>
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">odds1</span>
+<span class="co">#&gt; [1] 0.06837607</span></code></pre></div>
+<p>Now assume that we have a participant with hypertension (<code>htn</code> is 1). We then get:</p>
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lr1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.1284404</span></code></pre></div>
+<p>Which is the odds of a participant with hypertension of developing heart disease. Compare the value to the one we computed by hand:</p>
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">odds2</span>
+<span class="co">#&gt; [1] 0.1286682</span></code></pre></div>
+<div id="why-do-we-need-logistic-regression" class="section level3" number="12.3.1">
+<h3>
+<span class="header-section-number">12.3.1</span> Why do we need logistic regression?<a class="anchor" aria-label="anchor" href="#why-do-we-need-logistic-regression"><i class="fas fa-link"></i></a>
+</h3>
+<p>Ultimately, we are modeling (expected) probabilities; that is, what is the probability that an individual with a certain set of risk factor values experiences an event such as heart disease? The normal distribution, which is the underlying distribution of “normal” linear regression, ranges from <span class="math inline">\(-\infty\)</span> to <span class="math inline">\(\infty\)</span> but probabilities range from 0 to 1. Using the normal distribution is therefore inappropriate because our model could potentially predict probabilities outside the range of 0 and 1.</p>
+<p>We can escape the strict confines of the interval <span class="math inline">\((0, 1)\)</span> by applying transformations; computing odds opens up the interval from <span class="math inline">\((0, \infty)\)</span> and taking the (natural) log of the odds opens up the interval even further to <span class="math inline">\((-\infty, \infty)\)</span>.</p>
+<p>Let’s look at probabilities from 0 to 1, their odds and log odds and plot them to better understand the consequences of the transformations:</p>
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">0.01</span>, <span class="fl">0.99</span>, by <span class="op">=</span> <span class="fl">0.01</span><span class="op">)</span>, 
+                odds <span class="op">=</span> <span class="va">p</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">p</span><span class="op">)</span>, 
+                logodds <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">odds</span><span class="op">)</span><span class="op">)</span>
+<span class="va">plt1</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">p</span>, <span class="va">odds</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Probabilities'</span>, y <span class="op">=</span> <span class="st">'Odds ratio'</span><span class="op">)</span>
+<span class="va">plt2</span> <span class="op">&lt;-</span> <span class="va">dat</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">p</span>, <span class="va">logodds</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://wilkelab.org/cowplot/reference/theme_cowplot.html">theme_cowplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">'Probabilities'</span>, y <span class="op">=</span> <span class="st">'Log-Odds'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">plt1</span>, <span class="va">plt2</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="11-lecture11_files/figure-html/unnamed-chunk-18-1.png" width="672"></div>
+<p>This is why the <code><a href="https://rdrr.io/r/stats/glm.html">glm()</a></code> function gives us estimates in the log-odds domain.</p>
+</div>
+<div id="more-variables" class="section level3" number="12.3.2">
+<h3>
+<span class="header-section-number">12.3.2</span> More variables<a class="anchor" aria-label="anchor" href="#more-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>Just as we could add more variables to our “normal” linear model so can we add variables to our logistic model.</p>
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">lr2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span><span class="va">chd69</span> <span class="op">~</span> <span class="va">htn</span> <span class="op">+</span> <span class="va">age0</span> <span class="op">+</span> <span class="va">weight0</span> <span class="op">+</span> <span class="va">height0</span>, family <span class="op">=</span> <span class="st">'binomial'</span>, data <span class="op">=</span> <span class="va">wcgs</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">lr2</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; glm(formula = chd69 ~ htn + age0 + weight0 + height0, family = "binomial", </span>
+<span class="co">#&gt;     data = wcgs)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Deviance Residuals: </span>
+<span class="co">#&gt;     Min       1Q   Median       3Q      Max  </span>
+<span class="co">#&gt; -0.9131  -0.4485  -0.3673  -0.3008   2.6298  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;              Estimate Std. Error z value Pr(&gt;|z|)    </span>
+<span class="co">#&gt; (Intercept) -7.721142   2.064587  -3.740 0.000184 ***</span>
+<span class="co">#&gt; htn          0.444155   0.136443   3.255 0.001133 ** </span>
+<span class="co">#&gt; age0         0.071826   0.011554   6.217 5.08e-10 ***</span>
+<span class="co">#&gt; weight0      0.009286   0.003568   2.602 0.009261 ** </span>
+<span class="co">#&gt; height0      0.001770   0.031174   0.057 0.954714    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  </span>
+<span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; (Dispersion parameter for binomial family taken to be 1)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     Null deviance: 1781.2  on 3153  degrees of freedom</span>
+<span class="co">#&gt; Residual deviance: 1713.3  on 3149  degrees of freedom</span>
+<span class="co">#&gt; AIC: 1723.3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Number of Fisher Scoring iterations: 5</span></code></pre></div>
+<p>As before, the coefficients of the models are on the log-odds scale. The log-odds scale is unintuitive which is why the coefficients are typically transformed to the odds scale with the <code><a href="https://rdrr.io/r/base/Log.html">exp()</a></code> function:</p>
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lr2</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; (Intercept)         htn        age0     weight0     height0 </span>
+<span class="co">#&gt; 0.000443354 1.559171449 1.074468100 1.009329427 1.001771874</span></code></pre></div>
+</div>
+<div id="interpreting-the-coefficients-on-the-odds-scale" class="section level3" number="12.3.3">
+<h3>
+<span class="header-section-number">12.3.3</span> Interpreting the coefficients on the odds scale<a class="anchor" aria-label="anchor" href="#interpreting-the-coefficients-on-the-odds-scale"><i class="fas fa-link"></i></a>
+</h3>
+<p>The coefficients of our model on the odds scale are:</p>
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">lr2</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; (Intercept)         htn        age0     weight0     height0 </span>
+<span class="co">#&gt; 0.000443354 1.559171449 1.074468100 1.009329427 1.001771874</span></code></pre></div>
+<p>We interpret the coefficients as follows:</p>
+<ul>
+<li><p><span class="math inline">\(\exp(\hat{\beta} _ 1)\)</span>: The multiplicative increase (coefficient larger than 1) in the odds of a participant suffering heart disease if they have hypertension <em>with respect to</em> another participant of the same age, weight, and height <em>without</em> hypertension.</p></li>
+<li><p><span class="math inline">\(\exp(\hat{\beta} _ 2)\)</span>: The multiplicative increase (coefficient larger than 1) in the odds of a participant suffering heart disease <em>with respect to</em> another participant of the same weight, height, and hypertension class but a year younger.</p></li>
+<li><p><span class="math inline">\(\exp(\hat{\beta} _ 3)\)</span>: The multiplicative increase (coefficient larger than 1) in the odds of a participant suffering heart disease <em>with respect to</em> another participant of the same age, height, and hypertension class but a pound lighter.</p></li>
+<li><p><span class="math inline">\(\exp(\hat{\beta} _ 4)\)</span>: The multiplicative increase (coefficient larger than 1) in the odds of a participant suffering heart disease <em>with respect to</em> another participant of the same age, weight, and hypertension class but an inch shorter.</p></li>
+</ul>
+</div>
+<div id="hypothesis-tests-2" class="section level3" number="12.3.4">
+<h3>
+<span class="header-section-number">12.3.4</span> Hypothesis tests<a class="anchor" aria-label="anchor" href="#hypothesis-tests-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Just as the “normal” linear regression model has hypothesis tests for the model coefficients so does the logistic regression model. The biggest difference between the two models is that we now have a <span class="math inline">\(z\)</span>-value instead of a <span class="math inline">\(t\)</span>-value. This is because a different method must be used to obtain the coefficients of logistic regression; namely, <em>maximum likelihood</em>. Maximum likelihood estimators are asymptotically normal which is why we can perform hypothesis tests based on the normal distribution.</p>
+<p>The hypothesis test is as follows:</p>
+<p><span class="math display">\[
+\begin{aligned}
+H_0&amp;: \beta _ i = 0 \\,
+H_1&amp;: \beta _ i \neq 0.
+\end{aligned}
+\]</span></p>
+<p>The test statistic of the hypothesis test is:</p>
+<p><span class="math display">\[
+z = \frac{\hat{\beta} _ i}{se(\hat{\beta _ i})}
+\]</span></p>
+</div>
+<div id="predicted-probabilities" class="section level3" number="12.3.5">
+<h3>
+<span class="header-section-number">12.3.5</span> Predicted probabilities<a class="anchor" aria-label="anchor" href="#predicted-probabilities"><i class="fas fa-link"></i></a>
+</h3>
+<p>We can get the predicted probabilities of our study participants using the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function:</p>
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lr2</span>, type <span class="op">=</span> <span class="st">'response'</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">pp</span><span class="op">)</span>
+<span class="co">#&gt;          1          2          3          4          5 </span>
+<span class="co">#&gt; 0.06419262 0.06595227 0.04325098 0.03752840 0.17910540 </span>
+<span class="co">#&gt;          6 </span>
+<span class="co">#&gt; 0.10960206</span></code></pre></div>
+<p>We need the <code>type = 'response'</code> to get the <em>probabilities</em>. Otherwise, the <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> function will get us the <em>log-odds</em> of the participants - a quantity that is notoriously difficult to interpret.</p>
+<p>We can also predict for new observations. For example, imagine if we have a patient with hypertension, of age 65, weight 440 lbs and 80 inches tall (approx. 203 cm). We can get the probability of him suffering from heart disease as follows:</p>
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">newData</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>htn <span class="op">=</span> <span class="fl">1</span>, age0 <span class="op">=</span> <span class="fl">65</span>, weight0 <span class="op">=</span> <span class="fl">440</span>, height0 <span class="op">=</span> <span class="fl">80</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">lr2</span>, type <span class="op">=</span> <span class="st">'response'</span>, newdata <span class="op">=</span> <span class="va">newData</span><span class="op">)</span>
+<span class="co">#&gt;         1 </span>
+<span class="co">#&gt; 0.8346887</span></code></pre></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="lecture-10-miscellaneous.html"><span class="header-section-number">11</span> Lecture 10: Miscellaneous</a></div>
+<div class="next"><a href="where-to-go-from-here.html"><span class="header-section-number">13</span> Where to go from here</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#lecture-11-logistic-regression"><span class="header-section-number">12</span> Lecture 11: Logistic regression</a></li>
+<li><a class="nav-link" href="#the-data"><span class="header-section-number">12.1</span> The data</a></li>
+<li>
+<a class="nav-link" href="#a-test-of-two-proportions"><span class="header-section-number">12.2</span> A test of two proportions</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#the-odds-ratio"><span class="header-section-number">12.2.1</span> The odds ratio</a></li>
+<li><a class="nav-link" href="#interpreting-the-odds-ratio"><span class="header-section-number">12.2.2</span> Interpreting the odds ratio</a></li>
+<li><a class="nav-link" href="#the-hypothesis-test"><span class="header-section-number">12.2.3</span> The hypothesis test</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#logistic-regression"><span class="header-section-number">12.3</span> Logistic regression</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#why-do-we-need-logistic-regression"><span class="header-section-number">12.3.1</span> Why do we need logistic regression?</a></li>
+<li><a class="nav-link" href="#more-variables"><span class="header-section-number">12.3.2</span> More variables</a></li>
+<li><a class="nav-link" href="#interpreting-the-coefficients-on-the-odds-scale"><span class="header-section-number">12.3.3</span> Interpreting the coefficients on the odds scale</a></li>
+<li><a class="nav-link" href="#hypothesis-tests-2"><span class="header-section-number">12.3.4</span> Hypothesis tests</a></li>
+<li><a class="nav-link" href="#predicted-probabilities"><span class="header-section-number">12.3.5</span> Predicted probabilities</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/thorj/laek101f/blob/master/11-lecture11.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/thorj/laek101f/edit/master/11-lecture11.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>LÆK101F: General statistics, course for M.Sc. and Ph.D students</strong>" was written by Þórarinn Jónmundsson. It was last built on 2022-02-27.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
